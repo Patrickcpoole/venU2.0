@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-venu20-dev-200118-authRole",
+      "UnauthRoleArn": "arn:aws:iam::559449265321:role/amplify-venu20-dev-200118-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::559449265321:role/amplify-venu20-dev-200118-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-venu20-dev-200118-deployment",
+      "UnauthRoleName": "amplify-venu20-dev-200118-unauthRole",
+      "StackName": "amplify-venu20-dev-200118",
+      "StackId": "arn:aws:cloudformation:us-east-1:559449265321:stack/amplify-venu20-dev-200118/1c47d180-6141-11ec-be76-0e8914f57bf7",
+      "AmplifyAppId": "dkejms12y74s7"
+    },
+    "categories": {
+      "auth": {
+        "venu207c649858": {}
+      }
+    }
+  }
+}

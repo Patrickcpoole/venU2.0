@@ -1,0 +1,12 @@
+{
+  "resourceName": "VenuePhotoStorage",
+  "policyUUID": "39f790b1",
+  "bucketName": "venu203d6724eab6fe4680ad23abb91f61d6d9",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

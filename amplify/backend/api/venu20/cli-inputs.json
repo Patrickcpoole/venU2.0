@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "venu20",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/patrickpoole/Google Drive/Vue/venU2.0/amplify/backend/api/venu20/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authvenu207c649858"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2022-12-20T19:23:33.411Z",
+        "keyDescription": "venu api key"
+      },
+      {
+        "mode": "AWS_IAM"
+      }
+    ]
+  }
+}
