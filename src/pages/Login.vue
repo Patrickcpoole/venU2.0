@@ -41,6 +41,9 @@ import {mapActions} from 'vuex'
 
 export default {
   name: "Login",
+  mounted() {
+    console.log('env variables', process.env)
+  },
   data() {
     return {
       username: '',

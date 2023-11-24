@@ -2,19 +2,21 @@ const Str = require('@supercharge/strings')
 import spotifyApi from 'boot/axios'
 import axios from 'axios'
 
+
+const CLIENT_ID = process.env.VUE_APP_SPOTIFY_CLIENT_ID.replace(/['"]+/g, '')
+const CLIENT_SECRET = process.env.VUE_APP_SPOTIFY_CLIENT_SECRET.replace(/['"]+/g, '')
+const REDIRECT_URI = "http://localhost:8080/venues"
 export async function spotifyAuth(context) {
   console.log('spotify auth fired')
-  const redirect_uri = "http://localhost:8080/venues"
-
   const state = Str.random(16)
   console.log('state in actions', state)
   const AUTHORIZE = "https://accounts.spotify.com/authorize"
 
-  const CLIENT_ID = '05a6825be3094112a1a5503343be3ab9'
-  const REDIRECT_URI = "http://localhost:8080/venues"
+
+
   console.log('redirect uri', REDIRECT_URI)
   let url = AUTHORIZE
-
+  console.log('client id', CLIENT_ID)
   url += "?client_id=" + CLIENT_ID;
   url += "&response_type=code";
   url += "&redirect_uri=" + encodeURI(REDIRECT_URI)
@@ -30,9 +32,7 @@ export async function getAccessToken(context, query) {
 
 
   function fetchAccessToken(query) {
-    const REDIRECT_URI = "http://localhost:8080/venues"
-    const CLIENT_ID = '05a6825be3094112a1a5503343be3ab9'
-    const CLIENT_SECRET = '6fe26594d13f47b7b3a9f99849a2537f'
+    console.log('client id', CLIENT_ID)
     let body = 'grant_type=authorization_code';
     body += '&code=' + query.code;
     body += '&redirect_uri=' + encodeURI(REDIRECT_URI);
@@ -43,8 +43,6 @@ export async function getAccessToken(context, query) {
 
   function callAuthorizationApi(body) {
     const URL = 'https://accounts.spotify.com/api/token'
-    const CLIENT_ID = '05a6825be3094112a1a5503343be3ab9'
-    const CLIENT_SECRET = '6fe26594d13f47b7b3a9f99849a2537f'
     let xhr = new XMLHttpRequest();
     xhr.open('POST', URL, true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
