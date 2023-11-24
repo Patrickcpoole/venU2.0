@@ -18,6 +18,7 @@ type Artist @model  @auth(rules: [
   openers: String!
   date: String!
   image: String!
+  youtube: String
 
 }
 

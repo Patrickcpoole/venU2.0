@@ -2,131 +2,128 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateVenue = /* GraphQL */ `
-  subscription OnCreateVenue($owner: String) {
-    onCreateVenue(owner: $owner) {
+  subscription OnCreateVenue(
+    $filter: ModelSubscriptionVenueFilterInput
+    $owner: String
+  ) {
+    onCreateVenue(filter: $filter, owner: $owner) {
       id
       name
       location
       capacity
       image
       artists {
-        items {
-          id
-          name
-          openers
-          date
-          image
-          createdAt
-          updatedAt
-          venueArtistsId
-          owner
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
       owner
+      __typename
     }
   }
 `;
 export const onUpdateVenue = /* GraphQL */ `
-  subscription OnUpdateVenue($owner: String) {
-    onUpdateVenue(owner: $owner) {
+  subscription OnUpdateVenue(
+    $filter: ModelSubscriptionVenueFilterInput
+    $owner: String
+  ) {
+    onUpdateVenue(filter: $filter, owner: $owner) {
       id
       name
       location
       capacity
       image
       artists {
-        items {
-          id
-          name
-          openers
-          date
-          image
-          createdAt
-          updatedAt
-          venueArtistsId
-          owner
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
       owner
+      __typename
     }
   }
 `;
 export const onDeleteVenue = /* GraphQL */ `
-  subscription OnDeleteVenue($owner: String) {
-    onDeleteVenue(owner: $owner) {
+  subscription OnDeleteVenue(
+    $filter: ModelSubscriptionVenueFilterInput
+    $owner: String
+  ) {
+    onDeleteVenue(filter: $filter, owner: $owner) {
       id
       name
       location
       capacity
       image
       artists {
-        items {
-          id
-          name
-          openers
-          date
-          image
-          createdAt
-          updatedAt
-          venueArtistsId
-          owner
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
       owner
+      __typename
     }
   }
 `;
 export const onCreateArtist = /* GraphQL */ `
-  subscription OnCreateArtist($owner: String) {
-    onCreateArtist(owner: $owner) {
+  subscription OnCreateArtist(
+    $filter: ModelSubscriptionArtistFilterInput
+    $owner: String
+  ) {
+    onCreateArtist(filter: $filter, owner: $owner) {
       id
       name
       openers
       date
       image
+      youtube
       createdAt
       updatedAt
       venueArtistsId
       owner
+      __typename
     }
   }
 `;
 export const onUpdateArtist = /* GraphQL */ `
-  subscription OnUpdateArtist($owner: String) {
-    onUpdateArtist(owner: $owner) {
+  subscription OnUpdateArtist(
+    $filter: ModelSubscriptionArtistFilterInput
+    $owner: String
+  ) {
+    onUpdateArtist(filter: $filter, owner: $owner) {
       id
       name
       openers
       date
       image
+      youtube
       createdAt
       updatedAt
       venueArtistsId
       owner
+      __typename
     }
   }
 `;
 export const onDeleteArtist = /* GraphQL */ `
-  subscription OnDeleteArtist($owner: String) {
-    onDeleteArtist(owner: $owner) {
+  subscription OnDeleteArtist(
+    $filter: ModelSubscriptionArtistFilterInput
+    $owner: String
+  ) {
+    onDeleteArtist(filter: $filter, owner: $owner) {
       id
       name
       openers
       date
       image
+      youtube
       createdAt
       updatedAt
       venueArtistsId
       owner
+      __typename
     }
   }
 `;

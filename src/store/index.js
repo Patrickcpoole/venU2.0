@@ -3,6 +3,10 @@ import Vuex from 'vuex'
 
 import auth from './auth'
 import venues from './venues'
+import artists from './artists'
+import profile from './profie'
+import spotify from './spotify'
+import menu from './menu'
 
 Vue.use(Vuex)
 
@@ -19,7 +23,11 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       auth,
-      venues
+      venues,
+      artists,
+      profile,
+      spotify,
+      menu
     },
 
     // enable strict mode (adds overhead!)

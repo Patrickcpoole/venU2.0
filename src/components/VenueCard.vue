@@ -1,8 +1,7 @@
 <template>
   <div class="q-pa-md row items-start q-gutter-md">
-
-    <q-card class="venue-card"  @click="$router.push('/artists')">
-      <q-img :src="venueData.image" style="  height: 30vh;">
+    <q-card class="venue-card"  @click="handleChooseVenue">
+      <q-img :src="venueData.image" style=" height: 30vh;">
         <div class="venue-background">
           <span class="venue-name text-white text-center">{{ venueData.name }}</span>
           <div class="bottom-text">
@@ -22,6 +21,15 @@
 export default {
   name: "VenueCard",
   props: ["venueData"],
+  methods:{
+    handleChooseVenue(){
+        // this.$store.dispatch('artists/postVenueArtists', this.venueData.artists.items)
+      this.$store.dispatch('venues/saveSelectedVenue', this.venueData)
+      // this.$store.dispatch('artists/getArtist', this.venueData.id)
+      // this.$store.dispatch('artists/getArtistsData', this.venueData.id)
+      this.$router.push('/artists')
+    }
+  },
   mounted() {
 
   }

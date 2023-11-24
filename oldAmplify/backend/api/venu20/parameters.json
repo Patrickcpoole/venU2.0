@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "venu20",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthModeLastUpdated": "2021-12-20T19:23:34.282Z",
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authvenu207c649858",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

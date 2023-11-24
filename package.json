@@ -11,13 +11,20 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^2.0.5",
+    "@googlemaps/js-api-loader": "^1.13.8",
     "@quasar/extras": "^1.0.0",
+    "@supercharge/strings": "^1.28.0",
     "aws-amplify": "^4.3.11",
+    "axios": "^0.26.1",
     "core-js": "^3.6.5",
-    "quasar": "^1.0.0"
+    "dotenv": "^16.0.1",
+    "moment": "^2.29.1",
+    "quasar": "^1.0.0",
+    "spotify-web-api-node": "^5.0.2"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
+    "@quasar/quasar-app-extension-qmediaplayer": "^1.4.1",
     "babel-eslint": "^10.0.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",

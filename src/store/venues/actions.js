@@ -27,3 +27,7 @@ export async function getVenuesData({commit}) {
   console.log('this is venues data', venuesData)
   commit("setVenues", venuesData.data.listVenues.items)
 }
+
+export async function saveSelectedVenue({commit}, data) {
+  commit('setSelectedVenue', data)
+}

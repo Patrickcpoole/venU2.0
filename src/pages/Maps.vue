@@ -1,10 +1,14 @@
 <template>
-<h1>Maps</h1>
+  <div>
+    <map-maker />
+  </div>
 </template>
 
 <script>
+import MapMaker from "src/components/MapMaker"
 export default {
-  name: "Maps"
+  name: "Maps",
+  components:{MapMaker}
 }
 </script>
 

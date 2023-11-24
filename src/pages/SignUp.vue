@@ -5,6 +5,7 @@
       v-if="!confirmPassword"
       @submit="signUp"
       class="q-gutter-md"
+      dark
     >
       <q-input
         filled
@@ -12,6 +13,7 @@
         label="Username"
         lazy-rules
         :rules="[ val => val && val.length > 0 || 'Please type something']"
+        dark
       />
 
       <q-input
@@ -19,10 +21,11 @@
         v-model="password"
         label="Password"
         lazy-rules
-
+        dark
       />
 
       <q-input
+        dark
         filled
         v-model="email"
         label="email"
@@ -40,13 +43,14 @@
       v-else
       @submit="confirmSignUp"
       class="q-gutter-md"
+      dark
     >
       <q-input
         filled
         v-model="code"
         label="Code"
         lazy-rules
-
+        dark
       />
 
       <div>

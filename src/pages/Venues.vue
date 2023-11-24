@@ -1,42 +1,44 @@
 <template>
   <div>
     <p class="text-center text-white" style="margin-top:5%;">Tap a venue to view upcoming shows</p>
-<!--    <q-form-->
-<!--      @submit="createVenue"-->
-<!--      class="q-gutter-md"-->
-<!--    >-->
-<!--      <q-input-->
-<!--        filled-->
-<!--        v-model="name"-->
-<!--        label="Name"-->
-<!--        lazy-rules-->
-<!--        :rules="[ val => val && val.length > 0 || 'Please type something']"-->
-<!--      />-->
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+      <q-btn-dropdown color="primary" :label="`Sort by ${sortBy}`">
+        <q-list>
+          <q-item clickable v-close-popup @click="sortVenues('popularity')">
+            <q-item-section>
+              <q-item-label>Popularity</q-item-label>
+            </q-item-section>
+          </q-item>
 
-<!--      <q-input-->
-<!--        filled-->
-<!--        v-model="capacity"-->
-<!--        label="Capacity"-->
-<!--        lazy-rules-->
+          <q-item clickable v-close-popup @click="sortVenues('capacity')">
+            <q-item-section>
+              <q-item-label>Capacity</q-item-label>
+            </q-item-section>
+          </q-item>
 
-<!--      />-->
-<!--      <q-input-->
-<!--        filled-->
-<!--        v-model="location"-->
-<!--        label="Location"-->
-<!--        lazy-rules-->
-
-<!--      />-->
-
-<!--      <div>-->
-<!--        <q-btn label="Submit" type="submit" color="primary"/>-->
-<!--      </div>-->
-<!--      <p class="text-danger">{{error}}</p>-->
-<!--    </q-form>-->
-<!--    <q-btn label="Create Venue" @click="createVenue" color="primary"/>-->
-    <div v-for="(venue, index) in venues" :key="index">
+          <q-item clickable v-close-popup @click="sortVenues('alphabetically')">
+            <q-item-section>
+              <q-item-label>Alphabetically</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown>
+    </div>
+    <div v-if="sortBy === 'popularity'">
+      <div v-for="(venue, index) in venues" :key="index">
         <venue-card :venueData="venue"/>
       </div>
+    </div>
+    <div v-if="sortBy === 'alphabetically'">
+      <div v-for="(venue, index) in alphabeticVenues" :key="index">
+        <venue-card :venueData="venue"/>
+      </div>
+    </div>
+    <div v-if="sortBy === 'capacity'">
+      <div v-for="(venue, index) in capacityVenues" :key="index">
+        <venue-card :venueData="venue"/>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -44,13 +46,15 @@
 
 
 import VenueCard from "components/VenueCard";
-import {mapGetters} from "vuex"
+import {venuesState} from "../mixins/venuesState"
+import {spotifyState} from "../mixins/spotifyState"
 
 export default {
   name: "Venues",
   components: {VenueCard},
+  mixins: [spotifyState, venuesState],
   methods: {
-    createVenue(){
+    createVenue() {
       this.error = ''
       const newVenue = {
         name: 'Cervantes Masterpiece Ballroom',
@@ -58,20 +62,34 @@ export default {
         location: 'Englewood',
         image: 'https://venuephotos1.s3.amazonaws.com/cervantes.jpg'
       }
-     this.$store.dispatch("venues/createVenue", newVenue)
+      this.$store.dispatch("venues/createVenue", newVenue)
+    },
+    sortVenues(sortType) {
+      this.sortBy = sortType
+      if (sortType === 'popularity') {
+
+      } else if (sortType === 'capacity') {
+
+      } else {
+
+      }
     }
-  },
-  computed: {
-      ...mapGetters({
-        user: "auth/user",
-        venues: "venues/venues"
-      })
+
   },
   mounted() {
-    this.$store.dispatch('venues/getVenuesData')
+    this.$store.dispatch('venues/saveSelectedVenue', null)
+
+    console.log('route query', this.$route.query)
+    if (this.accessToken === null) {
+      this.$store.dispatch('spotify/getAccessToken', this.$route.query)
+      this.$store.dispatch('venues/getVenuesData')
+    }
+
+
   },
   data() {
     return {
+      sortBy: 'popularity',
       error: '',
       name: '',
       location: '',

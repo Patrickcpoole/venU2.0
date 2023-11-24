@@ -13,22 +13,13 @@ export const createVenue = /* GraphQL */ `
       capacity
       image
       artists {
-        items {
-          id
-          name
-          openers
-          date
-          image
-          createdAt
-          updatedAt
-          venueArtistsId
-          owner
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
       owner
+      __typename
     }
   }
 `;
@@ -44,22 +35,13 @@ export const updateVenue = /* GraphQL */ `
       capacity
       image
       artists {
-        items {
-          id
-          name
-          openers
-          date
-          image
-          createdAt
-          updatedAt
-          venueArtistsId
-          owner
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
       owner
+      __typename
     }
   }
 `;
@@ -75,22 +57,13 @@ export const deleteVenue = /* GraphQL */ `
       capacity
       image
       artists {
-        items {
-          id
-          name
-          openers
-          date
-          image
-          createdAt
-          updatedAt
-          venueArtistsId
-          owner
-        }
         nextToken
+        __typename
       }
       createdAt
       updatedAt
       owner
+      __typename
     }
   }
 `;
@@ -105,10 +78,12 @@ export const createArtist = /* GraphQL */ `
       openers
       date
       image
+      youtube
       createdAt
       updatedAt
       venueArtistsId
       owner
+      __typename
     }
   }
 `;
@@ -123,10 +98,12 @@ export const updateArtist = /* GraphQL */ `
       openers
       date
       image
+      youtube
       createdAt
       updatedAt
       venueArtistsId
       owner
+      __typename
     }
   }
 `;
@@ -141,10 +118,12 @@ export const deleteArtist = /* GraphQL */ `
       openers
       date
       image
+      youtube
       createdAt
       updatedAt
       venueArtistsId
       owner
+      __typename
     }
   }
 `;
