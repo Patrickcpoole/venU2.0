@@ -1,36 +1,35 @@
 <template>
-  <div>
-    <div class="q-gutter-y-md" style="width:100%;">
-      <q-tabs
+
+    <div class="" style="width:100%;">
+       <q-tabs
         v-model="pageToggle"
-        dense
-        class="bg-grey-2 text-teal"
+        inline-label
+        class="text-primary q-my-md"
       >
-        <q-tab name="profile" icon="profile" label="Profile" @click="pageToggle='profile'"/>
-        <q-tab name="my-shows" icon="alarm" label="My Shows"  @click="pageToggle='my-shows'" />
-      </q-tabs>
+        <q-tab name="info" label="Info" />
+        <q-tab name="calendar" label="Calendar" />
+       </q-tabs>
+      <profile-info  v-if="pageToggle==='info'"/>
+      <my-shows v-if="pageToggle==='calendar'"/>
     </div>
-    <div >
-      <profile-page v-if="pageToggle=== 'profile'"/>
-    </div>
-    <div >
-      <my-shows v-if="pageToggle === 'my-shows'"/>
-    </div>
-  </div>
+
 </template>
 
 <script>
 
-import ProfilePage from "src/components/ProfilePage"
-import MyShows from "src/components/MyShows"
+import ProfileInfo from "components/profile/ProfileInfo.vue"
+import MyShows from "src/components/profile/MyShows"
+import {spotifyState} from "src/mixins/spotifyState";
 
 export default {
   name: "Profile",
-  components: {ProfilePage, MyShows},
+  components: {ProfileInfo, MyShows},
+  mixins: [spotifyState],
+
 
   data() {
     return {
-      pageToggle: 'profile'
+      pageToggle: 'info',
     }
   }
 }

@@ -1,6 +1,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreateUserShowInteraction = /* GraphQL */ `
+  subscription OnCreateUserShowInteraction(
+    $filter: ModelSubscriptionUserShowInteractionFilterInput
+    $owner: String
+  ) {
+    onCreateUserShowInteraction(filter: $filter, owner: $owner) {
+      id
+      userId
+      concertId
+      status
+      createdAt
+      updatedAt
+      concertInteractionsId
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateUserShowInteraction = /* GraphQL */ `
+  subscription OnUpdateUserShowInteraction(
+    $filter: ModelSubscriptionUserShowInteractionFilterInput
+    $owner: String
+  ) {
+    onUpdateUserShowInteraction(filter: $filter, owner: $owner) {
+      id
+      userId
+      concertId
+      status
+      createdAt
+      updatedAt
+      concertInteractionsId
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteUserShowInteraction = /* GraphQL */ `
+  subscription OnDeleteUserShowInteraction(
+    $filter: ModelSubscriptionUserShowInteractionFilterInput
+    $owner: String
+  ) {
+    onDeleteUserShowInteraction(filter: $filter, owner: $owner) {
+      id
+      userId
+      concertId
+      status
+      createdAt
+      updatedAt
+      concertInteractionsId
+      owner
+      __typename
+    }
+  }
+`;
 export const onCreateVenue = /* GraphQL */ `
   subscription OnCreateVenue(
     $filter: ModelSubscriptionVenueFilterInput
@@ -12,7 +66,7 @@ export const onCreateVenue = /* GraphQL */ `
       location
       capacity
       image
-      artists {
+      concerts {
         nextToken
         __typename
       }
@@ -34,7 +88,7 @@ export const onUpdateVenue = /* GraphQL */ `
       location
       capacity
       image
-      artists {
+      concerts {
         nextToken
         __typename
       }
@@ -56,7 +110,7 @@ export const onDeleteVenue = /* GraphQL */ `
       location
       capacity
       image
-      artists {
+      concerts {
         nextToken
         __typename
       }
@@ -67,61 +121,73 @@ export const onDeleteVenue = /* GraphQL */ `
     }
   }
 `;
-export const onCreateArtist = /* GraphQL */ `
-  subscription OnCreateArtist(
-    $filter: ModelSubscriptionArtistFilterInput
+export const onCreateConcert = /* GraphQL */ `
+  subscription OnCreateConcert(
+    $filter: ModelSubscriptionConcertFilterInput
     $owner: String
   ) {
-    onCreateArtist(filter: $filter, owner: $owner) {
+    onCreateConcert(filter: $filter, owner: $owner) {
       id
-      name
+      artistName
       openers
       date
       image
       youtube
+      interactions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      venueArtistsId
+      venueConcertsId
       owner
       __typename
     }
   }
 `;
-export const onUpdateArtist = /* GraphQL */ `
-  subscription OnUpdateArtist(
-    $filter: ModelSubscriptionArtistFilterInput
+export const onUpdateConcert = /* GraphQL */ `
+  subscription OnUpdateConcert(
+    $filter: ModelSubscriptionConcertFilterInput
     $owner: String
   ) {
-    onUpdateArtist(filter: $filter, owner: $owner) {
+    onUpdateConcert(filter: $filter, owner: $owner) {
       id
-      name
+      artistName
       openers
       date
       image
       youtube
+      interactions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      venueArtistsId
+      venueConcertsId
       owner
       __typename
     }
   }
 `;
-export const onDeleteArtist = /* GraphQL */ `
-  subscription OnDeleteArtist(
-    $filter: ModelSubscriptionArtistFilterInput
+export const onDeleteConcert = /* GraphQL */ `
+  subscription OnDeleteConcert(
+    $filter: ModelSubscriptionConcertFilterInput
     $owner: String
   ) {
-    onDeleteArtist(filter: $filter, owner: $owner) {
+    onDeleteConcert(filter: $filter, owner: $owner) {
       id
-      name
+      artistName
       openers
       date
       image
       youtube
+      interactions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      venueArtistsId
+      venueConcertsId
       owner
       __typename
     }

@@ -14,4 +14,5 @@ export default function () {
     error: null,
     venues: null
   }
+
 }

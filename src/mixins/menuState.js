@@ -9,7 +9,7 @@ export const menuState = {
   computed: {
     ...mapGetters({
       rightMenuVisible: 'menu/rightMenuVisible',
-      rightMenuArtist: 'menu/rightMenuArtist'
+      rightMenuConcert: 'menu/rightMenuConcert'
     })
   }
 }

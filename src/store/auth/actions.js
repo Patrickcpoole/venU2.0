@@ -3,6 +3,11 @@ import {Auth} from "aws-amplify"
 export async function logout({commit}) {
 
   console.log('logout was fired')
+
+  commit('spotify/setAccessToken', null, {root: true})
+  commit('spotify/setRefreshToken', null, {root: true})
+  commit('profile/clearProfileState', null, {root: true})
+  commit('menu/clearMenuState', null, {root: true})
   commit('setUser', null)
   await this.$router.push('/')
   return await Auth.signOut()
@@ -20,7 +25,8 @@ export async function login({commit, dispatch}, {username, password}) {
     dispatch('spotify/spotifyAuth', {}, {root: true})
 
     const userInfo = await Auth.currentUserInfo();
-    console.log('user info', userInfo)
+
+
     commit('setUser', userInfo)
 
     await this.$router.push('/venues')

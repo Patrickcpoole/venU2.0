@@ -21,7 +21,8 @@
     "moment": "^2.29.1",
     "quasar": "^1.0.0",
     "quasar-dotenv": "^1.0.5",
-    "spotify-web-api-node": "^5.0.2"
+    "spotify-web-api-node": "^5.0.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

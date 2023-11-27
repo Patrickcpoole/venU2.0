@@ -1,35 +1,35 @@
-export function setInterestedArtist(state, payload) {
-  state.events.interested.push(payload)
+export function setInterestedConcerts(state, payload) {
+  state.events.interested = payload
 }
 
-export function removeInterestedArtist(state, payload) {
-  console.log('remove payload', payload)
-  let interested = state.events.interested
-  if (interested.includes(payload)) {
-    const index = interested.indexOf(payload)
-    if (index > -1) { // only splice array when item is found
-      console.log('item is found')
-      interested.splice(index, 1); // 2nd parameter means remove one item only
-    }
+export function setGoingConcerts(state, payload) {
+  state.events.going = payload;
+}
+
+export function createConcertInteraction(state, { status, payload }) {
+  console.log('creating interaction mutation', state.events, status, payload)
+  state.events[status].push(payload);
+}
+
+export function removeConcertInteraction(state, { status, payload }) {
+  removeItemFromList(state.events[status], payload);
+}
+
+// export function removeInterestedConcert(state, payload) {
+//   removeItemFromList(state.events.interested, payload);
+// }
+
+function removeItemFromList(list, payload) {
+  const index = list.findIndex((item) => item.id === payload.id);
+  if (index !== -1) {
+    list.splice(index, 1);
   }
-
 }
 
-export function setGoingArtist(state, payload) {
-  console.log('set going payload')
-  state.events.going.push(payload)
-}
-
-export function removeGoingArtist(state, payload) {
-  console.log('remove payload going', payload)
-  let going = state.events.going
-  if (going.includes(payload)) {
-    const index = going.indexOf(payload)
-    if (index > -1) { // only splice array when item is found
-      console.log('item is found')
-      going.splice(index, 1); // 2nd parameter means remove one item only
-    }
+export function clearProfileState(state) {
+  state.events = {
+    going: [],
+    interested: []
   }
-
 }
 

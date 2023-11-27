@@ -1,10 +1,10 @@
 <template>
   <div class="sidebar-container">
-<!--    <q-avatar size="120px" style="margin-top: 20px">-->
-<!--            <q-img :src="user.photo_avatar"/>-->
-<!--          </q-avatar>-->
-<!--    <p class="name">{{ user.first_name }} {{ user.last_name }}</p>-->
-<!--    <p class="parent">{{ geography.name }}</p>-->
+    <!--    <q-avatar size="120px" style="margin-top: 20px">-->
+    <!--            <q-img :src="user.photo_avatar"/>-->
+    <!--          </q-avatar>-->
+    <!--    <p class="name">{{ user.first_name }} {{ user.last_name }}</p>-->
+    <!--    <p class="parent">{{ geography.name }}</p>-->
     <q-list>
       <q-item-label
         header
@@ -12,11 +12,21 @@
       >
         Menu
       </q-item-label>
+      <div v-if="$route.path !== '/' && $route.path !== '/sign-up/'">
+        <EssentialLink
+          v-for="link in authLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+      </div>
+      <div v-else>
       <EssentialLink
-        v-for="link in essentialLinks"
+        v-for="link in loginLinks"
         :key="link.title"
         v-bind="link"
       />
+        </div>
+
       <q-item
 
         clickable
@@ -25,11 +35,11 @@
         <q-item-section
           avatar
         >
-          <q-icon name="logout"/>
+          <q-icon name="logout" color="white"/>
         </q-item-section>
 
         <q-item-section>
-          <q-item-label>Logout</q-item-label>
+          <q-item-label style="color:#fff">Logout</q-item-label>
         </q-item-section>
       </q-item>
 
@@ -39,43 +49,79 @@
 
 <script>
 
-// import {accountState} from "src/mixins/accountState";
 
 
-
-
+import {authState} from "src/mixins/authState";
 import EssentialLink from './EssentialLink'
+import {route} from "quasar/wrappers";
 
 export default {
   name: "SidebarContent.vue",
+  mixins: [authState],
+  methods: {
+    route() {
+      return route
+    }
+  },
   components: {EssentialLink},
   // mixins: [accountState],
-  mounted(){
+  mounted() {
     console.log('this is user', this.user)
   },
   computed: {
-    essentialLinks(){
+    authLinks() {
       const links =
         [
-        {
-          title: 'Sign In',
+          {
+            title: 'Venues',
+            icon: 'stadium',
+            link: '/venues'
+          },
+          {
+            title: 'Artists',
+            icon: 'audiotrack',
+            link: '/artists'
+          },
+          {
+            title: 'Underground',
+            icon: 'speaker',
+            link: '/underground'
+          },
+          {
+            title: 'Maps',
+            icon: 'location_on',
+            link: '/maps'
+          },
+          {
+            title: 'Profile',
+            icon: 'account_circle',
+            link: '/profile'
+          },
 
-          icon: 'bar_chart',
-          link: '/'
-        },
-        {
-          title: 'Sign Up',
-          icon: 'event_available',
-          link: '/signup/'
-        },
+        ]
+      return links
+    },
+    loginLinks() {
+      const links =
+        [
+          {
+            title: 'Sign In',
 
-      ]
+            icon: 'bar_chart',
+            link: '/'
+          },
+          {
+            title: 'Sign Up',
+            icon: 'event_available',
+            link: '/signup/'
+          },
+
+        ]
       return links
     }
   },
   data() {
-    return {
-    }
+    return {}
   }
 }
 </script>
@@ -83,6 +129,8 @@ export default {
 <style scoped lang="scss">
 
 .sidebar-container {
+  border:0;
+  background: $background;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -95,7 +143,7 @@ export default {
   width: 3.5em;
   height: 3.5em;
   margin-top: 10%;
-  border: 2px solid #666;
+
   display: flex;
   justify-content: center;
   align-items: center;

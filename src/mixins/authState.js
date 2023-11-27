@@ -1,10 +1,10 @@
 import {mapGetters} from 'vuex'
 
-export const artistsState = {
+export const authState = {
 
   computed: {
     ...mapGetters({
-      artists: 'artists/artists',
+     user: 'auth/user',
     })
   }
 }

@@ -4,10 +4,13 @@ export function setVenues(state, payload){
 
 export function setAccessToken(state, payload) {
   state.spotifyAuth.access_token = payload
+
+
 }
 
 export function setRefreshToken(state, payload) {
   state.spotifyAuth.refresh_token = payload
+
 }
 
 export function setTopTracks(state, payload) {

@@ -1,15 +1,9 @@
 let promise = null
 
-//           <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbUzP0wuTGUR02IHBzYaq0ikUumJVWt7U"></script>
-//       <script src="https://cdn.jsdelivr.net/gh/googlemaps/v3-utility-library@markermanager/1.2/markermanager_packed.js"></script>
-//             <script src="https://cdn.jsdelivr.net/gh/googlemaps/v3-utility-library@markermanager/1.2/markermanager.js"></script>
-// <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
-
 export default ({ app, router, Vue }) => {
 
   let id = 'google-cdn'
   const apiKey = process.env.VUE_APP_GOOGLE_MAPS_API_KEY
-  console.log('api key', apiKey)
   let url = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
 
   Vue.prototype.$google = function () {

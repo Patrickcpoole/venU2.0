@@ -27,51 +27,52 @@ export async function spotifyAuth(context) {
   window.location.href = url
 }
 
-export async function getAccessToken(context, query) {
-  fetchAccessToken(query)
+export function getAccessToken(context, query) {
+  return new Promise((resolve, reject) => {
+    fetchAccessToken(query);
 
-
-  function fetchAccessToken(query) {
-    console.log('client id', CLIENT_ID)
-    let body = 'grant_type=authorization_code';
-    body += '&code=' + query.code;
-    body += '&redirect_uri=' + encodeURI(REDIRECT_URI);
-    body += '&client_id=' + CLIENT_ID;
-    body += '&client_secret=' + CLIENT_SECRET
-    callAuthorizationApi(body)
-  }
-
-  function callAuthorizationApi(body) {
-    const URL = 'https://accounts.spotify.com/api/token'
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', URL, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('Authorization', 'Basic ' + (new Buffer(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')))
-    xhr.send(body)
-    xhr.onload = handleAuthorizationResponse;
-  }
-
-  function handleAuthorizationResponse() {
-    if (this.status == 200) {
-      const data = JSON.parse(this.responseText)
-      console.log('this is data', data)
-      context.commit('setAccessToken', data.access_token)
-      context.dispatch('getSpotifyUserInfo')
-      context.commit('setRefreshToken', data.refresh_token)
-
-    } else {
-      console.log('auth error', this.responseText)
+    function fetchAccessToken(query) {
+      console.log('client id', CLIENT_ID);
+      let body = 'grant_type=authorization_code';
+      body += '&code=' + query.code;
+      body += '&redirect_uri=' + encodeURI(REDIRECT_URI);
+      body += '&client_id=' + CLIENT_ID;
+      body += '&client_secret=' + CLIENT_SECRET;
+      callAuthorizationApi(body);
     }
-  }
 
+    function callAuthorizationApi(body) {
+      const URL = 'https://accounts.spotify.com/api/token';
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST', URL, true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('Authorization', 'Basic ' + (new Buffer(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')));
+      xhr.send(body);
+      xhr.onload = handleAuthorizationResponse;
+    }
+
+    function handleAuthorizationResponse() {
+      if (this.status == 200) {
+        const data = JSON.parse(this.responseText);
+        console.log('this is data in spotify actions', data);
+        context.commit('setAccessToken', data.access_token);
+        context.commit('setRefreshToken', data.refresh_token);
+        resolve(data);  // Resolve the Promise with the entire data object
+      } else {
+        console.log('auth error', this.responseText);
+        reject(new Error('Authorization error'));  // Reject the Promise with an error
+      }
+    }
+  });
 }
 
-export async function getSpotifyUserInfo(context) {
+
+export async function getSpotifyUserInfo(context, token) {
   return axios.get(`https://api.spotify.com/v1/me`, {
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${context.state.spotifyAuth.access_token}`
+      "Authorization": `Bearer ${token}`
     }
   }).then(resp => {
     console.log('spotify user response', resp)

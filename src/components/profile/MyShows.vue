@@ -1,13 +1,23 @@
 <template>
-  <div class="profile-container">
-    <h3 style="color:#fff; border-bottom: solid 1px #fff; width: 100%; text-align: center; padding-bottom: 10px">Profile</h3>
-    <div class="q-pa-md">
-      <q-avatar size="150px" style="margin-top: 20px">
-            <q-icon name="account_circle" size="2em" v-show="spotifyUserInfo.images.length === 0"/>
-            <q-img v-show="spotifyUserInfo.images.length > 0" :src="spotifyUserInfo.images[0]"/>
-          </q-avatar>
+  <div class="flex column justify-center items-center q-mt-lg">
+
+
+        <q-date
+          @input="(date) => handleChooseDate(date)"
+          v-model="date"
+          :events="eventDates"
+          :event-color="(date) => eventColors(date)"
+          dark
+          landscape
+        />
+        <div v-for="(concert, index) in eventsOnChosenDate" :key="index" class="q-pa-md full-width">
+
+        <concert-card :concertData="concert"/>
+      </div>
+
+
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -15,13 +25,12 @@
 
 import {profileState} from "src/mixins/profileState"
 import {menuState} from "src/mixins/menuState"
-import {spotifyState} from "src/mixins/spotifyState"
-
+import ConcertCard from "src/components/ConcertCard"
 
 export default {
-  name: "ProfilePage",
-  components: {},
-  mixins: [profileState, menuState, spotifyState],
+  name: "MyShows",
+  components: {ConcertCard},
+  mixins: [profileState, menuState],
 
   data() {
     return {
@@ -30,26 +39,29 @@ export default {
     }
   },
   mounted() {
-    // this.$store.dispatch('spotify/getArtistSongs')
+    // this.$store.dispatch('spotify/getConcertSongs')
     // console.log('is profile page firing?')
-    if(this.rightMenuArtist !== null) {
-      this.date = this.$moment(this.rightMenuArtist.date).format('YYYY/MM/DD')
+    if(this.rightMenuConcert !== null) {
+      this.date = this.$moment(this.rightMenuConcert.date).format('YYYY/MM/DD')
+      this.handleChooseDate(this.date)
     }
     console.log('params', this.$route.params)
   },
   methods: {
-    handleChooseDate(value, reason, details) {
-      console.log(value, reason, details)
+    handleChooseDate(value) {
       this.interestedEvents.forEach(interestedEvent => {
         console.log('interested event', this.$moment(interestedEvent['date']).format('YYYY/MM/DD'));
         console.log('value', value);
-        if (this.$moment(interestedEvent['date']).format('YYYY/MM/DD') == value) {
+        if (this.$moment(interestedEvent['date']).format('YYYY/MM/DD') === value && !this.eventsOnChosenDate.includes(interestedEvent)) {
           console.log('are these the same')
           this.eventsOnChosenDate.push(interestedEvent)
+          console.log('events on chosen date', this.eventsOnChosenDate)
         }
       })
 
       this.goingEvents.forEach(goingEvent => {
+        console.log('value', value)
+        console.log('going event', this.$moment(goingEvent['date']).format('YYYY/MM/DD'))
         if (this.$moment(goingEvent['date']).format('YYYY/MM/DD') == value) {
           this.eventsOnChosenDate.push(goingEvent)
         }
@@ -72,8 +84,8 @@ export default {
   computed: {
     calendarDate: {
       get() {
-        if (this.rightMenuArtist) {
-          return this.$moment(this.rightMenuArtist.date).format('YYYY/MM/DD')
+        if (this.rightMenuConcert) {
+          return this.$moment(this.rightMenuConcert.date).format('YYYY/MM/DD')
         } else {
           return '2022/08/01'
         }
@@ -117,6 +129,7 @@ export default {
 
 
         this.events.interested.forEach(event => {
+
           interestedEvents.push(event)
         })
 
@@ -144,11 +157,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.profile-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-</style>

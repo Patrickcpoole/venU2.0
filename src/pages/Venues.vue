@@ -76,17 +76,29 @@ export default {
     }
 
   },
-  mounted() {
-    this.$store.dispatch('venues/saveSelectedVenue', null)
+  async mounted() {
+  try {
+     await this.$store.dispatch('venues/getVenuesData');
+      // await this.$store.dispatch('venues/saveSelectedVenue', null);
 
-    console.log('route query', this.$route.query)
+    console.log('route query', this.$route.query);
+
     if (this.accessToken === null) {
-      this.$store.dispatch('spotify/getAccessToken', this.$route.query)
-      this.$store.dispatch('venues/getVenuesData')
+      await this.$store.dispatch('spotify/getAccessToken', this.$route.query);
+
+
+
+      console.log('Venues Data Loaded');
+
+      await this.$store.dispatch('spotify/getSpotifyUserInfo', this.accessToken);
+      console.log('Spotify User Info Loaded');
     }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+},
 
 
-  },
   data() {
     return {
       sortBy: 'popularity',

@@ -1,30 +1,30 @@
 <template>
   <div>
-<!--    <q-card class="artist-card">-->
+<!--    <q-card class="concert-card">-->
 <!--      <div class="image-container">-->
-<!--        <q-img :src="artistData.image" style=" height: 20vh;"></q-img>-->
+<!--        <q-img :src="concertData.image" style=" height: 20vh;"></q-img>-->
 <!--      </div>-->
 <!--      <div class="info-container">-->
 <!--        <div class="top-info">-->
 <!--          <div class="left-info">-->
-<!--            <span class="artist-name">{{ artistData.name }}</span><br/>-->
-<!--            <span class="artist-openers">{{ artistData.openers }}</span>-->
+<!--            <span class="concert-name">{{ concertData.name }}</span><br/>-->
+<!--            <span class="concert-openers">{{ concertData.openers }}</span>-->
 <!--          </div>-->
 <!--          <div class="right-info">-->
-<!--            <span class="day">{{ $moment(artistData.date).format('MMMM Do YYYY') }}</span>-->
+<!--            <span class="day">{{ $moment(concertData.date).format('MMMM Do YYYY') }}</span>-->
 
 <!--          </div>-->
 <!--        </div>-->
 
 <!--        <div class="button-container">-->
 <!--          <q-separator dark></q-separator>-->
-<!--          <q-card class="icon-container" @click="handleInterested(artistData)">-->
+<!--          <q-card class="icon-container" @click="handleInterested(concertData)">-->
 <!--            <q-icon size="1.5em" color="purple" name="library_add_check"/>-->
 <!--            <span class="icon-text">Interested</span>-->
 <!--          </q-card>-->
-<!--          <q-card class="icon-container" @click="handleGoing(artistData)">-->
+<!--          <q-card class="icon-container" @click="handleGoing(concertData)">-->
 <!--            <q-icon size="1.5em" color="blue" name="library_add"/>-->
-<!--            <span class="icon-text" @click="handleGoing(artistData)">I'm going</span>-->
+<!--            <span class="icon-text" @click="handleGoing(concertData)">I'm going</span>-->
 <!--          </q-card>-->
 <!--          <q-card class="icon-container">-->
 <!--            <q-icon size="1.5em" color="green" name="book_online"/>-->
@@ -34,14 +34,14 @@
 <!--      </div>-->
 
 <!--    </q-card>-->
-    <q-card class="artist-card"  @click="handleChooseArtist(artistData)" >
-      <q-img :src="artistData.image" style=" height: 30vh;">
-        <div class="artist-background">
-          <span class="artist-name text-white text-center">{{ artistData.name }}</span>
+    <q-card class="concert-card"  @click="handleChooseConcert(concertData)" >
+      <q-img :src="concertData.image" style=" height: 30vh;">
+        <div class="concert-background">
+          <span class="concert-name text-white text-center">{{ concertData.artistName }}</span>
           <div class="bottom-text">
-            <span class="text-white info-text" style="margin-right:10px">Openers: {{ artistData.openers === '' ? 'No Openers' : artistData.openers}}</span>
+            <span class="text-white info-text" style="margin-right:10px">Openers: {{ concertData.openers === '' ? 'No Openers' : concertData.openers}}</span>
             |
-            <span class="text-white info-text" style="margin-left:10px">Date: {{ artistData.date }}</span>
+            <span class="text-white info-text" style="margin-left:10px">Date: {{ concertData.date }}</span>
           </div>
         </div>
       </q-img>
@@ -56,17 +56,17 @@
 import { Notify } from 'quasar'
 
 export default {
-  name: "ArtistCard",
-  props: ['artistData'],
+  name: "ConcertCard",
+  props: ['concertData'],
   methods: {
-    handleChooseArtist(artist){
-      this.$store.dispatch('menu/toggleRightMenu', artist)
-      this.$store.dispatch('spotify/getArtistInfo', artist.name)
+    handleChooseConcert(concert){
+      this.$store.dispatch('menu/toggleRightMenu', concert)
+      this.$store.dispatch('spotify/getArtistInfo', concert.name)
 
     },
     handleInterested(data) {
       console.log('interested fired', data)
-      this.$store.dispatch('profile/saveInterestedArtist', data)
+      this.$store.dispatch('profile/saveInterestedConcert', data)
       this.$q.notify({
         message: `${data.name} added to calendar as interested`,
         color: 'purple',
@@ -78,7 +78,7 @@ export default {
     },
     handleGoing(data) {
       console.log('going fired', data)
-      this.$store.dispatch('profile/saveGoingArtist', data)
+      this.$store.dispatch('profile/saveGoingConcert', data)
       this.$q.notify({
         message: `${data.name} added to calendar as going`,
         color: 'blue',
@@ -93,7 +93,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.artist-card {
+.concert-card {
   width: 100%;
   height: 20vh;
   display: flex;
@@ -131,11 +131,11 @@ export default {
  padding-top: 2.5%;
 }
 
-.artist-name {
+.concert-name {
   font-size: 1.25em;
 }
 
-.artist-openers {
+.concert-openers {
   font-size: .85em;
 }
 
@@ -174,14 +174,14 @@ export default {
   font-size: .8em;
 }
 
-//New artist styles from venue
-.artist-card {
+//New concert styles from venue
+.concert-card {
   width: 100%;
   height: 30vh;
   cursor: pointer;
 }
 
-.artist-background {
+.concert-background {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -190,7 +190,7 @@ export default {
   height: 100%;
 }
 
-.artist-name {
+.concert-name {
   font-size: 3.5em;
 }
 

@@ -1,6 +1,48 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getUserShowInteraction = /* GraphQL */ `
+  query GetUserShowInteraction($id: ID!) {
+    getUserShowInteraction(id: $id) {
+      id
+      userId
+      concertId
+      status
+      createdAt
+      updatedAt
+      concertInteractionsId
+      owner
+      __typename
+    }
+  }
+`;
+export const listUserShowInteractions = /* GraphQL */ `
+  query ListUserShowInteractions(
+    $filter: ModelUserShowInteractionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserShowInteractions(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        concertId
+        status
+        createdAt
+        updatedAt
+        concertInteractionsId
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getVenue = /* GraphQL */ `
   query GetVenue($id: ID!) {
     getVenue(id: $id) {
@@ -9,7 +51,7 @@ export const getVenue = /* GraphQL */ `
       location
       capacity
       image
-      artists {
+      concerts {
         nextToken
         __typename
       }
@@ -43,40 +85,44 @@ export const listVenues = /* GraphQL */ `
     }
   }
 `;
-export const getArtist = /* GraphQL */ `
-  query GetArtist($id: ID!) {
-    getArtist(id: $id) {
+export const getConcert = /* GraphQL */ `
+  query GetConcert($id: ID!) {
+    getConcert(id: $id) {
       id
-      name
+      artistName
       openers
       date
       image
       youtube
+      interactions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      venueArtistsId
+      venueConcertsId
       owner
       __typename
     }
   }
 `;
-export const listArtists = /* GraphQL */ `
-  query ListArtists(
-    $filter: ModelArtistFilterInput
+export const listConcerts = /* GraphQL */ `
+  query ListConcerts(
+    $filter: ModelConcertFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listArtists(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listConcerts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        artistName
         openers
         date
         image
         youtube
         createdAt
         updatedAt
-        venueArtistsId
+        venueConcertsId
         owner
         __typename
       }

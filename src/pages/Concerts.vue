@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p class="text-center text-white" style="margin-top:5%;">Tap an artist to view more information</p>
+    <p class="text-center text-white" style="margin-top:5%;">Tap an concert to view more information</p>
     <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
       <q-btn-dropdown color="primary" :label="`Sort by ${sortBy}`">
         <q-list>
@@ -25,73 +25,73 @@
       </q-btn-dropdown>
     </div>
     <div v-if="sortBy === 'date'" class="q-pa-md">
-      <div v-for="(artist, index) in sortedArtistsByDate" :key="index">
-        <artist-card :artistData="artist"/>
+      <div v-for="(concert, index) in sortedConcertsByDate" :key="index">
+        <concert-card :concertData="concert"/>
       </div>
     </div>
     <div v-if="sortBy === 'name'" class="q-pa-md">
-      <div v-for="(artist, index) in sortedArtistsByName" :key="index">
-        <artist-card :artistData="artist"/>
+      <div v-for="(concert, index) in sortedConcertsByName" :key="index">
+        <concert-card :concertData="concert"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {artistsState} from "src/mixins/artistsState";
+import {concertsState} from "src/mixins/concertsState";
 import {venuesState} from "src/mixins/venuesState"
-import ArtistCard from "components/ArtistCard";
+import ConcertCard from "components/ConcertCard";
 
 export default {
-  name: "Artists",
-  mixins: [artistsState, venuesState],
-  components: {ArtistCard},
+  name: "Concerts",
+  mixins: [concertsState, venuesState],
+  components: {ConcertCard},
   computed: {
-    sortedArtistsByName() {
+    sortedConcertsByName() {
       const today = this.$moment().toDate()
-      let filteredArtists = this.artists.filter(artist => this.$moment(artist.date).isAfter(today))
-      const sortedNames = this.filteredArtists
+      let filteredConcerts = this.concerts.filter(concert => this.$moment(concert.date).isAfter(today))
+      const sortedNames = this.filteredConcerts
 
-      let venueArtists;
+      let venueConcerts;
       if (this.selectedVenue !== null) {
-        venueArtists = filteredArtists.filter(artist => artist.venueArtistsId === this.selectedVenue.id)
+        venueConcerts = filteredConcerts.filter(concert => concert.venueConcertsId === this.selectedVenue.id)
       } else {
-        venueArtists = filteredArtists
+        venueConcerts = filteredConcerts
       }
 
-      venueArtists.sort(function (a, b) {
-        const sortedArtistA = a.name;
-        const sortedArtistB = b.name;
-        return (sortedArtistB > sortedArtistA) ? -1 : (sortedArtistB < sortedArtistA) ? 1 : 0;
+      venueConcerts.sort(function (a, b) {
+        const sortedConcertA = a.name;
+        const sortedConcertB = b.name;
+        return (sortedConcertB > sortedConcertA) ? -1 : (sortedConcertB < sortedConcertA) ? 1 : 0;
       });
 
-      return venueArtists
+      return venueConcerts
     },
-    sortedArtistsByDate() {
+    sortedConcertsByDate() {
       // let sortedTimeSeries = timeSeriesArray.sort(function (a, b) {
       //   const timeSeriesA = a.name.toUpperCase();
       //   const timeSeriesB = b.name.toUpperCase();
       //   return (timeSeriesA < timeSeriesB) ? -1 : (timeSeriesA > timeSeriesB) ? 1 : 0;
       // });
       const today = this.$moment().toDate()
-      let filteredArtists = this.artists.filter(artist => this.$moment(artist.date).isAfter(today))
-      let venueArtists;
+      let filteredConcerts = this.concerts.filter(concert => this.$moment(concert.date).isAfter(today))
+      let venueConcerts;
       if (this.selectedVenue !== null) {
-        venueArtists = filteredArtists.filter(artist => artist.venueArtistsId === this.selectedVenue.id)
+        venueConcerts = filteredConcerts.filter(concert => concert.venueConcertsId === this.selectedVenue.id)
       } else {
-        venueArtists = filteredArtists
+        venueConcerts = filteredConcerts
       }
 
 
-      let sortedArtists = venueArtists
+      let sortedConcerts = venueConcerts
 
 
-      return sortedArtists
+      return sortedConcerts
     }
   },
   mounted() {
-    if (this.artists.length === 0) {
-      this.$store.dispatch('artists/getArtistsData')
+    if (this.concerts.length === 0) {
+      this.$store.dispatch('concerts/getConcertsData')
     }
 
   },

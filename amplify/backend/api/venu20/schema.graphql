@@ -6,20 +6,34 @@ type Venue @model  @auth(rules: [
   location: String
   capacity: String
   image: String
-  artists: [Artist] @hasMany
+  concerts: [Concert] @hasMany
 
 }
 
-type Artist @model  @auth(rules: [
+type Concert @model  @auth(rules: [
   { allow: public, operations: [read], provider: iam },
   { allow: owner }]) {
   id: ID
-  name: String!
+  artistName: String!
   openers: String!
   date: String!
   image: String!
   youtube: String
+  interactions: [UserShowInteraction] @hasMany
+}
 
+type UserShowInteraction @model @auth(rules: [
+  { allow: owner }
+]) {
+  id: ID
+  userId: ID!
+  concertId: ID!
+  status: ShowStatus!
+}
+
+enum ShowStatus {
+  GOING
+  INTERESTED
 }
 
 #type S3Object @aws_iam  {
