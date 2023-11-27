@@ -7,7 +7,7 @@ export const spotifyState = {
       accessToken: 'spotify/getAccessToken',
       topTracks: 'spotify/getTopTracks',
       artistSpotifyInfo: 'spotify/getArtistSpotifyInfo',
-      spotifyUserInfo: 'spotify/getArtistSpotifyInfo'
+      spotifyUserInfo: 'spotify/getSpotifyUserInfo'
     })
   }
 }

@@ -1,16 +1,19 @@
 <template>
   <div id="q-app">
-    <router-view />
+    <router-view/>
   </div>
 </template>
 <script>
+
 import {mapActions} from 'vuex'
 export default {
   name: 'App',
-  mounted(){
+  mounted() {
+
     this.authAction()
+
   },
-  methods:{
+  methods: {
     ...mapActions('auth', ['authAction'])
   }
 }

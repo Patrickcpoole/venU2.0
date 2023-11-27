@@ -9,20 +9,12 @@
           icon="menu"
           aria-label="Menu"
           @click="leftDrawer = !leftDrawer"
+          style="z-index: 10"
         />
 
-        <q-toolbar-title class="text-center" style="padding-right: 10%;">
-          {{ selectedVenue !== null && $route.path === '/artists' ? selectedVenue.name :  $route.name}}
-        </q-toolbar-title>
-<!--        <q-btn-->
-<!--          flat-->
-<!--          dense-->
-<!--          round-->
-
-<!--          icon="menu"-->
-<!--          aria-label="Menu"-->
-<!--          @click="rightDrawerOpen = !rightDrawerOpen"-->
-<!--        />-->
+        <div class="q-toolbar-title text-center full-width absolute" style="font-size: 1.5em; z-index: 0; padding-right: 2%">
+          <h5>{{ selectedVenue !== null && $route.path === '/artists' ? selectedVenue.name : $route.name }}</h5>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -91,4 +83,16 @@ export default {
     }
   }
 }
+
+
 </script>
+
+<style scoped>
+.q-toolbar-title.full-width {
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

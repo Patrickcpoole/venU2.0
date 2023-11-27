@@ -1,13 +1,22 @@
 <template>
-  <div class="profile-container">
-    <h3 style="color:#fff; border-bottom: solid 1px #fff; width: 100%; text-align: center; padding-bottom: 10px">Profile</h3>
-    <div class="q-pa-md">
-      <q-avatar size="150px" style="margin-top: 20px">
-            <q-icon name="account_circle" size="2em" v-show="spotifyUserInfo.images.length === 0"/>
-            <q-img v-show="spotifyUserInfo.images.length > 0" :src="spotifyUserInfo.images[0]"/>
-          </q-avatar>
+  <div class="flex column justify-center items-center q-mt-lg">
+
+
+        <q-date
+          @input="(date) => handleChooseDate(date)"
+          v-model="date"
+          :events="eventDates"
+          :event-color="(date) => eventColors(date)"
+          dark
+          landscape
+        />
+        <div v-for="(artist, index) in eventsOnChosenDate" :key="index">
+        <artist-card :artistData="artist"/>
+      </div>
+
+
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -15,13 +24,12 @@
 
 import {profileState} from "src/mixins/profileState"
 import {menuState} from "src/mixins/menuState"
-import {spotifyState} from "src/mixins/spotifyState"
-
+import ArtistCard from "src/components/ArtistCard"
 
 export default {
-  name: "ProfilePage",
-  components: {},
-  mixins: [profileState, menuState, spotifyState],
+  name: "MyShows",
+  components: {ArtistCard},
+  mixins: [profileState, menuState],
 
   data() {
     return {
@@ -144,11 +152,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.profile-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-</style>

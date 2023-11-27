@@ -1,22 +1,24 @@
 <template>
   <div class="profile-container">
-    <h3 style="color:#fff; border-bottom: solid 1px #fff; width: 100%; text-align: center; padding-bottom: 10px">My
-      Shows</h3>
-    <div class="q-pa-md">
-      <div >
-        <q-date
-          @input="(date) => handleChooseDate(date)"
-          v-model="date"
-          :events="eventDates"
-          :event-color="(date) => eventColors(date)"
-          dark
-          landscape
-        />
-        <div v-for="(artist, index) in eventsOnChosenDate" :key="index">
-        <artist-card :artistData="artist"/>
-      </div>
-      </div>
 
+    <div class="q-pa-md flex column justify-center items-center">
+      <q-avatar size="150px" class="q-my-md">
+        <q-icon name="account_circle" size="2em" v-show="spotifyUserInfo.images.length === 0"/>
+        <q-img v-show="spotifyUserInfo.images.length > 0" :src="spotifyUserInfo.images[1].url" height="150px"
+               width="150px"/>
+
+      </q-avatar>
+      <span class="text-white text-h5">{{ spotifyUserInfo.display_name }}</span>
+      <span class="text-white text-h6">{{ user.attributes.email }}</span>
+      <a :href="spotifyUserInfo.external_urls.spotify" target="_blank">
+        <q-btn color="primary" size="md" class="q-mt-md">
+          <q-img
+            class="q-my-md"
+            src="https://amplify-venu20-dev-131644-deployment.s3.amazonaws.com/icons/icons8-spotify-96-transparent.png"
+            height="30px" width="30px"/>
+          <span class="text-white q-px-sm" style="font-size: 1.25em">View Spotify</span>
+        </q-btn>
+      </a>
     </div>
   </div>
 </template>
@@ -26,12 +28,14 @@
 
 import {profileState} from "src/mixins/profileState"
 import {menuState} from "src/mixins/menuState"
-import ArtistCard from "src/components/ArtistCard"
+import {spotifyState} from "src/mixins/spotifyState"
+import {authState} from "src/mixins/authState"
+
 
 export default {
-  name: "MyShows",
-  components: {ArtistCard},
-  mixins: [profileState, menuState],
+  name: "ProfileInfo",
+  components: {},
+  mixins: [profileState, menuState, spotifyState, authState],
 
   data() {
     return {
@@ -42,7 +46,7 @@ export default {
   mounted() {
     // this.$store.dispatch('spotify/getArtistSongs')
     // console.log('is profile page firing?')
-    if(this.rightMenuArtist !== null) {
+    if (this.rightMenuArtist !== null) {
       this.date = this.$moment(this.rightMenuArtist.date).format('YYYY/MM/DD')
     }
     console.log('params', this.$route.params)
