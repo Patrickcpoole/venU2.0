@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import createPersistedState from "vuex-persistedstate";
 import auth from './auth'
 import venues from './venues'
-import artists from './artists'
+import concerts from './concerts'
 import profile from './profie'
 import spotify from './spotify'
 import menu from './menu'
@@ -24,7 +24,7 @@ export default function (/* { ssrContext } */) {
     modules: {
       auth,
       venues,
-      artists,
+      concerts,
       profile,
       spotify,
       menu

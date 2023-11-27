@@ -1,12 +1,18 @@
-export function TOGGLE_LEFT_MENU(state) {
+export function toggleLeftMenu(state) {
   state.left.visible = !state.left.visible
 }
 
-export function TOGGLE_RIGHT_MENU(state) {
+export function toggleRightMenu(state) {
   state.right.visible = !state.right.visible
 }
 
-export function SET_RIGHT_MENU_ARTIST(state, payload) {
-  state.right.artist = payload
+export function setRightMenuConcert(state, payload) {
+  state.right.concert = payload
+}
+
+export function clearMenuState(state) {
+  state.left.visible = false
+  state.right.visible = false
+  state.right.concert = {}
 }
 

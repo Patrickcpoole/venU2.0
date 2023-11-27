@@ -13,7 +13,7 @@
         />
 
         <div class="q-toolbar-title text-center full-width absolute" style="font-size: 1.5em; z-index: 0; padding-right: 2%">
-          <h5>{{ selectedVenue !== null && $route.path === '/artists' ? selectedVenue.name : $route.name }}</h5>
+          <h5>{{ selectedVenue !== null && $route.path === '/concerts' ? selectedVenue.name : $route.name }}</h5>
         </div>
       </q-toolbar>
     </q-header>
@@ -44,7 +44,7 @@
       side="right"
 
     >
-      <artist-sidebar-content />
+      <concert-sidebar-content />
     </q-drawer>
 
     <q-page-container>
@@ -57,7 +57,7 @@
         class="bg-primary text-white shadow-2"
       >
         <q-route-tab name="venues" to="/venues" icon="stadium" label="Venues"/>
-        <q-route-tab name="artists" to="/artists" icon="audiotrack" label="Artists"/>
+        <q-route-tab name="concerts" to="/concerts" icon="audiotrack" label="Concerts"/>
         <q-route-tab name="underground" to="/underground" icon="speaker" label="Underground"/>
         <q-route-tab name="maps" to="/maps" icon="location_on" label="Maps"/>
         <q-route-tab name="profile" to="/profile" icon="account_circle" label="Profile"/>
@@ -69,14 +69,14 @@
 <script>
 
 import SidebarContent from "components/SidebarContent";
-import ArtistSidebarContent from "components/ArtistSidebarContent"
+import ConcertSidebarContent from "components/ConcertSidebarContent"
 import {menuState} from "../mixins/menuState"
 import {venuesState} from "src/mixins/venuesState";
 
 export default {
   name: 'MainLayout',
   mixins: [menuState, venuesState],
-  components: {SidebarContent, ArtistSidebarContent},
+  components: {SidebarContent, ConcertSidebarContent},
   data () {
     return {
       leftDrawer: false

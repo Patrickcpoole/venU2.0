@@ -10,8 +10,9 @@
           dark
           landscape
         />
-        <div v-for="(artist, index) in eventsOnChosenDate" :key="index">
-        <artist-card :artistData="artist"/>
+        <div v-for="(concert, index) in eventsOnChosenDate" :key="index" class="q-pa-md full-width">
+
+        <concert-card :concertData="concert"/>
       </div>
 
 
@@ -24,11 +25,11 @@
 
 import {profileState} from "src/mixins/profileState"
 import {menuState} from "src/mixins/menuState"
-import ArtistCard from "src/components/ArtistCard"
+import ConcertCard from "src/components/ConcertCard"
 
 export default {
   name: "MyShows",
-  components: {ArtistCard},
+  components: {ConcertCard},
   mixins: [profileState, menuState],
 
   data() {
@@ -38,26 +39,29 @@ export default {
     }
   },
   mounted() {
-    // this.$store.dispatch('spotify/getArtistSongs')
+    // this.$store.dispatch('spotify/getConcertSongs')
     // console.log('is profile page firing?')
-    if(this.rightMenuArtist !== null) {
-      this.date = this.$moment(this.rightMenuArtist.date).format('YYYY/MM/DD')
+    if(this.rightMenuConcert !== null) {
+      this.date = this.$moment(this.rightMenuConcert.date).format('YYYY/MM/DD')
+      this.handleChooseDate(this.date)
     }
     console.log('params', this.$route.params)
   },
   methods: {
-    handleChooseDate(value, reason, details) {
-      console.log(value, reason, details)
+    handleChooseDate(value) {
       this.interestedEvents.forEach(interestedEvent => {
         console.log('interested event', this.$moment(interestedEvent['date']).format('YYYY/MM/DD'));
         console.log('value', value);
-        if (this.$moment(interestedEvent['date']).format('YYYY/MM/DD') == value) {
+        if (this.$moment(interestedEvent['date']).format('YYYY/MM/DD') === value && !this.eventsOnChosenDate.includes(interestedEvent)) {
           console.log('are these the same')
           this.eventsOnChosenDate.push(interestedEvent)
+          console.log('events on chosen date', this.eventsOnChosenDate)
         }
       })
 
       this.goingEvents.forEach(goingEvent => {
+        console.log('value', value)
+        console.log('going event', this.$moment(goingEvent['date']).format('YYYY/MM/DD'))
         if (this.$moment(goingEvent['date']).format('YYYY/MM/DD') == value) {
           this.eventsOnChosenDate.push(goingEvent)
         }
@@ -80,8 +84,8 @@ export default {
   computed: {
     calendarDate: {
       get() {
-        if (this.rightMenuArtist) {
-          return this.$moment(this.rightMenuArtist.date).format('YYYY/MM/DD')
+        if (this.rightMenuConcert) {
+          return this.$moment(this.rightMenuConcert.date).format('YYYY/MM/DD')
         } else {
           return '2022/08/01'
         }
@@ -125,6 +129,7 @@ export default {
 
 
         this.events.interested.forEach(event => {
+
           interestedEvents.push(event)
         })
 

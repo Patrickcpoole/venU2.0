@@ -36,13 +36,13 @@ const routes = [
     ]
   },
   {
-    path: '/artists',
+    path: '/concerts',
 
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '', component: () => import('pages/Artists.vue'),
-        name: 'Artists',
+        path: '', component: () => import('pages/Concerts.vue'),
+        name: 'Concerts',
         meta: {requiresAuth: true}
       }
     ]

@@ -78,7 +78,8 @@ export default {
   },
   async mounted() {
   try {
-    await this.$store.dispatch('venues/saveSelectedVenue', null);
+     await this.$store.dispatch('venues/getVenuesData');
+      // await this.$store.dispatch('venues/saveSelectedVenue', null);
 
     console.log('route query', this.$route.query);
 
@@ -86,7 +87,7 @@ export default {
       await this.$store.dispatch('spotify/getAccessToken', this.$route.query);
 
 
-      await this.$store.dispatch('venues/getVenuesData');
+
       console.log('Venues Data Loaded');
 
       await this.$store.dispatch('spotify/getSpotifyUserInfo', this.accessToken);

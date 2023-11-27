@@ -12,7 +12,7 @@ export const createVenue = /* GraphQL */ `
       location
       capacity
       image
-      artists {
+      concerts {
         nextToken
         __typename
       }
@@ -34,7 +34,7 @@ export const updateVenue = /* GraphQL */ `
       location
       capacity
       image
-      artists {
+      concerts {
         nextToken
         __typename
       }
@@ -56,7 +56,7 @@ export const deleteVenue = /* GraphQL */ `
       location
       capacity
       image
-      artists {
+      concerts {
         nextToken
         __typename
       }
@@ -67,61 +67,127 @@ export const deleteVenue = /* GraphQL */ `
     }
   }
 `;
-export const createArtist = /* GraphQL */ `
-  mutation CreateArtist(
-    $input: CreateArtistInput!
-    $condition: ModelArtistConditionInput
+export const createConcert = /* GraphQL */ `
+  mutation CreateConcert(
+    $input: CreateConcertInput!
+    $condition: ModelConcertConditionInput
   ) {
-    createArtist(input: $input, condition: $condition) {
+    createConcert(input: $input, condition: $condition) {
       id
-      name
+      artistName
       openers
       date
       image
       youtube
+      interactions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      venueArtistsId
+      venueConcertsId
       owner
       __typename
     }
   }
 `;
-export const updateArtist = /* GraphQL */ `
-  mutation UpdateArtist(
-    $input: UpdateArtistInput!
-    $condition: ModelArtistConditionInput
+export const updateConcert = /* GraphQL */ `
+  mutation UpdateConcert(
+    $input: UpdateConcertInput!
+    $condition: ModelConcertConditionInput
   ) {
-    updateArtist(input: $input, condition: $condition) {
+    updateConcert(input: $input, condition: $condition) {
       id
-      name
+      artistName
       openers
       date
       image
       youtube
+      interactions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      venueArtistsId
+      venueConcertsId
       owner
       __typename
     }
   }
 `;
-export const deleteArtist = /* GraphQL */ `
-  mutation DeleteArtist(
-    $input: DeleteArtistInput!
-    $condition: ModelArtistConditionInput
+export const deleteConcert = /* GraphQL */ `
+  mutation DeleteConcert(
+    $input: DeleteConcertInput!
+    $condition: ModelConcertConditionInput
   ) {
-    deleteArtist(input: $input, condition: $condition) {
+    deleteConcert(input: $input, condition: $condition) {
       id
-      name
+      artistName
       openers
       date
       image
       youtube
+      interactions {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
-      venueArtistsId
+      venueConcertsId
+      owner
+      __typename
+    }
+  }
+`;
+export const createUserShowInteraction = /* GraphQL */ `
+  mutation CreateUserShowInteraction(
+    $input: CreateUserShowInteractionInput!
+    $condition: ModelUserShowInteractionConditionInput
+  ) {
+    createUserShowInteraction(input: $input, condition: $condition) {
+      id
+      userId
+      concertId
+      status
+      createdAt
+      updatedAt
+      concertInteractionsId
+      owner
+      __typename
+    }
+  }
+`;
+export const updateUserShowInteraction = /* GraphQL */ `
+  mutation UpdateUserShowInteraction(
+    $input: UpdateUserShowInteractionInput!
+    $condition: ModelUserShowInteractionConditionInput
+  ) {
+    updateUserShowInteraction(input: $input, condition: $condition) {
+      id
+      userId
+      concertId
+      status
+      createdAt
+      updatedAt
+      concertInteractionsId
+      owner
+      __typename
+    }
+  }
+`;
+export const deleteUserShowInteraction = /* GraphQL */ `
+  mutation DeleteUserShowInteraction(
+    $input: DeleteUserShowInteractionInput!
+    $condition: ModelUserShowInteractionConditionInput
+  ) {
+    deleteUserShowInteraction(input: $input, condition: $condition) {
+      id
+      userId
+      concertId
+      status
+      createdAt
+      updatedAt
+      concertInteractionsId
       owner
       __typename
     }

@@ -3,7 +3,7 @@ export default function () {
     right: {
       visible: false,
       mini: false,
-      artist: null,
+      concert: null,
     },
   }
 }

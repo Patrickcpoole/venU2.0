@@ -23,11 +23,11 @@ export default {
   props: ["venueData"],
   methods:{
     handleChooseVenue(){
-        // this.$store.dispatch('artists/postVenueArtists', this.venueData.artists.items)
+        // this.$store.dispatch('concerts/postVenueConcerts', this.venueData.concerts.items)
       this.$store.dispatch('venues/saveSelectedVenue', this.venueData)
-      // this.$store.dispatch('artists/getArtist', this.venueData.id)
-      // this.$store.dispatch('artists/getArtistsData', this.venueData.id)
-      this.$router.push('/artists')
+      // this.$store.dispatch('concerts/getConcert', this.venueData.id)
+      // this.$store.dispatch('concerts/getConcertsData', this.venueData.id)
+      this.$router.push('/concerts')
     }
   },
   mounted() {
