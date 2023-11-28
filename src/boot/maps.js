@@ -3,7 +3,7 @@ let promise = null
 export default ({ app, router, Vue }) => {
 
   let id = 'google-cdn'
-  const apiKey = process.env.VUE_APP_GOOGLE_MAPS_API_KEY
+  const apiKey = process.env.VUE_APP_GOOGLE_MAPS_API_KEY.replace(/['"]+/g, '')
   let url = `https://maps.googleapis.com/maps/api/js?key=${apiKey}`
 
   Vue.prototype.$google = function () {
