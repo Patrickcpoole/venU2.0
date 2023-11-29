@@ -161,6 +161,7 @@ export const createPost = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
@@ -187,6 +188,7 @@ export const updatePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
@@ -213,6 +215,7 @@ export const deletePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
@@ -237,6 +240,7 @@ export const createComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
+      owner
       __typename
     }
   }
@@ -261,6 +265,7 @@ export const updateComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
+      owner
       __typename
     }
   }
@@ -285,6 +290,7 @@ export const deleteComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
+      owner
       __typename
     }
   }

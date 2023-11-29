@@ -3,12 +3,21 @@
   <q-card class="underground-card">
     <q-card-section>
       <div class="top-info">
-        <q-avatar size="75px">
-          <q-img :src="postData.profilePicture" height="75px" width="75px"></q-img>
-        </q-avatar>
-        <div class="flex column justify-center q-ml-md full-height">
-          <span class="text-h5">{{ postData.userName }}</span>
-          <span style="font-size: 1em">{{ formatDate(postData.datePosted) }}</span>
+        <div class="flex row justify-start">
+          <q-avatar size="75px">
+            <q-img :src="postData.profilePicture" height="75px" width="75px"></q-img>
+          </q-avatar>
+          <div class="flex column justify-center q-ml-md full-height">
+            <span class="text-h5">{{ postData.userName }}</span>
+            <span style="font-size: 1em">{{ formatPostedDate(postData.datePosted) }}</span>
+          </div>
+        </div>
+        <div class="event-date-rectangle">
+          <div class="flex row justify-center items-center">
+          <div class="day-of-week">{{ formatEventDayOfWeek(postData.eventDate) }}</div>
+          <div class="day-of-month">{{ formatEventDayOfMonth(postData.eventDate) }}</div>
+            </div>
+          <div class="month">{{ formatEventMonth(postData.eventDate) }}</div>
         </div>
       </div>
     </q-card-section>
@@ -67,17 +76,19 @@
       <q-btn icon="send" flat outline @click="postComment" color="primary"/>
     </div>
 
-   <!-- Comment Section -->
-<q-card-section v-if="showComments" class="comment-section">
-  <!-- Render comments and replies using a new component -->
-  <comment-section :comments="postData.comments"/>
-</q-card-section>
+    <!-- Comment Section -->
+    <q-card-section v-if="showComments" class="comment-section">
+      <!-- Render comments and replies using a new component -->
+      <comment-section :comments="postData.comments"/>
+    </q-card-section>
   </q-card>
 </template>
 
 <script>
 
 import CommentSection from './CommentSection.vue';
+import {date} from 'quasar'
+
 export default {
   name: "UndergroundCard",
   components: {
@@ -99,9 +110,49 @@ export default {
     };
   },
   methods: {
-    formatDate(date) {
-      // Implement a date formatting function if needed
-      return date.toLocaleString();
+    formatEventDate(eventDate) {
+      // Use Quasar's date utility to format the event date
+      return date.formatDate(new Date(eventDate), 'ddd DD MMM');
+    },
+
+    formatEventDayOfWeek(eventDate) {
+      // Extract and format the day of the week
+      return date.formatDate(new Date(eventDate), 'ddd');
+    },
+
+    formatEventDayOfMonth(eventDate) {
+      // Extract and format the day of the month
+      return date.formatDate(new Date(eventDate), 'Do');
+    },
+
+    formatEventMonth(eventDate) {
+      // Extract and format the month
+      return date.formatDate(new Date(eventDate), 'MMMM');
+    },
+    formatPostedDate(timeStamp) {
+      const date1 = new Date();
+      const date2 = new Date(timeStamp);
+
+      const timeDiffInMilliseconds = date1 - date2;
+
+      const minuteThreshold = 60 * 1000; // 1 minute in milliseconds
+      const hourThreshold = 60 * minuteThreshold; // 1 hour in milliseconds
+      const dayThreshold = 24 * hourThreshold; // 1 day in milliseconds
+      console.log('hourThreshold', hourThreshold)
+      let unit;
+      if (timeDiffInMilliseconds < minuteThreshold) {
+        unit = 'seconds';
+      } else if (timeDiffInMilliseconds < hourThreshold) {
+        unit = 'minutes';
+      } else if (timeDiffInMilliseconds < dayThreshold) {
+        unit = 'hours';
+      } else {
+        unit = 'days'
+      }
+
+      const diff = date.getDateDiff(date1, date2, unit);
+
+      return diff === 1 ? diff + ' ' + unit.slice(0, -1) + ' ago' : diff + ' ' + unit + ' ago';
     },
     toggleUserCommentSection() {
       this.showUserComment = !this.showUserComment;
@@ -144,18 +195,47 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.event-date-rectangle {
+  background-color: $primary; // Example color, you can adjust it as needed
+  color: #fff;
+  padding: 8px;
+  border-radius: 0 5px 0 5px;
+  font-size: 1em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.day-of-week {
+    font-size: 1.2em; // Adjust the font size as needed
+    font-weight: bold;
+  margin-right: 5px;
+  }
+
+  .day-of-month {
+    font-size: 1.5em; // Adjust the font size as needed
+  }
+
+  .month {
+    font-size: 1em; // Adjust the font size as needed
+  }
+
 .underground-card {
   background-color: #555555;
   color: #fff;
-
-  max-width: 600px;
   margin-bottom: 2.5%;
 }
+
 
 .top-info {
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: 75px;
   width: 100%;
 

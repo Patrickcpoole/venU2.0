@@ -118,8 +118,7 @@ export default {
         photoUrl: null,
         videoUrl: null,
         ticketUrl: '',
-        eventDate: null,
-        eventTime: null,
+        eventDate: null
         // Add other fields based on your post schema
       },
     };
@@ -147,7 +146,7 @@ export default {
 
       const postData = {
         ...this.createPostData,
-        eventDate: new Date(this.createPostData.eventDate), // Use the same property name as expected by the backend
+        eventDate: new Date(this.createPostData.eventDate).toISOString(), // Use the same property name as expected by the backend
       };
       console.log(postData)
 

@@ -30,22 +30,6 @@
     }
   },
   "auth": {
-    "userPoolGroups": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID",
-            "IdentityPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "venu204e82c6ae"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito-UserPool-Groups"
-    },
     "venu204e82c6ae": {
       "customAuth": false,
       "dependsOn": [],
