@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@aws-amplify/ui-vue": "^2.0.5",
+    "@fortawesome/fontawesome-svg-core": "^6.5.0",
+    "@fortawesome/free-solid-svg-icons": "^6.5.0",
+    "@fortawesome/vue-fontawesome": "^2.0.10",
     "@googlemaps/js-api-loader": "^1.13.8",
     "@quasar/extras": "^1.0.0",
     "@supercharge/strings": "^1.28.0",

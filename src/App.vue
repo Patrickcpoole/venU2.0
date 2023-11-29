@@ -5,7 +5,15 @@
 </template>
 <script>
 
+import Vue from 'vue'
 import {mapActions} from 'vuex'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faGuitar } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(faGuitar);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 export default {
   name: 'App',
   mounted() {
