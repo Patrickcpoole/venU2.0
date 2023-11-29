@@ -1,6 +1,102 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const getPost = /* GraphQL */ `
+  query GetPost($id: ID!) {
+    getPost(id: $id) {
+      id
+      userName
+      profilePicture
+      datePosted
+      eventDate
+      text
+      photoUrl
+      videoUrl
+      ticketUrl
+      likes
+      comments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listPosts = /* GraphQL */ `
+  query ListPosts(
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userName
+        profilePicture
+        datePosted
+        eventDate
+        text
+        photoUrl
+        videoUrl
+        ticketUrl
+        likes
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getComment = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      id
+      text
+      userId
+      createdAt
+      updatedAt
+      userName
+      profilePicture
+      replies {
+        nextToken
+        __typename
+      }
+      parentId
+      postCommentsId
+      commentRepliesId
+      __typename
+    }
+  }
+`;
+export const listComments = /* GraphQL */ `
+  query ListComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        text
+        userId
+        createdAt
+        updatedAt
+        userName
+        profilePicture
+        parentId
+        postCommentsId
+        commentRepliesId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
 export const getUserShowInteraction = /* GraphQL */ `
   query GetUserShowInteraction($id: ID!) {
     getUserShowInteraction(id: $id) {

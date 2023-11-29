@@ -1,6 +1,138 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCreatePost = /* GraphQL */ `
+  subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
+    onCreatePost(filter: $filter) {
+      id
+      userName
+      profilePicture
+      datePosted
+      eventDate
+      text
+      photoUrl
+      videoUrl
+      ticketUrl
+      likes
+      comments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdatePost = /* GraphQL */ `
+  subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
+    onUpdatePost(filter: $filter) {
+      id
+      userName
+      profilePicture
+      datePosted
+      eventDate
+      text
+      photoUrl
+      videoUrl
+      ticketUrl
+      likes
+      comments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeletePost = /* GraphQL */ `
+  subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
+    onDeletePost(filter: $filter) {
+      id
+      userName
+      profilePicture
+      datePosted
+      eventDate
+      text
+      photoUrl
+      videoUrl
+      ticketUrl
+      likes
+      comments {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateComment = /* GraphQL */ `
+  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
+    onCreateComment(filter: $filter) {
+      id
+      text
+      userId
+      createdAt
+      updatedAt
+      userName
+      profilePicture
+      replies {
+        nextToken
+        __typename
+      }
+      parentId
+      postCommentsId
+      commentRepliesId
+      __typename
+    }
+  }
+`;
+export const onUpdateComment = /* GraphQL */ `
+  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
+    onUpdateComment(filter: $filter) {
+      id
+      text
+      userId
+      createdAt
+      updatedAt
+      userName
+      profilePicture
+      replies {
+        nextToken
+        __typename
+      }
+      parentId
+      postCommentsId
+      commentRepliesId
+      __typename
+    }
+  }
+`;
+export const onDeleteComment = /* GraphQL */ `
+  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
+    onDeleteComment(filter: $filter) {
+      id
+      text
+      userId
+      createdAt
+      updatedAt
+      userName
+      profilePicture
+      replies {
+        nextToken
+        __typename
+      }
+      parentId
+      postCommentsId
+      commentRepliesId
+      __typename
+    }
+  }
+`;
 export const onCreateUserShowInteraction = /* GraphQL */ `
   subscription OnCreateUserShowInteraction(
     $filter: ModelSubscriptionUserShowInteractionFilterInput
