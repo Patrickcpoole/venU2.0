@@ -7,6 +7,7 @@ import concerts from './concerts'
 import profile from './profie'
 import spotify from './spotify'
 import menu from './menu'
+import underground from './underground'
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ export default function (/* { ssrContext } */) {
       concerts,
       profile,
       spotify,
-      menu
+      menu,
+      underground
     },
 
     // enable strict mode (adds overhead!)

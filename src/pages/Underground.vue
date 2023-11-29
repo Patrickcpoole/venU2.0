@@ -1,6 +1,6 @@
 <template>
-  <div class="q-pa-md flex column justify-center items-center full-width">
-    <q-btn label="Create Post" class="q-my-md" @click="$router.push('/signup')" color="blue" icon-right="add"/>
+  <div class="q-pa-md flex column justify-center items-center full-width" >
+    <q-btn label="Create Post" class="q-my-md" @click="toggleCreatePostModal" color="blue" icon-right="add"/>
     <q-btn-dropdown color="primary" class="q-mb-md" :label="`Sort by ${sortBy}`">
       <q-list>
         <q-item clickable v-close-popup @click="sortPosts('New')">
@@ -25,25 +25,32 @@
     <div v-for="post in postData" :key="post.id" class="flex column justify-center items-center full-width">
       <underground-card :postData="post"/>
     </div>
+    <create-post-modal @closeModal="toggleCreatePostModal" :toggleCreatePost="toggleCreatePost"  />
   </div>
 </template>
 
 <script>
 
 import UndergroundCard from '../components/underground/UndergroundCard.vue'
-
+import CreatePostModal from "../components/underground/CreatePostModal.vue";
 export default {
   name: "Underground",
   components: {
-    UndergroundCard
+    UndergroundCard,
+    CreatePostModal
   },
   methods: {
+    toggleCreatePostModal() {
+      console.log('toggleCreatePostModal')
+      this.toggleCreatePost = !this.toggleCreatePost;
+    },
     sortPosts(sortBy) {
       this.sortBy = sortBy;
     },
   },
   data() {
     return {
+      toggleCreatePost: false,
       sortBy: 'New',
       postData: [{
         id: 1,

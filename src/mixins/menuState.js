@@ -8,6 +8,7 @@ export const menuState = {
   // },
   computed: {
     ...mapGetters({
+      leftMenuVisible: 'menu/leftMenuVisible',
       rightMenuVisible: 'menu/rightMenuVisible',
       rightMenuConcert: 'menu/rightMenuConcert'
     })

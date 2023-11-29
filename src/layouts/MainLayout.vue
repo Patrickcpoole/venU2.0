@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf" >
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -8,7 +8,7 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="leftDrawer = !leftDrawer"
+          @click="$store.dispatch('menu/toggleLeftMenu')"
           style="z-index: 10"
         />
 
@@ -19,7 +19,7 @@
     </q-header>
 
     <q-drawer
-      v-model="leftDrawer"
+      v-model="leftMenuVisible"
       show-if-above
       bordered
       content-class="bg-grey-1"
@@ -77,11 +77,7 @@ export default {
   name: 'MainLayout',
   mixins: [menuState, venuesState],
   components: {SidebarContent, ConcertSidebarContent},
-  data () {
-    return {
-      leftDrawer: false
-    }
-  }
+
 }
 
 

@@ -22,6 +22,32 @@ type Concert @model  @auth(rules: [
   interactions: [UserShowInteraction] @hasMany
 }
 
+type Post @model {
+  id: ID!
+  userName: String!
+  profilePicture: String!
+  datePosted: AWSDateTime!
+  eventDate: AWSDateTime!
+  text: String!
+  photoUrl: String
+  videoUrl: String
+  ticketUrl: String
+  likes: Int!
+  comments: [Comment] @hasMany
+}
+
+type Comment @model {
+  id: ID!
+  text: String!
+  userId: ID!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  userName: String!
+  profilePicture: String!
+  replies: [Comment] @hasMany
+  parentId: ID
+}
+
 type UserShowInteraction @model @auth(rules: [
   { allow: owner }
 ]) {
