@@ -155,6 +155,7 @@ export const onCreatePost = /* GraphQL */ `
       videoUrl
       ticketUrl
       likes
+      likedBy
       comments {
         nextToken
         __typename
@@ -182,6 +183,7 @@ export const onUpdatePost = /* GraphQL */ `
       videoUrl
       ticketUrl
       likes
+      likedBy
       comments {
         nextToken
         __typename
@@ -209,6 +211,7 @@ export const onDeletePost = /* GraphQL */ `
       videoUrl
       ticketUrl
       likes
+      likedBy
       comments {
         nextToken
         __typename
@@ -233,6 +236,7 @@ export const onCreateComment = /* GraphQL */ `
       updatedAt
       userName
       profilePicture
+      likes
       replies {
         nextToken
         __typename
@@ -258,6 +262,7 @@ export const onUpdateComment = /* GraphQL */ `
       updatedAt
       userName
       profilePicture
+      likes
       replies {
         nextToken
         __typename
@@ -283,6 +288,7 @@ export const onDeleteComment = /* GraphQL */ `
       updatedAt
       userName
       profilePicture
+      likes
       replies {
         nextToken
         __typename

@@ -3,7 +3,7 @@
     <q-btn label="Create Post" class="q-my-md" @click="toggleCreatePostModal" color="blue" icon-right="add"/>
     <button-dropdown :dropdownButtons="dropdownButtons" @sort="sortPosts"/>
     <div v-for="post in sortedPosts" :key="post.id" class="flex column justify-center items-center full-width">
-      <underground-card :postData="post"/>
+      <underground-card :postData="post" :key="post.id"/>
     </div>
     <create-post-modal @closeModal="toggleCreatePostModal" :toggleCreatePost="toggleCreatePost"  />
   </div>

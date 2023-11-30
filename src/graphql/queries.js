@@ -102,6 +102,7 @@ export const getPost = /* GraphQL */ `
       videoUrl
       ticketUrl
       likes
+      likedBy
       comments {
         nextToken
         __typename
@@ -131,6 +132,7 @@ export const listPosts = /* GraphQL */ `
         videoUrl
         ticketUrl
         likes
+        likedBy
         createdAt
         updatedAt
         owner
@@ -151,6 +153,7 @@ export const getComment = /* GraphQL */ `
       updatedAt
       userName
       profilePicture
+      likes
       replies {
         nextToken
         __typename
@@ -178,6 +181,7 @@ export const listComments = /* GraphQL */ `
         updatedAt
         userName
         profilePicture
+        likes
         parentId
         postCommentsId
         commentRepliesId

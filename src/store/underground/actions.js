@@ -1,5 +1,11 @@
 import {API, graphqlOperation} from "aws-amplify";
-import {createPost as createPostMutation} from "src/graphql/mutations";
+import { LIST_POSTS_WITH_COMMENTS } from 'src/graphql/customQueries';
+import {
+  createPost as createPostMutation,
+  createComment as createCommentMutation,
+  updatePost as updatePostMutation
+} from "src/graphql/mutations";
+import {listPosts as listPostsQuery} from "src/graphql/queries";
 
 export async function createPost({commit, rootState}, data) {
   const createPostRequest = {
@@ -7,7 +13,8 @@ export async function createPost({commit, rootState}, data) {
     userName: rootState.auth.user.username,
     profilePicture: rootState.spotify.spotifyUserInfo.images[1].url,
     datePosted: new Date().toISOString(),
-    likes: 0
+    likes: 0,
+    comments: [],
 
   }
   console.log('creating post', createPostRequest)
@@ -22,10 +29,59 @@ export async function createPost({commit, rootState}, data) {
 
 export async function listPosts({commit}) {
   try {
-    const postData = await API.graphql(graphqlOperation(listPosts));
+    const postData = await API.graphql(graphqlOperation(LIST_POSTS_WITH_COMMENTS));
     console.log('post data', postData)
     commit("setPosts", postData.data.listPosts.items)
   } catch (err) {
     console.log('error listing posts', err)
+  }
+}
+
+export async function likePost({ commit, rootState }, data) {
+  const username = rootState.auth.user.username;
+  let likePostRequest;
+
+  // Check if likedBy is present on the post data, provide a default value of an empty array if not
+  const currentLikedBy = data.likedBy || [];
+
+  if (currentLikedBy.includes(username)) {
+    likePostRequest = {
+      id: data.id,
+      likes: data.likes - 1,
+      likedBy: currentLikedBy.filter((user) => user !== username),
+    };
+  } else {
+    likePostRequest = {
+      id: data.id,
+      likes: data.likes + 1,
+      likedBy: [...currentLikedBy, username],
+    };
+  }
+  console.log('liking post', likePostRequest);
+  try {
+    const postData = await API.graphql(graphqlOperation(updatePostMutation, { input: likePostRequest }));
+    console.log('post data', postData);
+    commit('updatePost', postData.data.updatePost);
+  } catch (err) {
+    console.log('error liking post', err);
+  }
+}
+
+export async function postComment({commit, rootState}, data) {
+  const {post, comment} = data
+  const commentPostRequest = {
+    postCommentsId: post.id,
+    text: comment,
+    userId: rootState.auth.user.id,
+    userName: rootState.auth.user.username,
+    profilePicture: rootState.spotify.spotifyUserInfo.images[1].url,
+  }
+  console.log('commenting post', commentPostRequest)
+  try {
+    const commentData = await API.graphql(graphqlOperation(createCommentMutation, {input: commentPostRequest}));
+    console.log('comment data', commentData)
+    commit('createComment', commentData.data.createComment)
+  } catch (err) {
+    console.log('error commenting post', err)
   }
 }

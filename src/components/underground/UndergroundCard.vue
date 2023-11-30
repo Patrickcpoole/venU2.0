@@ -14,9 +14,9 @@
         </div>
         <div class="event-date-rectangle">
           <div class="flex row justify-center items-center">
-          <div class="day-of-week">{{ formatEventDayOfWeek(postData.eventDate) }}</div>
-          <div class="day-of-month">{{ formatEventDayOfMonth(postData.eventDate) }}</div>
-            </div>
+            <div class="day-of-week">{{ formatEventDayOfWeek(postData.eventDate) }}</div>
+            <div class="day-of-month">{{ formatEventDayOfMonth(postData.eventDate) }}</div>
+          </div>
           <div class="month">{{ formatEventMonth(postData.eventDate) }}</div>
         </div>
       </div>
@@ -36,11 +36,23 @@
 
     <q-card-section class="flex row justify-between items-center">
 
-      <div class="like-count flex row justify-between items-center" v-if="postData.likes > 0">
-        <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding-right: 8px;"/>
-        Patrick Poole and {{ postData.likes }} others thinks this rocks
+      <div class="like-count flex row justify-between items-center">
+
+
+        <template v-if="postData.likes > 0">
+          <span v-if="postData.likes === 1">
+              <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding-right: 8px;"/>
+      {{ postData.likedBy[0] }} thinks this rocks
+    </span>
+          <span v-else>
+              <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding-right: 8px;"/>
+      {{ postData.likedBy[0] }} and {{ postData.likes - 1 }} others think this rocks
+    </span>
+        </template>
+
       </div>
-      <span><q-btn v-if="postData.comments.length > 0" flat :label="`${postData.comments.length} Comments`"
+      <span><q-btn v-if="postData.comments && postData.comments.items.length > 0" flat
+                   :label="`${postData.comments.items.length} Comments`"
                    @click="toggleCommentSection"/></span>
 
     </q-card-section>
@@ -48,12 +60,12 @@
     <q-card-actions align="right" class="full-width flex row justify-center items-end">
 
 
-      <div class="flex justify-center items-center" @click="toggleLike">
+      <div class="flex justify-center items-center" @click="handlePostLike(postData)">
         <q-btn
           flat
           outline
           label="Rock On"
-          :color="isLiked ? 'positive' : ''">
+          :color="isLiked(postData) ? 'positive' : ''">
           <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding: 8px;"/>
         </q-btn>
       </div>
@@ -73,13 +85,13 @@
         @input="handleCommentInput"
       />
 
-      <q-btn icon="send" flat outline @click="postComment" color="primary"/>
+      <q-btn icon="send" flat outline @click="postComment(postData)" color="primary"/>
     </div>
 
     <!-- Comment Section -->
     <q-card-section v-if="showComments" class="comment-section">
       <!-- Render comments and replies using a new component -->
-      <comment-section :comments="postData.comments"/>
+      <comment-section :comments="postData.comments.items" v-if="postData.comments"/>
     </q-card-section>
   </q-card>
 </template>
@@ -102,17 +114,22 @@ export default {
   },
   data() {
     return {
-      isLiked: false,
+
       likeCount: this.postData.likes.length,
       showComments: false,
       showUserComment: false,
       userComment: "",
     };
   },
+  computed: {},
   methods: {
-    formatEventDate(eventDate) {
-      // Use Quasar's date utility to format the event date
-      return date.formatDate(new Date(eventDate), 'ddd DD MMM');
+    isLiked(postData) {
+      return postData.likedBy ? postData.likedBy.includes(this.$store.state.auth.user.username) : false
+    },
+    handlePostLike(post) {
+      console.log("Post liked:", post);
+      this.$store.dispatch('underground/likePost', post)
+
     },
 
     formatEventDayOfWeek(eventDate) {
@@ -162,25 +179,15 @@ export default {
       this.userComment = value;
     },
 
-    postComment() {
+    postComment(post) {
       // Implement logic to post the comment
       console.log("Comment posted:", this.userComment);
       // Clear the comment input and hide the user comment section
+      this.$store.dispatch('underground/postComment', {post: post, comment: this.userComment})
       this.userComment = "";
       this.showUserComment = false;
     },
-    toggleLike() {
-      this.isLiked = !this.isLiked;
-      if (this.isLiked) {
-        this.likeCount++;
-        // You may want to send a request to the server to update likes
-        // Example: this.$emit('like', this.postData.id);
-      } else {
-        this.likeCount--;
-        // You may want to send a request to the server to update likes
-        // Example: this.$emit('unlike', this.postData.id);
-      }
-    },
+
     toggleCommentSection() {
       this.showComments = !this.showComments;
     },
@@ -212,18 +219,18 @@ export default {
 }
 
 .day-of-week {
-    font-size: 1.2em; // Adjust the font size as needed
-    font-weight: bold;
+  font-size: 1.2em; // Adjust the font size as needed
+  font-weight: bold;
   margin-right: 5px;
-  }
+}
 
-  .day-of-month {
-    font-size: 1.5em; // Adjust the font size as needed
-  }
+.day-of-month {
+  font-size: 1.5em; // Adjust the font size as needed
+}
 
-  .month {
-    font-size: 1em; // Adjust the font size as needed
-  }
+.month {
+  font-size: 1em; // Adjust the font size as needed
+}
 
 .underground-card {
   background-color: #555555;
