@@ -22,7 +22,9 @@ type Concert @model  @auth(rules: [
   interactions: [UserShowInteraction] @hasMany
 }
 
-type Post @model {
+type Post @model @auth(rules: [
+  { allow: public, operations: [read], provider: iam },
+  { allow: owner }]) {
   id: ID!
   userName: String!
   profilePicture: String!
@@ -33,10 +35,13 @@ type Post @model {
   videoUrl: String
   ticketUrl: String
   likes: Int!
+  likedBy: [String]
   comments: [Comment] @hasMany
 }
 
-type Comment @model {
+type Comment @model @auth(rules: [
+  { allow: public, operations: [read], provider: iam },
+  { allow: owner }]) {
   id: ID!
   text: String!
   userId: ID!
@@ -44,13 +49,15 @@ type Comment @model {
   updatedAt: AWSDateTime!
   userName: String!
   profilePicture: String!
-  replies: [Comment] @hasMany
-  parentId: ID
+  likes: Int!
+  replies: [Comment] @hasMany parentId: ID
 }
 
+
+
 type UserShowInteraction @model @auth(rules: [
-  { allow: owner }
-]) {
+  { allow: public, operations: [read], provider: iam },
+  { allow: owner }]) {
   id: ID
   userId: ID!
   concertId: ID!

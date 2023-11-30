@@ -3,12 +3,21 @@
   <q-card class="underground-card">
     <q-card-section>
       <div class="top-info">
-        <q-avatar size="75px">
-          <q-img :src="postData.profilePicture" height="75px" width="75px"></q-img>
-        </q-avatar>
-        <div class="flex column justify-center q-ml-md full-height">
-          <span class="text-h5">{{ postData.userName }}</span>
-          <span style="font-size: 1em">{{ formatDate(postData.datePosted) }}</span>
+        <div class="flex row justify-start">
+          <q-avatar size="75px">
+            <q-img :src="postData.profilePicture" height="75px" width="75px"></q-img>
+          </q-avatar>
+          <div class="flex column justify-center q-ml-md full-height">
+            <span class="text-h5">{{ postData.userName }}</span>
+            <span style="font-size: 1em">{{ formatPostedDate(postData.datePosted) }}</span>
+          </div>
+        </div>
+        <div class="event-date-rectangle">
+          <div class="flex row justify-center items-center">
+            <div class="day-of-week">{{ formatEventDayOfWeek(postData.eventDate) }}</div>
+            <div class="day-of-month">{{ formatEventDayOfMonth(postData.eventDate) }}</div>
+          </div>
+          <div class="month">{{ formatEventMonth(postData.eventDate) }}</div>
         </div>
       </div>
     </q-card-section>
@@ -27,11 +36,23 @@
 
     <q-card-section class="flex row justify-between items-center">
 
-      <div class="like-count flex row justify-between items-center" v-if="postData.likes > 0">
-        <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding-right: 8px;"/>
-        Patrick Poole and {{ postData.likes }} others thinks this rocks
+      <div class="like-count flex row justify-between items-center">
+
+
+        <template v-if="postData.likes > 0">
+          <span v-if="postData.likes === 1">
+              <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding-right: 8px;"/>
+      {{ postData.likedBy[0] }} thinks this rocks
+    </span>
+          <span v-else>
+              <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding-right: 8px;"/>
+      {{ postData.likedBy[0] }} and {{ postData.likes - 1 }} others think this rocks
+    </span>
+        </template>
+
       </div>
-      <span><q-btn v-if="postData.comments.length > 0" flat :label="`${postData.comments.length} Comments`"
+      <span><q-btn v-if="postData.comments && postData.comments.items.length > 0" flat
+                   :label="`${postData.comments.items.length} Comments`"
                    @click="toggleCommentSection"/></span>
 
     </q-card-section>
@@ -39,12 +60,12 @@
     <q-card-actions align="right" class="full-width flex row justify-center items-end">
 
 
-      <div class="flex justify-center items-center" @click="toggleLike">
+      <div class="flex justify-center items-center" @click="handlePostLike(postData)">
         <q-btn
           flat
           outline
           label="Rock On"
-          :color="isLiked ? 'positive' : ''">
+          :color="isLiked(postData) ? 'positive' : ''">
           <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding: 8px;"/>
         </q-btn>
       </div>
@@ -64,20 +85,22 @@
         @input="handleCommentInput"
       />
 
-      <q-btn icon="send" flat outline @click="postComment" color="primary"/>
+      <q-btn icon="send" flat outline @click="postComment(postData)" color="primary"/>
     </div>
 
-   <!-- Comment Section -->
-<q-card-section v-if="showComments" class="comment-section">
-  <!-- Render comments and replies using a new component -->
-  <comment-section :comments="postData.comments"/>
-</q-card-section>
+    <!-- Comment Section -->
+    <q-card-section v-if="showComments" class="comment-section">
+      <!-- Render comments and replies using a new component -->
+      <comment-section :comments="postData.comments.items" v-if="postData.comments"/>
+    </q-card-section>
   </q-card>
 </template>
 
 <script>
 
 import CommentSection from './CommentSection.vue';
+import {date} from 'quasar'
+
 export default {
   name: "UndergroundCard",
   components: {
@@ -91,17 +114,62 @@ export default {
   },
   data() {
     return {
-      isLiked: false,
+
       likeCount: this.postData.likes.length,
       showComments: false,
       showUserComment: false,
       userComment: "",
     };
   },
+  computed: {},
   methods: {
-    formatDate(date) {
-      // Implement a date formatting function if needed
-      return date.toLocaleString();
+    isLiked(postData) {
+      return postData.likedBy ? postData.likedBy.includes(this.$store.state.auth.user.username) : false
+    },
+    handlePostLike(post) {
+      console.log("Post liked:", post);
+      this.$store.dispatch('underground/likePost', post)
+
+    },
+
+    formatEventDayOfWeek(eventDate) {
+      // Extract and format the day of the week
+      return date.formatDate(new Date(eventDate), 'ddd');
+    },
+
+    formatEventDayOfMonth(eventDate) {
+      // Extract and format the day of the month
+      return date.formatDate(new Date(eventDate), 'Do');
+    },
+
+    formatEventMonth(eventDate) {
+      // Extract and format the month
+      return date.formatDate(new Date(eventDate), 'MMMM');
+    },
+    formatPostedDate(timeStamp) {
+      const date1 = new Date();
+      const date2 = new Date(timeStamp);
+
+      const timeDiffInMilliseconds = date1 - date2;
+
+      const minuteThreshold = 60 * 1000; // 1 minute in milliseconds
+      const hourThreshold = 60 * minuteThreshold; // 1 hour in milliseconds
+      const dayThreshold = 24 * hourThreshold; // 1 day in milliseconds
+      console.log('hourThreshold', hourThreshold)
+      let unit;
+      if (timeDiffInMilliseconds < minuteThreshold) {
+        unit = 'seconds';
+      } else if (timeDiffInMilliseconds < hourThreshold) {
+        unit = 'minutes';
+      } else if (timeDiffInMilliseconds < dayThreshold) {
+        unit = 'hours';
+      } else {
+        unit = 'days'
+      }
+
+      const diff = date.getDateDiff(date1, date2, unit);
+
+      return diff === 1 ? diff + ' ' + unit.slice(0, -1) + ' ago' : diff + ' ' + unit + ' ago';
     },
     toggleUserCommentSection() {
       this.showUserComment = !this.showUserComment;
@@ -111,25 +179,15 @@ export default {
       this.userComment = value;
     },
 
-    postComment() {
+    postComment(post) {
       // Implement logic to post the comment
       console.log("Comment posted:", this.userComment);
       // Clear the comment input and hide the user comment section
+      this.$store.dispatch('underground/postComment', {post: post, comment: this.userComment})
       this.userComment = "";
       this.showUserComment = false;
     },
-    toggleLike() {
-      this.isLiked = !this.isLiked;
-      if (this.isLiked) {
-        this.likeCount++;
-        // You may want to send a request to the server to update likes
-        // Example: this.$emit('like', this.postData.id);
-      } else {
-        this.likeCount--;
-        // You may want to send a request to the server to update likes
-        // Example: this.$emit('unlike', this.postData.id);
-      }
-    },
+
     toggleCommentSection() {
       this.showComments = !this.showComments;
     },
@@ -144,18 +202,47 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
+.event-date-rectangle {
+  background-color: $primary; // Example color, you can adjust it as needed
+  color: #fff;
+  padding: 8px;
+  border-radius: 0 5px 0 5px;
+  font-size: 1em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.day-of-week {
+  font-size: 1.2em; // Adjust the font size as needed
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.day-of-month {
+  font-size: 1.5em; // Adjust the font size as needed
+}
+
+.month {
+  font-size: 1em; // Adjust the font size as needed
+}
+
 .underground-card {
   background-color: #555555;
   color: #fff;
-
-  max-width: 600px;
   margin-bottom: 2.5%;
 }
+
 
 .top-info {
   display: flex;
   align-items: flex-start;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: 75px;
   width: 100%;
 

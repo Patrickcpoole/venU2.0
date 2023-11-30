@@ -79,13 +79,13 @@ export default {
   async mounted() {
   try {
      await this.$store.dispatch('venues/getVenuesData');
+     await this.$store.dispatch('underground/listPosts');
       // await this.$store.dispatch('venues/saveSelectedVenue', null);
 
     console.log('route query', this.$route.query);
 
     if (this.accessToken === null) {
       await this.$store.dispatch('spotify/getAccessToken', this.$route.query);
-
 
 
       console.log('Venues Data Loaded');
