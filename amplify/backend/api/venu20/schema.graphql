@@ -52,7 +52,8 @@ type Comment @model @auth(rules: [
   profilePicture: String!
   likes: Int!
    likedBy: [String]
-  replies: [Comment] @hasMany parentId: ID
+  replies: [Comment] @hasMany
+  parentId: ID
 }
 
 

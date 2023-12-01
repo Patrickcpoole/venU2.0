@@ -1,24 +1,23 @@
 <!-- CommentSection.vue -->
 <template>
   <div>
-    <comment v-for="comment in comments" :key="comment.id" :comment="comment"/>
+    <comment v-for="comment in comments" :key="comment.id" :comment="comment" @toggleCreateReply="toggleCreateReply" />
   </div>
 </template>
 
 <script>
-import Comment from './Comment.vue';
+
 
 export default {
   name: 'CommentSection',
-
-  props: {
-    comments: {
-      type: Array,
-      required: true,
+  methods: {
+    toggleCreateReply() {
+      this.$emit('toggleCreateReply');
     },
   },
+  props: ["comments"],
   components: {
-    Comment,
+    Comment: () => import('./Comment.vue'), // Use dynamic import for recursive components
   },
 };
 </script>

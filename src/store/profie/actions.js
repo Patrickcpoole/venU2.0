@@ -44,6 +44,7 @@ export async function checkAllInteractions({commit}) {
       interaction.concertId === post.id
     )
   );
+  commit("setAllEvents", [...interestedConcerts, ...goingConcerts, ...undergroundPosts])
   commit("setInterestedConcerts", interestedConcerts)
   commit("setGoingConcerts", goingConcerts)
   commit("setUndergroundPosts", undergroundPosts)

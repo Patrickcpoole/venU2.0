@@ -1,6 +1,10 @@
 export function setInteractions(state, payload) {
   state.interactions = payload;
 }
+
+export function setAllEvents(state, payload) {
+  state.events.allEvents = payload;
+}
 export function setInterestedConcerts(state, payload) {
   state.events.interested = payload
 }
@@ -14,9 +18,11 @@ export function saveInteraction(state, payload) {
   state.interactions.push(payload);
 }
 export function saveUndergroundPost(state, payload) {
+  state.events.allEvents.push(payload);
   state.events.underground.push(payload);
 }
 export function saveConcert(state, {status, payload}) {
+  state.events.allEvents.push(payload);
   console.log('creating interaction mutation', state.events, status, payload)
   state.events[status].push(payload);
 }

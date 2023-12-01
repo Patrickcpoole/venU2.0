@@ -6,11 +6,13 @@
         inline-label
         class="text-primary q-my-md"
       >
-        <q-tab name="info" label="Info" />
-        <q-tab name="calendar" label="Calendar" />
+          <q-tab name="calendar" label="Calendar" />
+        <q-tab name="user-info" label="User Info" />
+
        </q-tabs>
-      <profile-info  v-if="pageToggle==='info'"/>
-      <my-shows v-if="pageToggle==='calendar'"/>
+       <my-shows v-if="pageToggle==='calendar'"/>
+      <profile-info  v-if="pageToggle==='user-info'"/>
+
     </div>
 
 </template>
@@ -29,7 +31,7 @@ export default {
 
   data() {
     return {
-      pageToggle: 'info',
+      pageToggle: 'calendar',
     }
   }
 }

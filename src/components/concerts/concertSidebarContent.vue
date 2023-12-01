@@ -5,7 +5,7 @@
       :bar-style="barStyle"
       style="width: 100%; height: 100%"
     >
-      <div class="sidebar-container" >
+      <div class="sidebar-container">
         <q-img :src="rightMenuConcert.image" style=" height: 25vh;">
         </q-img>
         <div class="info-container">
@@ -110,7 +110,7 @@
 
 
                 <q-item-section dark style="width: 100%; padding-bottom: 15px;">
-                      <span style="text-align: center; font-size:1.25em; margin-bottom: -15px;">{{ topTrack.name }}</span>
+                  <span style="text-align: center; font-size:1.25em; margin-bottom: -15px;">{{ topTrack.name }}</span>
                   <q-media-player
                     dark
                     type="audio"
@@ -147,18 +147,19 @@ export default {
   mixins: [spotifyState, menuState, profileState, venuesState],
 
   mounted() {
-    this.checkInteractions();
+    // if (this.rightMenuConcert) {
+    //   this.checkInteractions();
+    // }
   },
 
   methods: {
+
     async checkInteractions() {
-      // Assuming you have a single API call that retrieves all interactions
-      await this.$store.dispatch('profile/checkAllInteractions');
-      this.going = this.interactions.find(interaction => interaction.concertId === this.rightMenuConcert.id && interaction.status === 'GOING');
-      this.interested = this.interactions.find(interaction => interaction.concertId === this.rightMenuConcert.id && interaction.status === 'INTERESTED');
-      // this.checkInteractionType(allInteractions, "interested", this.rightMenuConcert.id, 'interested');
-      // this.checkInteractionType(allInteractions, "going", this.rightMenuConcert.id, 'going');
-      // You can add more types if needed
+      const goingInteraction = this.interactions.find(interaction => interaction.concertId === this.rightMenuConcert.id && interaction.status === 'GOING');
+      const interestedInteraction = this.interactions.find(interaction => interaction.concertId === this.rightMenuConcert.id && interaction.status === 'INTERESTED');
+
+      this.going = !!goingInteraction; // Set to true if there's a 'GOING' interaction
+      this.interested = !!interestedInteraction; // Set to true if there's an 'INTERESTED' interaction
     },
     // checkInteractionType(allInteractions, type, concertId, stateType) {
     //   const isInteracted = allInteractions[type].some(interaction => interaction.id === concertId);
@@ -193,7 +194,7 @@ export default {
           {
             label: 'View Calendar',
             color: 'yellow',
-            handler: () => this.$router.push('/profile'),
+            handler: () => this.$router.push({ path: '/profile', query: { date: this.rightMenuConcert.date } })
           },
           {
             label: 'Dismiss',
@@ -223,11 +224,17 @@ export default {
     selectedConcertVenue() {
       return this.venues.find(venue => venue.id === this.rightMenuConcert.venueConcertsId)
     },
+    going: function () {
+      return !!this.interactions.find(interaction => interaction.concertId === this.rightMenuConcert.id && interaction.status === 'GOING');
+    },
+    interested: function () {
+      return !!this.interactions.find(interaction => interaction.concertId === this.rightMenuConcert.id && interaction.status === 'INTERESTED');
+    },
   },
   data() {
     return {
-      interested: false,
-      going: false,
+      // interested: false,
+      // going: false,
       thumbStyle: {
         right: '4px',
         borderRadius: '5px',

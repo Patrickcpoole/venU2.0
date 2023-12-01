@@ -95,6 +95,7 @@ export default {
       await this.$store.dispatch('venues/saveSelectedVenue', null)
       await this.$store.dispatch('venues/getVenuesData');
       await this.$store.dispatch('underground/listPosts');
+       await this.$store.dispatch('profile/checkAllInteractions');
 
       if (this.accessToken === null) {
         await this.$store.dispatch('spotify/getAccessToken', this.$route.query);

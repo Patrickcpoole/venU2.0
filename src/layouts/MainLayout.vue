@@ -58,7 +58,18 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-     <q-footer elevated>
+       <q-footer elevated v-if="$q.platform.is.mobile">
+      <q-tabs
+        dense
+        align="justify"
+        class="bg-primary text-white shadow-2"
+      >
+        <q-route-tab name="venues" to="/venues" icon="stadium" label="Venues"/>
+        <q-route-tab name="concerts" to="/concerts" icon="audiotrack" label="Concerts"/>
+        <q-route-tab name="profile" to="/profile" icon="account_circle" label="Profile"/>
+      </q-tabs>
+    </q-footer>
+     <q-footer elevated v-if="!$q.platform.is.mobile">
       <q-tabs
         dense
         align="justify"

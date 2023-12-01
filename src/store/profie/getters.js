@@ -11,7 +11,7 @@ export function interestedEvents(state) {
 }
 
 export function allEvents(state) {
-  return [...state.events.interested, ...state.events.going, ...state.events.underground]
+  return state.events.allEvents
 }
 
 export function interactions(state) {

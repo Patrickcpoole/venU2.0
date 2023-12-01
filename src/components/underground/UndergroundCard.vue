@@ -52,12 +52,13 @@
 
       </div>
       <span><q-btn v-if="postData.comments && postData.comments.length > 0" flat
-                   :label="`${postData.comments.length} Comments`"
+                   :label="!showComments ? `${postData.comments.length} Comments`: 'Hide Comments'"
                    @click="toggleCommentSection"/></span>
 
     </q-card-section>
-    <q-separator color="white"/>
-    <q-card-actions align="right" class="full-width flex row justify-center items-end">
+    <q-separator color="white" v-if="!$route.path.includes('profile')" />
+    <q-card-actions align="right" class="full-width flex row justify-center items-end"
+                    v-if="!$route.path.includes('profile')">
 
 
       <div class="flex justify-center items-center" @click="handlePostLike(postData)">
@@ -71,8 +72,9 @@
       </div>
 
       <q-btn icon-right="chat" flat label="Comment" @click="toggleUserCommentSection"/>
-      <q-btn icon-right="calendar_month" flat label="Save" :color="isSaved(postData)" @click="saveEventToCalendar(postData)"/>
-      <q-btn icon-right="share" flat label="Share" @click="sharePost"/>
+      <q-btn icon-right="calendar_month" flat label="Save" :color="isSaved(postData)"
+             @click="saveEventToCalendar(postData)"/>
+      <q-btn icon-right="share" flat label="Share" @click="sharePost" class="copy-button"/>
     </q-card-actions>
     <div class="user-comment-section" v-if="showUserComment">
       <q-input
@@ -101,6 +103,7 @@
 import CommentSection from './CommentSection.vue';
 import {profileState} from "src/mixins/profileState";
 import {formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth} from 'src/utils/dateUtils'
+
 export default {
   name: "UndergroundCard",
   components: {
@@ -124,6 +127,7 @@ export default {
     };
   },
   computed: {},
+
   methods: {
     formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth,
     isLiked(postData) {
@@ -138,7 +142,27 @@ export default {
 
     },
     saveEventToCalendar(post) {
-      if(this.isSaved(post)) {
+      const action = this.isSaved(post) ? 'removed from' : 'added to'
+      this.$q.notify({
+        message: `Event ${action} calendar`,
+        icon: 'calendar_month',
+        label: 'Dismiss',
+        color: 'orange',
+         actions: [
+          {
+            label: 'View Calendar',
+            color: 'yellow',
+            handler: () => this.$router.push({ path: '/profile', query: { date: post.eventDate } })
+          },
+          {
+            label: 'Dismiss',
+            color: 'white',
+            handler: () => { /* ... */
+            }
+          }
+        ]
+      });
+      if (this.isSaved(post)) {
         this.$store.dispatch('profile/removeUndergroundPostInteraction', post)
         return
       }
@@ -165,15 +189,35 @@ export default {
       this.showComments = true;
     },
 
+
     toggleCommentSection() {
       this.showComments = !this.showComments;
     },
     sharePost() {
-      // Implement share functionality (e.g., copy to clipboard, share API, etc.)
-      // You can use a library like clipboard.js for easy copy-to-clipboard functionality
-      // Example: copyToClipboard(this.postData.shareableLink);
-      console.log("Post shared!");
-    },
+      const shareableLink = window.location.href;
+
+      // Create a temporary textarea element to copy the link to the clipboard
+      const textarea = document.createElement('textarea');
+      textarea.value = shareableLink;
+      document.body.appendChild(textarea);
+
+      // Select and copy the link
+      textarea.select();
+      document.execCommand('copy');
+
+      // Remove the temporary textarea
+      document.body.removeChild(textarea);
+
+      // Notify the user
+      this.$q.notify({
+        message: 'Link Copied to Clipboard',
+        icon: 'fas fa-share',
+        position: 'top',
+        timeout: 3000,
+        actions: [{icon: 'close', color: 'white'}]
+      });
+    }
+
   },
 };
 </script>
@@ -212,7 +256,7 @@ export default {
 .underground-card {
   background-color: #555555;
   color: #fff;
-  margin-bottom: 2.5%;
+  margin-bottom: 20px;
 }
 
 
@@ -234,7 +278,7 @@ export default {
 .comment-section {
   background-color: #333333;
   padding: 10px;
-  margin-top: 10px;
+
 }
 
 

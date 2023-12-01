@@ -1,6 +1,6 @@
 <template>
   <div class="full-width flex column items-center justify-center">
-     <h5 class="text-white">Click/tap a venue pin for more info</h5>
+     <h5 class="text-white text-subtitle1">{{ $q.platform.is.mobile ? 'Tap' : 'Click' }} a Venue pin to view details</h5>
     <div style="width: 95%">
 
     <map-maker />
