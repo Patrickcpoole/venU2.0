@@ -4,7 +4,11 @@ export function toggleRightMenu(context, data) {
 }
 
 export function toggleLeftMenu(context, data) {
-
+  console.log('toggleLeftMenu action')
   context.commit('toggleLeftMenu')
+}
+
+export function closeRightMenu(context) {
+  context.commit('closeRightMenu')
 }
 

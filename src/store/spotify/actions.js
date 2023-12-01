@@ -84,6 +84,8 @@ export async function getSpotifyUserInfo(context, token) {
 }
 
 export async function getArtistInfo(context, artistName) {
+  console.log('artist name', artistName)
+  console.log('get artist info access token', context.state.spotifyAuth.access_token)
   return axios.get(`https://api.spotify.com/v1/search/?q=${artistName}&type=artist`, {
     headers: {
       "Accept": "application/json",
@@ -106,7 +108,7 @@ export async function getArtistInfo(context, artistName) {
       }
     }).then(resp => {
       console.log('artist top tracks resp', resp)
-      context.commit('setTopTracks', resp.data.tracks.slice(0,4))
+      context.commit('setTopTracks', resp.data.tracks.slice(0,3))
 
     }).catch(err => {
       console.log('top tracks error', err)

@@ -5,9 +5,7 @@ export default function () {
       refresh_token: null
   },
     spotifyUserInfo: null,
-    topTracks: {
-
-    },
+    topTracks: [],
     artistSpotifyInfo: {
 
     },

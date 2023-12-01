@@ -143,14 +143,24 @@ export default {
       };
     },
     submitForm() {
+      // Check for required fields
+      if (!this.createPostData.eventDate || !this.createPostData.text) {
+        // Display error notification
+        this.$q.notify({
+          color: 'negative',
+          position: 'top',
+          message: 'Text and event date are required fields.',
+        });
+        return; // Stop the form submission if required fields are not present
+      }
 
       const postData = {
         ...this.createPostData,
-        eventDate: new Date(this.createPostData.eventDate).toISOString(), // Use the same property name as expected by the backend
+        eventDate: new Date(this.createPostData.eventDate).toISOString(),
       };
-      console.log(postData)
 
-      this.$store.dispatch('underground/createPost', postData)
+      // Dispatch the action to create a post
+      this.$store.dispatch('underground/createPost', postData);
 
       // Close the dialog after submitting
       this.showDialog = false;

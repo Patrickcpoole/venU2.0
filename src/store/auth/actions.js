@@ -8,6 +8,7 @@ export async function logout({commit}) {
   commit('spotify/setRefreshToken', null, {root: true})
   commit('profile/clearProfileState', null, {root: true})
   commit('menu/clearMenuState', null, {root: true})
+  commit('underground/clearUndergroundState', null, {root: true})
   commit('setUser', null)
   await this.$router.push('/')
   return await Auth.signOut()

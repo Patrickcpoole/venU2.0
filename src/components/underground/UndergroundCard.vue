@@ -51,13 +51,14 @@
         </template>
 
       </div>
-      <span><q-btn v-if="postData.comments && postData.comments.items.length > 0" flat
-                   :label="`${postData.comments.items.length} Comments`"
+      <span><q-btn v-if="postData.comments && postData.comments.length > 0" flat
+                   :label="!showComments ? `${postData.comments.length} Comments`: 'Hide Comments'"
                    @click="toggleCommentSection"/></span>
 
     </q-card-section>
-    <q-separator color="white"/>
-    <q-card-actions align="right" class="full-width flex row justify-center items-end">
+    <q-separator color="white" v-if="!$route.path.includes('profile')" />
+    <q-card-actions align="right" class="full-width flex row justify-center items-end"
+                    v-if="!$route.path.includes('profile')">
 
 
       <div class="flex justify-center items-center" @click="handlePostLike(postData)">
@@ -71,8 +72,9 @@
       </div>
 
       <q-btn icon-right="chat" flat label="Comment" @click="toggleUserCommentSection"/>
-      <q-btn icon-right="calendar_month" flat label="Save"/>
-      <q-btn icon-right="share" flat label="Share" @click="sharePost"/>
+      <q-btn icon-right="calendar_month" flat label="Save" :color="isSaved(postData)"
+             @click="saveEventToCalendar(postData)"/>
+      <q-btn icon-right="share" flat label="Share" @click="sharePost" class="copy-button"/>
     </q-card-actions>
     <div class="user-comment-section" v-if="showUserComment">
       <q-input
@@ -91,7 +93,7 @@
     <!-- Comment Section -->
     <q-card-section v-if="showComments" class="comment-section">
       <!-- Render comments and replies using a new component -->
-      <comment-section :comments="postData.comments.items" v-if="postData.comments"/>
+      <comment-section :comments="postData.comments" v-if="postData.comments"/>
     </q-card-section>
   </q-card>
 </template>
@@ -99,13 +101,15 @@
 <script>
 
 import CommentSection from './CommentSection.vue';
-import {date} from 'quasar'
+import {profileState} from "src/mixins/profileState";
+import {formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth} from 'src/utils/dateUtils'
 
 export default {
   name: "UndergroundCard",
   components: {
     CommentSection,
   },
+  mixins: [profileState],
   props: {
     postData: {
       type: Object,
@@ -119,58 +123,54 @@ export default {
       showComments: false,
       showUserComment: false,
       userComment: "",
+
     };
   },
   computed: {},
+
   methods: {
+    formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth,
     isLiked(postData) {
       return postData.likedBy ? postData.likedBy.includes(this.$store.state.auth.user.username) : false
+    },
+    isSaved(postData) {
+      return this.interactions.find(event => event.concertId === postData.id) ? 'primary' : ''
     },
     handlePostLike(post) {
       console.log("Post liked:", post);
       this.$store.dispatch('underground/likePost', post)
 
     },
-
-    formatEventDayOfWeek(eventDate) {
-      // Extract and format the day of the week
-      return date.formatDate(new Date(eventDate), 'ddd');
-    },
-
-    formatEventDayOfMonth(eventDate) {
-      // Extract and format the day of the month
-      return date.formatDate(new Date(eventDate), 'Do');
-    },
-
-    formatEventMonth(eventDate) {
-      // Extract and format the month
-      return date.formatDate(new Date(eventDate), 'MMMM');
-    },
-    formatPostedDate(timeStamp) {
-      const date1 = new Date();
-      const date2 = new Date(timeStamp);
-
-      const timeDiffInMilliseconds = date1 - date2;
-
-      const minuteThreshold = 60 * 1000; // 1 minute in milliseconds
-      const hourThreshold = 60 * minuteThreshold; // 1 hour in milliseconds
-      const dayThreshold = 24 * hourThreshold; // 1 day in milliseconds
-      console.log('hourThreshold', hourThreshold)
-      let unit;
-      if (timeDiffInMilliseconds < minuteThreshold) {
-        unit = 'seconds';
-      } else if (timeDiffInMilliseconds < hourThreshold) {
-        unit = 'minutes';
-      } else if (timeDiffInMilliseconds < dayThreshold) {
-        unit = 'hours';
-      } else {
-        unit = 'days'
+    saveEventToCalendar(post) {
+      const action = this.isSaved(post) ? 'removed from' : 'added to'
+      this.$q.notify({
+        message: `Event ${action} calendar`,
+        icon: 'calendar_month',
+        label: 'Dismiss',
+        color: 'orange',
+         actions: [
+          {
+            label: 'View Calendar',
+            color: 'yellow',
+            handler: () => this.$router.push({ path: '/profile', query: { date: post.eventDate } })
+          },
+          {
+            label: 'Dismiss',
+            color: 'white',
+            handler: () => { /* ... */
+            }
+          }
+        ]
+      });
+      if (this.isSaved(post)) {
+        this.$store.dispatch('profile/removeUndergroundPostInteraction', post)
+        return
       }
-
-      const diff = date.getDateDiff(date1, date2, unit);
-
-      return diff === 1 ? diff + ' ' + unit.slice(0, -1) + ' ago' : diff + ' ' + unit + ' ago';
+      // Implement logic to save the event to the user's calendar
+      console.log("Event saved to calendar:", post);
+      this.$store.dispatch('profile/saveUndergroundPostInteraction', post)
     },
+
     toggleUserCommentSection() {
       this.showUserComment = !this.showUserComment;
     },
@@ -186,17 +186,38 @@ export default {
       this.$store.dispatch('underground/postComment', {post: post, comment: this.userComment})
       this.userComment = "";
       this.showUserComment = false;
+      this.showComments = true;
     },
+
 
     toggleCommentSection() {
       this.showComments = !this.showComments;
     },
     sharePost() {
-      // Implement share functionality (e.g., copy to clipboard, share API, etc.)
-      // You can use a library like clipboard.js for easy copy-to-clipboard functionality
-      // Example: copyToClipboard(this.postData.shareableLink);
-      console.log("Post shared!");
-    },
+      const shareableLink = window.location.href;
+
+      // Create a temporary textarea element to copy the link to the clipboard
+      const textarea = document.createElement('textarea');
+      textarea.value = shareableLink;
+      document.body.appendChild(textarea);
+
+      // Select and copy the link
+      textarea.select();
+      document.execCommand('copy');
+
+      // Remove the temporary textarea
+      document.body.removeChild(textarea);
+
+      // Notify the user
+      this.$q.notify({
+        message: 'Link Copied to Clipboard',
+        icon: 'fas fa-share',
+        position: 'top',
+        timeout: 3000,
+        actions: [{icon: 'close', color: 'white'}]
+      });
+    }
+
   },
 };
 </script>
@@ -219,13 +240,13 @@ export default {
 }
 
 .day-of-week {
-  font-size: 1.2em; // Adjust the font size as needed
+  font-size: 1.5em; // Adjust the font size as needed
   font-weight: bold;
   margin-right: 5px;
 }
 
 .day-of-month {
-  font-size: 1.5em; // Adjust the font size as needed
+  font-size: 1.25em; // Adjust the font size as needed
 }
 
 .month {
@@ -235,7 +256,7 @@ export default {
 .underground-card {
   background-color: #555555;
   color: #fff;
-  margin-bottom: 2.5%;
+  margin-bottom: 20px;
 }
 
 
@@ -257,7 +278,7 @@ export default {
 .comment-section {
   background-color: #333333;
   padding: 10px;
-  margin-top: 10px;
+
 }
 
 

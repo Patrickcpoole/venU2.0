@@ -14,7 +14,7 @@
 import UndergroundCard from '../components/underground/UndergroundCard.vue'
 import CreatePostModal from "../components/underground/CreatePostModal.vue";
 import {undergroundState} from "src/mixins/undergroundState";
-import ButtonDropdown from "components/ButtonDropdown.vue";
+import ButtonDropdown from "components/menu/ButtonDropdown.vue";
 import { date } from 'quasar';
 export default {
   name: "Underground",
@@ -24,6 +24,7 @@ export default {
     UndergroundCard,
     CreatePostModal
   },
+
   computed: {
     sortedPosts() {
   let sorted = [...this.posts];
@@ -33,8 +34,12 @@ export default {
   } else if (this.sortBy === 'event_date') {
     return sorted.sort((a, b) => date.getDateDiff(new Date(a.eventDate), new Date(b.eventDate), 'seconds'));
   } else if (this.sortBy === 'popular') {
-    return sorted.sort((a, b) => b.likes - a.likes);
-  } else {
+      return sorted.sort((a, b) => {
+        const aScore = a.likes + a.comments.length;
+        const bScore = b.likes + b.comments.length;
+        return bScore - aScore;
+      });
+    } else {
     return sorted.sort((a, b) => date.getDateDiff(new Date(a.datePosted), new Date(b.datePosted), 'seconds'));
   }
 }

@@ -5,5 +5,10 @@ export default function () {
       mini: false,
       concert: null,
     },
+    left: {
+      visible: false,
+      mini: false,
+      concert: null,
+    },
   }
 }

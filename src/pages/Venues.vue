@@ -1,41 +1,13 @@
 <template>
-  <div>
-    <p class="text-center text-white" style="margin-top:5%;">Tap a venue to view upcoming shows</p>
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-      <q-btn-dropdown color="primary" :label="`Sort by ${sortBy}`">
-        <q-list>
-          <q-item clickable v-close-popup @click="sortVenues('popularity')">
-            <q-item-section>
-              <q-item-label>Popularity</q-item-label>
-            </q-item-section>
-          </q-item>
+  <div class="flex column justify-start items-center">
+    <p class="text-center text-white q-mt-lg text-subtitle1">
+    {{ $q.platform.is.mobile ? 'Tap' : 'Click' }} a venue to view upcoming shows
+  </p>
 
-          <q-item clickable v-close-popup @click="sortVenues('capacity')">
-            <q-item-section>
-              <q-item-label>Capacity</q-item-label>
-            </q-item-section>
-          </q-item>
+      <button-dropdown @sort="sortVenues" :dropdown-buttons="dropdownButtons"/>
 
-          <q-item clickable v-close-popup @click="sortVenues('alphabetically')">
-            <q-item-section>
-              <q-item-label>Alphabetically</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-btn-dropdown>
-    </div>
-    <div v-if="sortBy === 'popularity'">
-      <div v-for="(venue, index) in venues" :key="index">
-        <venue-card :venueData="venue"/>
-      </div>
-    </div>
-    <div v-if="sortBy === 'alphabetically'">
-      <div v-for="(venue, index) in alphabeticVenues" :key="index">
-        <venue-card :venueData="venue"/>
-      </div>
-    </div>
-    <div v-if="sortBy === 'capacity'">
-      <div v-for="(venue, index) in capacityVenues" :key="index">
+    <div class="venue-grid">
+      <div v-for="venue in sortedVenues" :key="venue.id">
         <venue-card :venueData="venue"/>
       </div>
     </div>
@@ -45,72 +17,116 @@
 <script>
 
 
-import VenueCard from "components/VenueCard";
+import VenueCard from "components/venues/VenueCard";
 import {venuesState} from "../mixins/venuesState"
 import {spotifyState} from "../mixins/spotifyState"
+import ButtonDropdown from "components/menu/ButtonDropdown.vue";
+import {date} from "quasar";
 
 export default {
   name: "Venues",
-  components: {VenueCard},
+  components: {VenueCard, ButtonDropdown},
   mixins: [spotifyState, venuesState],
-  methods: {
-    createVenue() {
-      this.error = ''
-      const newVenue = {
-        name: 'Cervantes Masterpiece Ballroom',
-        capacity: '900',
-        location: 'Englewood',
-        image: 'https://venuephotos1.s3.amazonaws.com/cervantes.jpg'
-      }
-      this.$store.dispatch("venues/createVenue", newVenue)
-    },
-    sortVenues(sortType) {
-      this.sortBy = sortType
-      if (sortType === 'popularity') {
+  data() {
+    return {
+      dropdownButtons: [
+        {
+          label: 'Popularity',
+          value: 'popular'
+        },
+        {
+          label: 'Venue Name',
+          value: 'name'
+        },
+        {
+          label: 'Capacity',
+          value: 'capacity'
+        },
 
-      } else if (sortType === 'capacity') {
+      ],
+      sortBy: 'popularity',
 
+    }
+  },
+  computed: {
+
+    sortedVenues() {
+      let sorted = [...this.venues];
+
+      if (this.sortBy === 'name') {
+        return sorted.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (this.sortBy === 'capacity') {
+        return sorted.sort((a, b) => {
+          const capacityA = parseInt(a.capacity, 10);
+          const capacityB = parseInt(b.capacity, 10);
+          return capacityB - capacityA;
+        });
       } else {
+        // Custom sorting for specific venue names
+        const popularVenuesOrder = ['Red Rocks', 'Mission Ballroom', 'Ball Arena', 'Empower Field at Mile High'];
 
+        return sorted.sort((a, b) => {
+          const aIndex = popularVenuesOrder.indexOf(a.name);
+          const bIndex = popularVenuesOrder.indexOf(b.name);
+
+          if (aIndex !== -1 && bIndex !== -1) {
+            return aIndex - bIndex;
+          } else if (aIndex !== -1) {
+            return -1;
+          } else if (bIndex !== -1) {
+            return 1;
+          } else {
+            // If neither venue is in the popular order, sort alphabetically
+            return a.name.localeCompare(b.name);
+          }
+        });
       }
     }
+  },
+  methods: {
+    sortVenues(value) {
+      this.sortBy = value
+    },
 
   },
   async mounted() {
-  try {
-     await this.$store.dispatch('venues/getVenuesData');
-     await this.$store.dispatch('underground/listPosts');
-      // await this.$store.dispatch('venues/saveSelectedVenue', null);
 
-    console.log('route query', this.$route.query);
+    try {
+      await this.$store.dispatch('venues/saveSelectedVenue', null)
+      await this.$store.dispatch('venues/getVenuesData');
+      await this.$store.dispatch('underground/listPosts');
+       await this.$store.dispatch('profile/checkAllInteractions');
 
-    if (this.accessToken === null) {
-      await this.$store.dispatch('spotify/getAccessToken', this.$route.query);
+      if (this.accessToken === null) {
+        await this.$store.dispatch('spotify/getAccessToken', this.$route.query);
+        await this.$store.dispatch('spotify/getSpotifyUserInfo', this.accessToken);
+      }
 
-
-      console.log('Venues Data Loaded');
-
-      await this.$store.dispatch('spotify/getSpotifyUserInfo', this.accessToken);
-      console.log('Spotify User Info Loaded');
+    } catch (error) {
+      console.error('Error:', error);
     }
-  } catch (error) {
-    console.error('Error:', error);
-  }
-},
+  },
 
 
-  data() {
-    return {
-      sortBy: 'popularity',
-      error: '',
-      name: '',
-      location: '',
-      capacity: ''
-    }
-  }
 }
 </script>
 
 <style scoped>
+.venue-grid {
+  width: 95%;
+  display: grid;
+  grid-template-columns: 1fr; /* One card per row by default (mobile-first) */
+}
 
+@media screen and (min-width: 768px) {
+  .venue-grid {
+    grid-template-columns: repeat(2, 1fr); /* Two cards in a row on screens larger than 767px */
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .venue-grid {
+    grid-template-columns: repeat(3, 1fr); /* Three cards in a row on screens larger than 1200px */
+  }
+}
 </style>

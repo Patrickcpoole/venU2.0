@@ -4,7 +4,11 @@ export const profileState = {
 
   computed: {
     ...mapGetters({
-      events: 'profile/events',
+      interactions: 'profile/interactions',
+      interestedEvents: 'profile/interestedEvents',
+      goingEvents: 'profile/goingEvents',
+      undergroundEvents: 'profile/undergroundEvents',
+      allEvents: 'profile/allEvents',
     })
   }
 }
