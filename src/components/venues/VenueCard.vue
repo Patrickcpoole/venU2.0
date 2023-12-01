@@ -1,18 +1,16 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
-    <q-card class="venue-card"  @click="handleChooseVenue">
-      <q-img :src="venueData.image" style=" height: 30vh;">
-        <div class="venue-background">
+  <div class="row items-start q-ma-md">
+    <q-card class="venue-card" @click="handleChooseVenue">
+      <q-img :src="venueData.image" style="height: 30vh;">
+        <div class="venue-overlay">
           <span class="venue-name text-white text-center">{{ venueData.name }}</span>
           <div class="bottom-text">
-            <span class="text-white info-text" style="margin-right:10px">Location: {{ venueData.location }}</span>
+            <span class="text-white info-text" style="margin-right:10px">{{ venueData.location }}</span>
             |
             <span class="text-white info-text" style="margin-left:10px">Capacity: {{ venueData.capacity }}</span>
           </div>
         </div>
       </q-img>
-
-
     </q-card>
   </div>
 </template>
@@ -41,19 +39,25 @@ export default {
   width: 100%;
   height: 30vh;
   cursor: pointer;
+  position: relative; /* Ensure positioning context for overlay */
 }
 
-.venue-background {
+.venue-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Adjust opacity as needed */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
 }
 
 .venue-name {
-  font-size: 3.5em;
+  font-size: 3.25em;
+  line-height: 1.25em;
 }
 
 .bottom-text {
@@ -61,9 +65,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
 }
-
 
 .info-text {
   font-size: 1em;

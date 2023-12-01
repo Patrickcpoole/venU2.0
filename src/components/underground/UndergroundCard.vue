@@ -51,8 +51,8 @@
         </template>
 
       </div>
-      <span><q-btn v-if="postData.comments && postData.comments.items.length > 0" flat
-                   :label="`${postData.comments.items.length} Comments`"
+      <span><q-btn v-if="postData.comments && postData.comments.length > 0" flat
+                   :label="`${postData.comments.length} Comments`"
                    @click="toggleCommentSection"/></span>
 
     </q-card-section>
@@ -71,7 +71,7 @@
       </div>
 
       <q-btn icon-right="chat" flat label="Comment" @click="toggleUserCommentSection"/>
-      <q-btn icon-right="calendar_month" flat label="Save"/>
+      <q-btn icon-right="calendar_month" flat label="Save" :color="isSaved(postData)" @click="saveEventToCalendar(postData)"/>
       <q-btn icon-right="share" flat label="Share" @click="sharePost"/>
     </q-card-actions>
     <div class="user-comment-section" v-if="showUserComment">
@@ -91,7 +91,7 @@
     <!-- Comment Section -->
     <q-card-section v-if="showComments" class="comment-section">
       <!-- Render comments and replies using a new component -->
-      <comment-section :comments="postData.comments.items" v-if="postData.comments"/>
+      <comment-section :comments="postData.comments" v-if="postData.comments"/>
     </q-card-section>
   </q-card>
 </template>
@@ -99,13 +99,14 @@
 <script>
 
 import CommentSection from './CommentSection.vue';
-import {date} from 'quasar'
-
+import {profileState} from "src/mixins/profileState";
+import {formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth} from 'src/utils/dateUtils'
 export default {
   name: "UndergroundCard",
   components: {
     CommentSection,
   },
+  mixins: [profileState],
   props: {
     postData: {
       type: Object,
@@ -119,58 +120,33 @@ export default {
       showComments: false,
       showUserComment: false,
       userComment: "",
+
     };
   },
   computed: {},
   methods: {
+    formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth,
     isLiked(postData) {
       return postData.likedBy ? postData.likedBy.includes(this.$store.state.auth.user.username) : false
+    },
+    isSaved(postData) {
+      return this.interactions.find(event => event.concertId === postData.id) ? 'primary' : ''
     },
     handlePostLike(post) {
       console.log("Post liked:", post);
       this.$store.dispatch('underground/likePost', post)
 
     },
-
-    formatEventDayOfWeek(eventDate) {
-      // Extract and format the day of the week
-      return date.formatDate(new Date(eventDate), 'ddd');
-    },
-
-    formatEventDayOfMonth(eventDate) {
-      // Extract and format the day of the month
-      return date.formatDate(new Date(eventDate), 'Do');
-    },
-
-    formatEventMonth(eventDate) {
-      // Extract and format the month
-      return date.formatDate(new Date(eventDate), 'MMMM');
-    },
-    formatPostedDate(timeStamp) {
-      const date1 = new Date();
-      const date2 = new Date(timeStamp);
-
-      const timeDiffInMilliseconds = date1 - date2;
-
-      const minuteThreshold = 60 * 1000; // 1 minute in milliseconds
-      const hourThreshold = 60 * minuteThreshold; // 1 hour in milliseconds
-      const dayThreshold = 24 * hourThreshold; // 1 day in milliseconds
-      console.log('hourThreshold', hourThreshold)
-      let unit;
-      if (timeDiffInMilliseconds < minuteThreshold) {
-        unit = 'seconds';
-      } else if (timeDiffInMilliseconds < hourThreshold) {
-        unit = 'minutes';
-      } else if (timeDiffInMilliseconds < dayThreshold) {
-        unit = 'hours';
-      } else {
-        unit = 'days'
+    saveEventToCalendar(post) {
+      if(this.isSaved(post)) {
+        this.$store.dispatch('profile/removeUndergroundPostInteraction', post)
+        return
       }
-
-      const diff = date.getDateDiff(date1, date2, unit);
-
-      return diff === 1 ? diff + ' ' + unit.slice(0, -1) + ' ago' : diff + ' ' + unit + ' ago';
+      // Implement logic to save the event to the user's calendar
+      console.log("Event saved to calendar:", post);
+      this.$store.dispatch('profile/saveUndergroundPostInteraction', post)
     },
+
     toggleUserCommentSection() {
       this.showUserComment = !this.showUserComment;
     },
@@ -186,6 +162,7 @@ export default {
       this.$store.dispatch('underground/postComment', {post: post, comment: this.userComment})
       this.userComment = "";
       this.showUserComment = false;
+      this.showComments = true;
     },
 
     toggleCommentSection() {
@@ -219,13 +196,13 @@ export default {
 }
 
 .day-of-week {
-  font-size: 1.2em; // Adjust the font size as needed
+  font-size: 1.5em; // Adjust the font size as needed
   font-weight: bold;
   margin-right: 5px;
 }
 
 .day-of-month {
-  font-size: 1.5em; // Adjust the font size as needed
+  font-size: 1.25em; // Adjust the font size as needed
 }
 
 .month {

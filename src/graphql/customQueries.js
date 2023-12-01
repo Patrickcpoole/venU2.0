@@ -24,6 +24,8 @@ export const LIST_POSTS_WITH_COMMENTS = gql`
             updatedAt
             userName
             profilePicture
+            likes
+            likedBy
             replies {
               items {
                 id

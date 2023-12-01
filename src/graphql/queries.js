@@ -50,6 +50,7 @@ export const getConcert = /* GraphQL */ `
       artistName
       openers
       date
+      startTime
       image
       youtube
       interactions {
@@ -76,6 +77,7 @@ export const listConcerts = /* GraphQL */ `
         artistName
         openers
         date
+        startTime
         image
         youtube
         createdAt
@@ -154,6 +156,7 @@ export const getComment = /* GraphQL */ `
       userName
       profilePicture
       likes
+      likedBy
       replies {
         nextToken
         __typename
@@ -182,6 +185,7 @@ export const listComments = /* GraphQL */ `
         userName
         profilePicture
         likes
+        likedBy
         parentId
         postCommentsId
         commentRepliesId

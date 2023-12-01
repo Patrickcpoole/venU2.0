@@ -3,7 +3,8 @@ import { LIST_POSTS_WITH_COMMENTS } from 'src/graphql/customQueries';
 import {
   createPost as createPostMutation,
   createComment as createCommentMutation,
-  updatePost as updatePostMutation
+  updatePost as updatePostMutation,
+  updateComment as updateCommentMutation
 } from "src/graphql/mutations";
 import {listPosts as listPostsQuery} from "src/graphql/queries";
 
@@ -13,9 +14,7 @@ export async function createPost({commit, rootState}, data) {
     userName: rootState.auth.user.username,
     profilePicture: rootState.spotify.spotifyUserInfo.images[1].url,
     datePosted: new Date().toISOString(),
-    likes: 0,
-    comments: [],
-
+    likes: 0
   }
   console.log('creating post', createPostRequest)
   try {
@@ -34,6 +33,36 @@ export async function listPosts({commit}) {
     commit("setPosts", postData.data.listPosts.items)
   } catch (err) {
     console.log('error listing posts', err)
+  }
+}
+
+export async function likeComment({commit, rootState}, data) {
+  const username = rootState.auth.user.username;
+  let likeCommentRequest;
+
+  // Check if likedBy is present on the post data, provide a default value of an empty array if not
+  const currentLikedBy = data.likedBy || [];
+
+  if (currentLikedBy.includes(username)) {
+    likeCommentRequest = {
+      id: data.id,
+      likes: data.likes - 1,
+      likedBy: currentLikedBy.filter((user) => user !== username),
+    };
+  } else {
+    likeCommentRequest = {
+      id: data.id,
+      likes: data.likes ? data.likes + 1 : 1,
+      likedBy: [...currentLikedBy, username],
+    };
+  }
+  console.log('liking comment', likeCommentRequest);
+  try {
+    const commentData = await API.graphql(graphqlOperation(updateCommentMutation, { input: likeCommentRequest }));
+    console.log('liked comment data', commentData);
+    commit('updateComment', commentData.data.updateComment);
+  } catch (err) {
+    console.log('error liking comment', err);
   }
 }
 
@@ -75,6 +104,7 @@ export async function postComment({commit, rootState}, data) {
     userId: rootState.auth.user.id,
     userName: rootState.auth.user.username,
     profilePicture: rootState.spotify.spotifyUserInfo.images[1].url,
+    likes: 0,
   }
   console.log('commenting post', commentPostRequest)
   try {

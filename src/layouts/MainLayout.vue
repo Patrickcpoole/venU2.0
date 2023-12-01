@@ -1,26 +1,33 @@
 <template>
   <q-layout view="lHh Lpr lFf" >
     <q-header elevated>
-      <q-toolbar>
+      <q-toolbar class="flex justify-between">
         <q-btn
           flat
           dense
-          round
+
           icon="menu"
           aria-label="Menu"
-          @click="$store.dispatch('menu/toggleLeftMenu')"
+          @click="toggleLeftMenu = !toggleLeftMenu"
           style="z-index: 10"
         />
 
         <div class="q-toolbar-title text-center full-width absolute" style="font-size: 1.5em; z-index: 0; padding-right: 2%">
           <h5>{{ selectedVenue !== null && $route.path === '/concerts' ? selectedVenue.name : $route.name }}</h5>
         </div>
+         <q-btn
+           v-if="rightMenuVisible"
+          flat
+          dense
+          icon="close"
+          @click="$store.dispatch('menu/toggleRightMenu')"
+          style="z-index: 10"
+        />
       </q-toolbar>
     </q-header>
 
     <q-drawer
-      v-model="leftMenuVisible"
-      show-if-above
+      v-model="toggleLeftMenu"
       bordered
       content-class="bg-grey-1"
     >
@@ -41,6 +48,7 @@
       :value="rightMenuVisible"
       :show-if-above="false"
       :width="350"
+      @input="$store.dispatch('menu/closeRightMenu')"
       side="right"
 
     >
@@ -68,8 +76,8 @@
 
 <script>
 
-import SidebarContent from "components/SidebarContent";
-import ConcertSidebarContent from "components/ConcertSidebarContent"
+import SidebarContent from "components/menu/SidebarContent";
+import ConcertSidebarContent from "components/concerts/ConcertSidebarContent"
 import {menuState} from "../mixins/menuState"
 import {venuesState} from "src/mixins/venuesState";
 
@@ -77,6 +85,11 @@ export default {
   name: 'MainLayout',
   mixins: [menuState, venuesState],
   components: {SidebarContent, ConcertSidebarContent},
+  data() {
+    return {
+      toggleLeftMenu: false,
+    }
+  },
 
 }
 

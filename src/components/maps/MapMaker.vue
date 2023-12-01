@@ -35,6 +35,21 @@ export default {
           coordinates: {lat: 39.7401744, lng: -104.9801406},
           address: 'Ogden Theatre, 935 E Colfax Ave, Denver, CO 80218'
         },
+        {
+          id: "596fb9c1-6101-4036-a92a-ca643d3f654f",
+          coordinates: {lat: 39.750284, lng: -105.015023},
+          address: 'Ball Arena, 1000 Chopper Cir, Denver, CO 80204'
+        },
+        {
+          id: "055c7f53-0f98-4852-bb2c-e8d64609b95d",
+          coordinates: {lat: 39.764248, lng: -105.0262499},
+          address: 'Empower Field, 1701 Bryant St, Denver, CO 80204'
+        },
+         {
+          id: "a26b94fe-3dcc-4361-a717-ed709c542354",
+          coordinates: {lat: 39.7402069, lng: -104.9821103},
+          address: 'Fillmore Auditorium, 1510 N Clarkson St, Denver, CO 80218'
+        },
       ],
     }
   },
@@ -50,6 +65,8 @@ export default {
 
     },
     openDirections: function (destination) {
+      console.log('open directions')
+      this.$q.loading.show()
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -58,16 +75,18 @@ export default {
             const origin = `${latitude},${longitude}`;
             const url = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}`;
             window.open(url, '_blank');
+             this.$q.loading.hide()
           },
           (error) => {
             console.error('Error getting current location:', error);
             // Handle the error or provide a fallback
           }
-        );
+        )
       } else {
         console.error('Geolocation is not supported by this browser.');
         // Handle the case where geolocation is not supported
       }
+
     },
     initMap: function () {
       console.log('these are the venues', this.venues)

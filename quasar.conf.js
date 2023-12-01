@@ -23,7 +23,10 @@ module.exports = function (/* ctx */) {
       'appSync',
        'maps',
       'moment',
-      'axios'
+      'axios',
+      'mediaPlayer',
+      'date',
+      'fontAwesome'
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -100,7 +103,8 @@ module.exports = function (/* ctx */) {
 
       // Quasar plugins
       plugins: [
-        'Notify'
+        'Notify',
+        'Loading'
       ]
     },
 

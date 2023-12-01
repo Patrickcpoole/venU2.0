@@ -1,9 +1,12 @@
 export default function () {
   return {
+    interactions: [],
     events: {
-        interested: [],
-        going: []
-      }
+      interested: [],
+      going: [],
+      underground: [],
+      allEvents: []
+    }
 
   }
 }

@@ -77,6 +77,7 @@ export const onCreateConcert = /* GraphQL */ `
       artistName
       openers
       date
+      startTime
       image
       youtube
       interactions {
@@ -101,6 +102,7 @@ export const onUpdateConcert = /* GraphQL */ `
       artistName
       openers
       date
+      startTime
       image
       youtube
       interactions {
@@ -125,6 +127,7 @@ export const onDeleteConcert = /* GraphQL */ `
       artistName
       openers
       date
+      startTime
       image
       youtube
       interactions {
@@ -237,6 +240,7 @@ export const onCreateComment = /* GraphQL */ `
       userName
       profilePicture
       likes
+      likedBy
       replies {
         nextToken
         __typename
@@ -263,6 +267,7 @@ export const onUpdateComment = /* GraphQL */ `
       userName
       profilePicture
       likes
+      likedBy
       replies {
         nextToken
         __typename
@@ -289,6 +294,7 @@ export const onDeleteComment = /* GraphQL */ `
       userName
       profilePicture
       likes
+      likedBy
       replies {
         nextToken
         __typename

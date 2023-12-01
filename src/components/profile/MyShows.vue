@@ -4,16 +4,15 @@
 
         <q-date
           @input="(date) => handleChooseDate(date)"
-          v-model="date"
-          :events="eventDates"
+          v-model="currentDate"
+          :events="allEventDates"
           :event-color="(date) => eventColors(date)"
           dark
           landscape
         />
-        <div v-for="(concert, index) in eventsOnChosenDate" :key="index" class="q-pa-md full-width">
-
-        <concert-card :concertData="concert"/>
-      </div>
+        <div v-for="event in eventsOnChosenDate" :key="event.id" class="q-pa-md full-width">
+    <component :is="cardComponent(event)" :postData="getPostData(event)" :concertData="getConcertData(event)" />
+  </div>
 
 
     </div>
@@ -21,139 +20,82 @@
 </template>
 
 <script>
-
-
-import {profileState} from "src/mixins/profileState"
-import {menuState} from "src/mixins/menuState"
-import ConcertCard from "src/components/ConcertCard"
+import { profileState } from "src/mixins/profileState";
+import { menuState } from "src/mixins/menuState";
+import ConcertCard from "src/components/concerts/ConcertCard";
+import UndergroundCard from "components/underground/UndergroundCard.vue";
 
 export default {
   name: "MyShows",
-  components: {ConcertCard},
+  components: { ConcertCard, UndergroundCard },
   mixins: [profileState, menuState],
 
   data() {
     return {
-      date: this.$moment().format('YYYY/MM/DD'),
+      currentDate: this.$date.formatDate(new Date(), 'YYYY/MM/DD'),
       eventsOnChosenDate: []
-    }
+    };
   },
   mounted() {
-    // this.$store.dispatch('spotify/getConcertSongs')
-    // console.log('is profile page firing?')
-    if(this.rightMenuConcert !== null) {
-      this.date = this.$moment(this.rightMenuConcert.date).format('YYYY/MM/DD')
-      this.handleChooseDate(this.date)
-    }
-    console.log('params', this.$route.params)
+    let sorted = [...this.allEvents];
+    sorted.sort((a, b) => this.$date.getDateDiff(new Date(a.date || a.eventDate), new Date(b.date || b.eventDate), 'seconds'));
+    this.handleChooseDate(sorted[0]['date'] || sorted[0]['eventDate']);
+    console.log('params', this.$route.params);
   },
   methods: {
+     cardComponent(event) {
+      console.log('event card component', event)
+      return event.text ? UndergroundCard : ConcertCard;
+    },
+    getPostData(event) {
+      return event.text ? event : null;
+    },
+    getConcertData(event) {
+      return event.text ? null : event;
+    },
+    allEventDates() {
+      return this.allEvents.map(event => this.$date.formatDate(event['date'] || event['eventDate'], 'YYYY/MM/DD'));
+    },
     handleChooseDate(value) {
-      this.interestedEvents.forEach(interestedEvent => {
-        console.log('interested event', this.$moment(interestedEvent['date']).format('YYYY/MM/DD'));
-        console.log('value', value);
-        if (this.$moment(interestedEvent['date']).format('YYYY/MM/DD') === value && !this.eventsOnChosenDate.includes(interestedEvent)) {
-          console.log('are these the same')
-          this.eventsOnChosenDate.push(interestedEvent)
-          console.log('events on chosen date', this.eventsOnChosenDate)
+      const formattedValue = this.$date.formatDate(value, 'YYYY/MM/DD');
+      this.currentDate = formattedValue;
+      this.allEvents.forEach(event => {
+        const eventDate = event['date'] || event['eventDate'];
+        console.log('event', this.$date.formatDate(eventDate, 'YYYY/MM/DD'));
+
+
+        console.log('formatted value', formattedValue);
+        if (this.$date.formatDate(eventDate, 'YYYY/MM/DD') === formattedValue && !this.eventsOnChosenDate.includes(event)) {
+          console.log('these are the same');
+          this.eventsOnChosenDate.push(event);
+          console.log('events on chosen date', this.eventsOnChosenDate);
         }
-      })
-
-      this.goingEvents.forEach(goingEvent => {
-        console.log('value', value)
-        console.log('going event', this.$moment(goingEvent['date']).format('YYYY/MM/DD'))
-        if (this.$moment(goingEvent['date']).format('YYYY/MM/DD') == value) {
-          this.eventsOnChosenDate.push(goingEvent)
-        }
-      })
+      });
     },
-    eventColors(date) {
-      console.log('event colors fired', date)
-      let color = ''
-      if (this.goingEventDates.includes(date)) {
-        console.log('its blue!')
-        color = 'blue'
-      } else if (this.interestedEventDates.includes(date)) {
-        console.log('its purple!')
-        color = 'purple'
-      }
-
-      return color
-    },
-  },
-  computed: {
-    calendarDate: {
-      get() {
-        if (this.rightMenuConcert) {
-          return this.$moment(this.rightMenuConcert.date).format('YYYY/MM/DD')
-        } else {
-          return '2022/08/01'
-        }
-      },
-      set(val) {
-        this.date = val
-      }
-
-    },
-    eventDates() {
-      let interestedEventDates = []
-      let goingEventDates = []
-      this.interestedEvents.forEach(event => {
-        interestedEventDates.push(this.$moment(event.date).format('YYYY/MM/DD'))
-      })
-
-      this.goingEvents.forEach(event => {
-        goingEventDates.push(this.$moment(event.date).format('YYYY/MM/DD'))
-      })
-
-      return [...interestedEventDates, ...goingEventDates]
+    goingEventDates() {
+      return this.goingEvents.map(goingEvent => this.$date.formatDate(goingEvent['date'] || goingEvent['eventDate'], 'YYYY/MM/DD'));
     },
     interestedEventDates() {
-      let dates = []
-      this.events.interested.forEach(event => {
-        dates.push(this.$moment(event.date).format('YYYY/MM/DD'))
-      })
-      return dates
+      return this.interestedEvents.map(interestedEvent => this.$date.formatDate(interestedEvent['date'] || interestedEvent['eventDate'], 'YYYY/MM/DD'));
     },
 
-    goingEventDates() {
-      let dates = []
-      this.events.going.forEach(event => {
-        dates.push(this.$moment(event.date).format('YYYY/MM/DD'))
-      })
-      return dates
-    },
-    interestedEvents() {
-      const interestedEvents = []
-      if (this.events.interested.length > 0) {
-
-
-        this.events.interested.forEach(event => {
-
-          interestedEvents.push(event)
-        })
-
+    eventColors(date) {
+      console.log('event colors fired', date);
+      let color = '';
+      if (this.goingEventDates.includes(date)) {
+        console.log('its blue!');
+        color = 'blue';
+      } else if (this.interestedEventDates.includes(date)) {
+        console.log('its purple!');
+        color = 'purple';
       } else {
+        console.log('its red!');
+        color = 'orange';
       }
-      return interestedEvents
+
+      return color;
     },
-    goingEvents() {
-      const goingEvents = []
-      if (this.events.going.length > 0) {
-
-
-        this.events.going.forEach(event => {
-          console.log('going event on component')
-          goingEvents.push(event)
-        })
-
-      } else {
-      }
-      return goingEvents
-    }
-
-
   }
-}
+};
 </script>
 

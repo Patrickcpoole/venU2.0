@@ -14,7 +14,7 @@
 import UndergroundCard from '../components/underground/UndergroundCard.vue'
 import CreatePostModal from "../components/underground/CreatePostModal.vue";
 import {undergroundState} from "src/mixins/undergroundState";
-import ButtonDropdown from "components/ButtonDropdown.vue";
+import ButtonDropdown from "components/menu/ButtonDropdown.vue";
 import { date } from 'quasar';
 export default {
   name: "Underground",
@@ -24,6 +24,7 @@ export default {
     UndergroundCard,
     CreatePostModal
   },
+
   computed: {
     sortedPosts() {
   let sorted = [...this.posts];

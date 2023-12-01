@@ -10,6 +10,7 @@ import Comment from './Comment.vue';
 
 export default {
   name: 'CommentSection',
+
   props: {
     comments: {
       type: Array,

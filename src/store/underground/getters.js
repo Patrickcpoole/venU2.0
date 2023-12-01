@@ -1,3 +1,3 @@
 export function posts(state) {
-  return state.postData
+  return state.posts
 }
