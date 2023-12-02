@@ -23,6 +23,7 @@ import {spotifyState} from "../mixins/spotifyState"
 import ButtonDropdown from "components/menu/ButtonDropdown.vue";
 import {date} from "quasar";
 
+// deploing to AWS
 export default {
   name: "Venues",
   components: {VenueCard, ButtonDropdown},
