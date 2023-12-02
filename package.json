@@ -19,7 +19,6 @@
     "@supercharge/strings": "^1.28.0",
     "aws-amplify": "^4.3.11",
     "axios": "^0.26.1",
-    "clipboard": "^2.0.11",
     "core-js": "^3.6.5",
     "dotenv": "^16.0.1",
     "graphql-tag": "^2.12.6",
