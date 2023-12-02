@@ -256,13 +256,13 @@ export default {
 </script>
 <style scoped lang="sass">
 
-.info-label {
+.info-label 
   color: $primary;
   font-size: 1.25em;
   font-weight: bold;
-}
 
-.sidebar-container {
+
+.sidebar-container 
   background-color: #222326;
   width: 100%;
   display: flex;
@@ -270,34 +270,34 @@ export default {
   justify-content: flex-start;
   align-items: center;
   flex-grow: 1;
-}
 
-.concert-card {
+
+.concert-card 
   width: 100%;
   height: 20%;
   display: flex;
   background-color: #1D1D1D;
   color: #fff;
 
-}
 
-.info-container {
+
+.info-container 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   color: #fff;
   text-align: center;
-}
 
 
-.right-info {
+
+.right-info 
   padding-top: 2.5%;
   height: 100%;
   padding-right: 5%;
-}
 
-.button-container {
+
+.button-container 
   background-color: #222;
   width: 100%;
   display: flex;
@@ -307,9 +307,9 @@ export default {
   flex-wrap: wrap;
   border-bottom-right-radius: 5px;
   margin-top: 25px;
-}
 
-.icon-container {
+
+.icon-container 
   width: 30%;
   height: 50px;
   display: flex;
@@ -319,20 +319,20 @@ export default {
   background-color: #333;
   padding: 5%;
   cursor: pointer;
-}
 
-.icon-text {
+
+.icon-text 
   margin-top: 5px;
   font-size: .8em;
   color: #fff;
-}
 
-.song-playback {
+
+.song-playback 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+
 
 
 </style>

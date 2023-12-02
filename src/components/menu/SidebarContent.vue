@@ -127,7 +127,7 @@ export default {
 </script>
 
 <style scoped lang="sass">
-.sidebar-container {
+.sidebar-container 
   border:0;
   background: $background;
   display: flex;
@@ -136,29 +136,28 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
-}
 
-.avatar {
+
+.avatar 
   width: 3.5em;
   height: 3.5em;
   margin-top: 10%;
-
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
 
-.name {
+
+.name 
   text-align: center;
   font-size: 2em;
 
   margin-top: 5%;
-}
 
-.parent {
+
+.parent 
   font-size: 1.25em;
   color: #777;
   margin-top: -5%;
-}
+
 </style>

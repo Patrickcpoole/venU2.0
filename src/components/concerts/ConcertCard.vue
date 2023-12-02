@@ -74,7 +74,7 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
+<style scoped >
 
 
 .image-container {
@@ -152,7 +152,7 @@ export default {
   font-size: .8em;
 }
 
-//New concert styles from venue
+
 .concert-card {
   width: 100%;
   height: 30vh;

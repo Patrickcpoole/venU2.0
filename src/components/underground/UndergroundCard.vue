@@ -224,8 +224,8 @@ export default {
 
 <style scoped lang="sass">
 
-.event-date-rectangle {
-  background-color: $primary; // Example color, you can adjust it as needed
+.event-date-rectangle 
+  background-color: $primary;
   color: #fff;
   padding: 8px;
   border-radius: 0 5px 0 5px;
@@ -237,30 +237,30 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-}
 
-.day-of-week {
-  font-size: 1.5em; // Adjust the font size as needed
+
+.day-of-week 
+  font-size: 1.5em; 
   font-weight: bold;
   margin-right: 5px;
-}
 
-.day-of-month {
-  font-size: 1.25em; // Adjust the font size as needed
-}
 
-.month {
-  font-size: 1em; // Adjust the font size as needed
-}
+.day-of-month 
+  font-size: 1.25em; 
 
-.underground-card {
+
+.month 
+  font-size: 1em; 
+
+
+.underground-card 
   background-color: #555555;
   color: #fff;
   margin-bottom: 20px;
-}
 
 
-.top-info {
+
+.top-info 
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -268,36 +268,36 @@ export default {
   width: 100%;
 
 
-}
 
-.like-count {
+
+.like-count 
   margin-left: 8px;
   font-size: 14px;
-}
 
-.comment-section {
+
+.comment-section 
   background-color: #333333;
   padding: 10px;
 
-}
 
 
-.custom-button {
+
+.custom-button 
   cursor: pointer;
-  transition: background-color 0.3s; /* You can adjust the transition duration as needed */
+  transition: background-color 0.3s; 
 
-  &:hover {
-    background-color: #999999; /* Add your desired hover color here */
-  }
-}
+  &:hover 
+    background-color: #999999; 
+  
 
-.user-comment-section {
+
+.user-comment-section 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   background-color: #333;
   padding: 10px;
   margin-top: 10px;
-}
+
 
 </style>
