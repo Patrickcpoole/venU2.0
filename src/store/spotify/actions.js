@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const CLIENT_ID = process.env.VUE_APP_SPOTIFY_CLIENT_ID.replace(/['"]+/g, '')
 const CLIENT_SECRET = process.env.VUE_APP_SPOTIFY_CLIENT_SECRET.replace(/['"]+/g, '')
-const REDIRECT_URI = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_SPOTIFY_REDIRECT_URI_PROD : process.env.VUE_APP_SPOTIFY_REDIRECT_URI_LOCAL;
+const REDIRECT_URI = process.env.VUE_APP_NODE_ENV === 'production' ? process.env.VUE_APP_SPOTIFY_REDIRECT_URI_PROD : process.env.VUE_APP_SPOTIFY_REDIRECT_URI_LOCAL;
 export async function spotifyAuth(context) {
   console.log('spotify auth fired')
   const state = Str.random(16)
