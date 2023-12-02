@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from "vuex-persistedstate";
+
 import auth from './auth'
 import venues from './venues'
 import concerts from './concerts'
@@ -35,7 +35,7 @@ export default function (/* { ssrContext } */) {
     // enable strict mode (adds overhead!)
     // for dev mode only
     strict: process.env.DEBUGGING,
-    plugins: [createPersistedState()],
+    plugins: [],
   })
 
   return Store
