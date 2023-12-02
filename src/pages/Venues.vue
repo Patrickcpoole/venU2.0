@@ -16,7 +16,7 @@
 
 <script>
 
-import { mapActions } from 'vuex';
+
 import VenueCard from "components/venues/VenueCard";
 import {venuesState} from "../mixins/venuesState"
 import {spotifyState} from "../mixins/spotifyState"
@@ -52,7 +52,7 @@ export default {
   computed: {
 
     sortedVenues() {
-      let sorted = this.venues
+      let sorted = [...this.venues];
 
       if (this.sortBy === 'name') {
         return sorted.sort((a, b) => a.name.localeCompare(b.name));
@@ -85,14 +85,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions('auth', ['authAction']),
     sortVenues(value) {
       this.sortBy = value
     },
 
   },
   async mounted() {
-    this.authAction();
+
     try {
       await this.$store.dispatch('venues/saveSelectedVenue', null)
       await this.$store.dispatch('venues/getVenuesData');

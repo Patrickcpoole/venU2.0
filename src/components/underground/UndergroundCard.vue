@@ -100,7 +100,7 @@
 
 <script>
 
-import CommentSection from './CommentSection.vue';
+import {CommentSection} from './CommentSection.vue';
 import {profileState} from "src/mixins/profileState";
 import {formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth} from 'src/utils/dateUtils'
 

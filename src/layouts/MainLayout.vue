@@ -52,7 +52,7 @@
       side="right"
 
     >
-    
+      <concert-sidebar-content />
     </q-drawer>
 
     <q-page-container>
@@ -87,15 +87,15 @@
 
 <script>
 
-import SidebarContent from "src/components/menu/SidebarContent";
-
+import {SidebarContent} from "src/components/menu/SidebarContent";
+import {ConcertSidebarContent} from "src/components/concerts/ConcertSidebarContent"
 import {menuState} from "../mixins/menuState"
 import {venuesState} from "src/mixins/venuesState";
 
 export default {
   name: 'MainLayout',
   mixins: [menuState, venuesState],
-  components: {SidebarContent},
+  components: {SidebarContent, ConcertSidebarContent},
   data() {
     return {
       toggleLeftMenu: false,

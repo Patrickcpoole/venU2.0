@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import MapMaker from "src/components/maps/MapMaker"
+import {MapMaker} from "src/components/maps/MapMaker"
 export default {
   name: "Maps",
   components:{MapMaker}
