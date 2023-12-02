@@ -7,6 +7,7 @@
 // https://v1.quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
 const ESLintPlugin = require('eslint-webpack-plugin')
+
 const env = require('quasar-dotenv').config()
 module.exports = function (/* ctx */) {
   return {
