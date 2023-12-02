@@ -1,62 +1,63 @@
 <template>
-  <div class="flex column justify-start items-center">
+  <div style="min-height:85vh">
+    <div v-if="loading" class="full-width full-height flex column justify-center items-center" style="min-height:85vh">
+      <q-spinner color="primary" size="100px" />
+    </div>
+    <div v-else class="full-width flex column justify-start items-center">
     <p class="text-center text-white q-mt-lg text-subtitle1">
-    {{ $q.platform.is.mobile ? 'Tap' : 'Click' }} a venue to view upcoming shows
-  </p>
+      {{ $q.platform.is.mobile ? "Tap" : "Click" }} a venue to view upcoming
+      shows
+    </p>
 
-      <button-dropdown @sort="sortVenues" :dropdown-buttons="dropdownButtons"/>
+    <button-dropdown @sort="sortVenues" :dropdown-buttons="dropdownButtons" />
 
     <div class="venue-grid">
       <div v-for="venue in sortedVenues" :key="venue.id">
-        <venue-card :venueData="venue"/>
+        <venue-card :venueData="venue" />
       </div>
     </div>
+  </div>
   </div>
 </template>
 
 <script>
-
-
 import VenueCard from "components/venues/VenueCard";
-import venuesState from "../mixins/venuesState"
-import spotifyState from "../mixins/spotifyState"
+import venuesState from "../mixins/venuesState";
+import spotifyState from "../mixins/spotifyState";
 import ButtonDropdown from "components/menu/ButtonDropdown.vue";
-
 
 // deploing to AWS
 export default {
   name: "Venues",
-  components: {VenueCard, ButtonDropdown},
+  components: { VenueCard, ButtonDropdown },
   mixins: [spotifyState, venuesState],
   data() {
     return {
+      loading: false,
       dropdownButtons: [
         {
-          label: 'Popularity',
-          value: 'popular'
+          label: "Popularity",
+          value: "popular",
         },
         {
-          label: 'Venue Name',
-          value: 'name'
+          label: "Venue Name",
+          value: "name",
         },
         {
-          label: 'Capacity',
-          value: 'capacity'
+          label: "Capacity",
+          value: "capacity",
         },
-
       ],
-      sortBy: 'popularity',
-
-    }
+      sortBy: "popularity",
+    };
   },
   computed: {
-
     sortedVenues() {
       let sorted = this.venues;
 
-      if (this.sortBy === 'name') {
+      if (this.sortBy === "name") {
         return sorted.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (this.sortBy === 'capacity') {
+      } else if (this.sortBy === "capacity") {
         return sorted.sort((a, b) => {
           const capacityA = parseInt(a.capacity, 10);
           const capacityB = parseInt(b.capacity, 10);
@@ -64,7 +65,12 @@ export default {
         });
       } else {
         // Custom sorting for specific venue names
-        const popularVenuesOrder = ['Red Rocks Ampitheatre', 'Mission Ballroom', 'Ball Arena', 'Empower Field at Mile High'];
+        const popularVenuesOrder = [
+          "Red Rocks Ampitheatre",
+          "Mission Ballroom",
+          "Ball Arena",
+          "Empower Field at Mile High",
+        ];
 
         return sorted.sort((a, b) => {
           const aIndex = popularVenuesOrder.indexOf(a.name);
@@ -82,34 +88,36 @@ export default {
           }
         });
       }
-    }
+    },
   },
   methods: {
     sortVenues(value) {
-      this.sortBy = value
+      this.sortBy = value;
     },
-
   },
   async mounted() {
+    this.loading = true;
 
     try {
-      await this.$store.dispatch('venues/saveSelectedVenue', null)
-      await this.$store.dispatch('venues/getVenuesData');
-      await this.$store.dispatch('underground/listPosts');
-       await this.$store.dispatch('profile/checkAllInteractions');
+      await this.$store.dispatch("venues/saveSelectedVenue", null);
+      await this.$store.dispatch("venues/getVenuesData");
+      await this.$store.dispatch("underground/listPosts");
+      await this.$store.dispatch("profile/checkAllInteractions");
 
       if (this.accessToken === null) {
-        await this.$store.dispatch('spotify/getAccessToken', this.$route.query);
-        await this.$store.dispatch('spotify/getSpotifyUserInfo', this.accessToken);
+        await this.$store.dispatch("spotify/getAccessToken", this.$route.query);
+        await this.$store.dispatch(
+          "spotify/getSpotifyUserInfo",
+          this.accessToken
+        );
       }
-
+      this.loading = false;
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
+      this.loading = false;
     }
   },
-
-
-}
+};
 </script>
 
 <style scoped>
@@ -121,13 +129,21 @@ export default {
 
 @media screen and (min-width: 768px) {
   .venue-grid {
-    grid-template-columns: repeat(2, 1fr); /* Two cards in a row on screens larger than 767px */
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Two cards in a row on screens larger than 767px */
   }
 }
 
 @media screen and (min-width: 1500px) {
   .venue-grid {
-    grid-template-columns: repeat(3, 1fr); /* Three cards in a row on screens larger than 1200px */
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); /* Three cards in a row on screens larger than 1200px */
   }
 }
+
+
 </style>
