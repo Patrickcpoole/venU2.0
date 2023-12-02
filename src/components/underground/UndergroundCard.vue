@@ -222,7 +222,7 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style scoped lang="sass">
 
 .event-date-rectangle {
   background-color: $primary; // Example color, you can adjust it as needed
