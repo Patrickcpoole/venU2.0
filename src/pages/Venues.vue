@@ -64,7 +64,7 @@ export default {
         });
       } else {
         // Custom sorting for specific venue names
-        const popularVenuesOrder = ['Red Rocks', 'Mission Ballroom', 'Ball Arena', 'Empower Field at Mile High'];
+        const popularVenuesOrder = ['Red Rocks Ampitheatre', 'Mission Ballroom', 'Ball Arena', 'Empower Field at Mile High'];
 
         return sorted.sort((a, b) => {
           const aIndex = popularVenuesOrder.indexOf(a.name);
