@@ -13,7 +13,7 @@
     "@aws-amplify/ui-vue": "^2.0.5",
     "@fortawesome/fontawesome-svg-core": "^6.5.0",
     "@fortawesome/free-solid-svg-icons": "^6.5.0",
-    "@fortawesome/vue-fontawesome": "^2.0.10",
+    "@fortawesome/vue-fontawesome": "^3.0.5",
     "@googlemaps/js-api-loader": "^1.13.8",
     "@quasar/extras": "^1.0.0",
     "@supercharge/strings": "^1.28.0",
@@ -25,7 +25,7 @@
     "quasar": "^1.0.0",
     "quasar-dotenv": "^1.0.5",
     "spotify-web-api-node": "^5.0.2",
-    "vuex-persistedstate": "^4.1.0"
+    "vuex-persistedstate": "^3.2.1"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",
