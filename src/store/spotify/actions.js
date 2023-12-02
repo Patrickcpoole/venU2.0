@@ -21,6 +21,7 @@ export async function spotifyAuth(context) {
   console.log('redirect uri', REDIRECT_URI)
   let url = AUTHORIZE
   console.log('client id', CLIENT_ID)
+  console.log('CLIENT_SECRET', CLIENT_SECRET)
   url += "?client_id=" + CLIENT_ID;
   url += "&response_type=code";
   url += "&redirect_uri=" + encodeURI(REDIRECT_URI)
@@ -32,6 +33,7 @@ export async function spotifyAuth(context) {
 }
 
 export function getAccessToken(context, query) {
+  console.log('CLIENT_SECRET', CLIENT_SECRET)
   return new Promise((resolve, reject) => {
     fetchAccessToken(query);
 

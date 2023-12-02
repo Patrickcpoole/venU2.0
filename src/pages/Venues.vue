@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     sortedVenues() {
-      let sorted = this.venues;
+      let sorted = [...(this.venues || [])];
 
       if (this.sortBy === "name") {
         return sorted.sort((a, b) => a.name.localeCompare(b.name));

@@ -54,14 +54,7 @@ export default {
     ...mapActions({
       loginVue: "auth/login"
     }),
-    loginSpotify() {
-      fetch('http://localhost:3000/login/')
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-        })
-        .catch(console.log('error'));
-     },
+
     async login(){
       console.log('did this login fire?')
       try {
