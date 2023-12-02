@@ -1,6 +1,6 @@
 import {mapGetters} from 'vuex'
 
-export const profileState = {
+const profileState = {
 
   computed: {
     ...mapGetters({
@@ -12,3 +12,5 @@ export const profileState = {
     })
   }
 }
+
+export default profileState;

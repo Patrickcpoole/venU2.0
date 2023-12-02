@@ -51,7 +51,7 @@
 
 
 
-import {authState} from "src/mixins/authState";
+import authState from "src/mixins/authState";
 import EssentialLink from './EssentialLink'
 import {route} from "quasar/wrappers";
 

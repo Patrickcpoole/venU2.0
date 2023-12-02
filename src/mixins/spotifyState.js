@@ -1,5 +1,6 @@
 import {mapGetters} from 'vuex'
-export const spotifyState = {
+
+const spotifyState = {
 
   computed: {
     ...mapGetters({
@@ -11,3 +12,5 @@ export const spotifyState = {
     })
   }
 }
+
+export default spotifyState;

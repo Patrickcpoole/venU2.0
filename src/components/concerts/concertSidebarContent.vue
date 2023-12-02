@@ -137,10 +137,10 @@
 
 <script>
 
-import {spotifyState} from "src/mixins/spotifyState";
-import {menuState} from "src/mixins/menuState"
-import {profileState} from "src/mixins/profileState"
-import {venuesState} from "src/mixins/venuesState";
+import spotifyState from "src/mixins/spotifyState";
+import menuState from "src/mixins/menuState"
+import profileState from "src/mixins/profileState"
+import venuesState from "src/mixins/venuesState";
 
 export default {
   name: "concertSidebarContent.vue",

@@ -87,10 +87,10 @@
 
 <script>
 
-import {SidebarContent} from "src/components/menu/SidebarContent";
-import {ConcertSidebarContent} from "src/components/concerts/ConcertSidebarContent"
-import {menuState} from "../mixins/menuState"
-import {venuesState} from "src/mixins/venuesState";
+import SidebarContent from "src/components/menu/SidebarContent";
+import ConcertSidebarContent from "src/components/concerts/ConcertSidebarContent"
+import menuState from "../mixins/menuState"
+import venuesState from "src/mixins/venuesState";
 
 export default {
   name: 'MainLayout',

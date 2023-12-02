@@ -54,7 +54,7 @@
 <script>
 import CommentSection from './CommentSection.vue';
 import {formatPostedDateComment} from 'src/utils/dateUtils'
-import {undergroundState} from "src/mixins/undergroundState";
+import undergroundState from "src/mixins/undergroundState";
 
 export default {
   name: 'Comment',

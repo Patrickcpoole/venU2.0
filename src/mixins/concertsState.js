@@ -1,6 +1,6 @@
 import {mapGetters} from 'vuex'
 
-export const concertsState = {
+const concertsState = {
 
   computed: {
     ...mapGetters({
@@ -8,3 +8,5 @@ export const concertsState = {
     })
   }
 }
+
+export default concertsState;

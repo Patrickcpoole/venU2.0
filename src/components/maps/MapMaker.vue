@@ -8,7 +8,7 @@
 // Import Vue if not already imported
 import Vue from 'vue';
 import InfoWindowContent from './InfoWindow.vue';
-import {venuesState} from "src/mixins/venuesState";
+import venuesState from "src/mixins/venuesState";
 
 export default {
   name: "MapMaker",

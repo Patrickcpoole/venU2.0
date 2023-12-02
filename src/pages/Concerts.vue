@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import {concertsState} from "src/mixins/concertsState";
-import {venuesState} from "src/mixins/venuesState"
+import concertsState from "src/mixins/concertsState";
+import venuesState from "src/mixins/venuesState"
 import ConcertCard from "components/concerts/ConcertCard";
 import {checkIfAfterToday} from "src/utils/dateUtils";
 import ButtonDropdown from "components/menu/ButtonDropdown.vue";

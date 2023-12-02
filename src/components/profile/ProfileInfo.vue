@@ -26,8 +26,8 @@
 <script>
 
 
-import {spotifyState} from "src/mixins/spotifyState"
-import {authState} from "src/mixins/authState"
+import spotifyState from "src/mixins/spotifyState"
+import authState from "src/mixins/authState"
 
 
 export default {

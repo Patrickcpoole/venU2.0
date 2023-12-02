@@ -18,10 +18,10 @@
 
 
 import VenueCard from "components/venues/VenueCard";
-import {venuesState} from "../mixins/venuesState"
-import {spotifyState} from "../mixins/spotifyState"
+import venuesState from "../mixins/venuesState"
+import spotifyState from "../mixins/spotifyState"
 import ButtonDropdown from "components/menu/ButtonDropdown.vue";
-import {date} from "quasar";
+
 
 // deploing to AWS
 export default {

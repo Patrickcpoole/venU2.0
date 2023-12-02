@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import {profileState} from "src/mixins/profileState";
-import {menuState} from "src/mixins/menuState";
+import profileState from "src/mixins/profileState";
+import menuState from "src/mixins/menuState";
 import ConcertCard from "src/components/concerts/ConcertCard";
 import UndergroundCard from "components/underground/UndergroundCard.vue";
 

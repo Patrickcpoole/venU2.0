@@ -1,6 +1,6 @@
 import {mapGetters} from 'vuex'
 
-export const authState = {
+const authState = {
 
   computed: {
     ...mapGetters({
@@ -8,3 +8,5 @@ export const authState = {
     })
   }
 }
+
+export default authState;

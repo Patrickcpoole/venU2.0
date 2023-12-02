@@ -21,7 +21,7 @@
 
 import ProfileInfo from "components/profile/ProfileInfo.vue"
 import MyShows from "src/components/profile/MyShows"
-import {spotifyState} from "src/mixins/spotifyState";
+import spotifyState from "src/mixins/spotifyState";
 
 export default {
   name: "Profile",

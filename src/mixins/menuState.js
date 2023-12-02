@@ -1,6 +1,6 @@
 import {mapGetters} from 'vuex'
 
-export const menuState = {
+const menuState = {
   // mounted() {
   //   if (!this.isLoggedIn) {
   //     this.$router.push('/login/')
@@ -14,3 +14,5 @@ export const menuState = {
     })
   }
 }
+
+export default menuState;
