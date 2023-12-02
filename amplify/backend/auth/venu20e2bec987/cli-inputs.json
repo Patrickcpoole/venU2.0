@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "venu204e82c6ae_identitypool_4e82c6ae",
+    "identityPoolName": "venu20e2bec987_identitypool_e2bec987",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "venu204e82c6ae",
-    "userPoolName": "venu204e82c6ae_userpool_4e82c6ae",
+    "resourceNameTruncated": "venu20e2bec987",
+    "userPoolName": "venu20e2bec987_userpool_e2bec987",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,29 +31,15 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "venu204e82c6ae_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "venu20e2bec987_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "4e82c6ae",
-    "resourceName": "venu204e82c6ae",
+    "sharedId": "e2bec987",
+    "resourceName": "venu20e2bec987",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "useEnabledMfas": true,
-    "authRoleArn": {
-      "Fn::GetAtt": [
-        "AuthRole",
-        "Arn"
-      ]
-    },
-    "unauthRoleArn": {
-      "Fn::GetAtt": [
-        "UnauthRole",
-        "Arn"
-      ]
-    },
-    "breakCircularDependency": true,
-    "dependsOn": []
+    "useEnabledMfas": true
   }
 }
