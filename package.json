@@ -22,7 +22,6 @@
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
     "dotenv": "^16.0.1",
-    "graphql-tag": "^2.12.6",
     "quasar": "^1.17.0",
     "quasar-dotenv": "^1.0.5",
     "spotify-web-api-node": "^5.0.2"
