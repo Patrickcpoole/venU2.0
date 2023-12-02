@@ -26,7 +26,7 @@ import venuesState from "../mixins/venuesState";
 import spotifyState from "../mixins/spotifyState";
 import ButtonDropdown from "components/menu/ButtonDropdown.vue";
 
-// deploing to AWS!
+// deploing
 export default {
   name: "Venues",
   components: { VenueCard, ButtonDropdown },
