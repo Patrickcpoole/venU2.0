@@ -87,8 +87,8 @@
 
 <script>
 
-import SidebarContent from "components/menu/SidebarContent";
-import ConcertSidebarContent from "components/concerts/ConcertSidebarContent"
+import SidebarContent from "src/components/menu/SidebarContent";
+import ConcertSidebarContent from "src/components/concerts/ConcertSidebarContent"
 import {menuState} from "../mixins/menuState"
 import {venuesState} from "src/mixins/venuesState";
 
