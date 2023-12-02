@@ -257,81 +257,81 @@ export default {
 <style scoped lang="sass">
 
 .info-label 
-  color: $primary;
-  font-size: 1.25em;
-  font-weight: bold;
+  color: $primary
+  font-size: 1.25em
+  font-weight: bold
 
 
 .sidebar-container 
-  background-color: #222326;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  flex-grow: 1;
+  background-color: #222326
+  width: 100%
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  flex-grow: 1
 
 
 .concert-card 
-  width: 100%;
-  height: 20%;
-  display: flex;
-  background-color: #1D1D1D;
-  color: #fff;
+  width: 100%
+  height: 20%
+  display: flex
+  background-color: #1D1D1D
+  color: #fff
 
 
 
 .info-container 
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  color: #fff;
-  text-align: center;
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  color: #fff
+  text-align: center
 
 
 
 .right-info 
-  padding-top: 2.5%;
-  height: 100%;
-  padding-right: 5%;
+  padding-top: 2.5%
+  height: 100%
+  padding-right: 5%
 
 
 .button-container 
-  background-color: #222;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-  border-bottom-right-radius: 5px;
-  margin-top: 25px;
+  background-color: #222
+  width: 100%
+  display: flex
+  flex-direction: row
+  justify-content: space-evenly
+  align-items: center
+  flex-wrap: wrap
+  border-bottom-right-radius: 5px
+  margin-top: 25px
 
 
 .icon-container 
-  width: 30%;
-  height: 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #333;
-  padding: 5%;
-  cursor: pointer;
+  width: 30%
+  height: 50px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  background-color: #333
+  padding: 5%
+  cursor: pointer
 
 
 .icon-text 
-  margin-top: 5px;
-  font-size: .8em;
-  color: #fff;
+  margin-top: 5px
+  font-size: .8em
+  color: #fff
 
 
 .song-playback 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
 
 
 
