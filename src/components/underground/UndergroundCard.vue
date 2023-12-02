@@ -225,7 +225,7 @@ export default {
 <style scoped>
 
 .event-date-rectangle {
-  background-color: $primary;
+  background-color: #3B3B3B;
   color: #fff;
   padding: 8px;
   border-radius: 0 5px 0 5px;
