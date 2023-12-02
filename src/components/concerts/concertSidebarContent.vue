@@ -104,7 +104,7 @@
                 <q-item-label class="text-white" style="font-size: 0.8em">Sample top songs</q-item-label>
               </q-item-section>
             </template>
-            <q-list dark bordered separator v-for="(topTrack, index) in topTracks" :key=index>
+            <!-- <q-list dark bordered separator v-for="(topTrack, index) in topTracks" :key=index>
               <q-item dark class="song-playback"
                       style=" display: flex; flex-direction: column; justify-content: center; align-items: center">
 
@@ -125,7 +125,7 @@
                     track-language="English"/>
                 </q-item-section>
               </q-item>
-            </q-list>
+            </q-list> -->
 
           </q-expansion-item>
         </q-list>
