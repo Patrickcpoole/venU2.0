@@ -143,7 +143,7 @@ import {profileState} from "src/mixins/profileState"
 import {venuesState} from "src/mixins/venuesState";
 
 export default {
-  name: "concertSidebarContent.vue",
+  name: "ConcertSidebarContent",
   mixins: [spotifyState, menuState, profileState, venuesState],
 
   mounted() {
