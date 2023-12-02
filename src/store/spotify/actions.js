@@ -5,7 +5,7 @@ import axios from 'axios'
 
 const CLIENT_ID = process.env.VUE_APP_SPOTIFY_CLIENT_ID.replace(/['"]+/g, '')
 const CLIENT_SECRET = process.env.VUE_APP_SPOTIFY_CLIENT_SECRET.replace(/['"]+/g, '')
-let REDIRECT_URI = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_SPOTIFY_REDIRECT_URI_PROD : process.env.VUE_APP_SPOTIFY_REDIRECT_URI_LOCAL;
+let REDIRECT_URI = process.env.NODE_ENV === 'production' ? process.env.VUE_APP_SPOTIFY_REDIRECT_URI : 'http://localhost:8080/venues'
 
 console.log('redirect uri', REDIRECT_URI)
 REDIRECT_URI = REDIRECT_URI.replace(/['"]+/g, '');
