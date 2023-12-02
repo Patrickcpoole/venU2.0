@@ -222,82 +222,77 @@ export default {
 };
 </script>
 
-<style scoped lang="sass">
+<style scoped>
 
-.event-date-rectangle 
-  background-color: $primary
-  color: #fff
-  padding: 8px
-  border-radius: 0 5px 0 5px
-  font-size: 1em
-  position: absolute
-  top: 0
-  right: 0
-  display: flex
-  flex-direction: column
-  justify-content: space-between
-  align-items: center
+.event-date-rectangle {
+  background-color: $primary;
+  color: #fff;
+  padding: 8px;
+  border-radius: 0 5px 0 5px;
+  font-size: 1em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.day-of-week {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-right: 5px;
+}
 
-.day-of-week 
-  font-size: 1.5em
-  font-weight: bold
-  margin-right: 5px
+.day-of-month {
+  font-size: 1.25em;
+}
 
+.month {
+  font-size: 1em;
+}
 
-.day-of-month 
-  font-size: 1.25em
+.underground-card {
+  background-color: #555555;
+  color: #fff;
+  margin-bottom: 20px;
+}
 
+.top-info {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 75px;
+  width: 100%;
+}
 
-.month 
-  font-size: 1em
+.like-count {
+  margin-left: 8px;
+  font-size: 14px;
+}
 
+.comment-section {
+  background-color: #333333;
+  padding: 10px;
+}
 
-.underground-card 
-  background-color: #555555
-  color: #fff
-  margin-bottom: 20px
+.custom-button {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
+.custom-button:hover {
+  background-color: #999999;
+}
 
-
-.top-info 
-  display: flex
-  align-items: flex-start
-  justify-content: space-between
-  height: 75px
-  width: 100%
-
-
-
-
-.like-count 
-  margin-left: 8px
-  font-size: 14px
-
-
-.comment-section 
-  background-color: #333333
-  padding: 10px
-
-
-
-
-.custom-button 
-  cursor: pointer
-  transition: background-color 0.3s
-
-  &:hover 
-    background-color: #999999
-  
-
-
-.user-comment-section 
-  display: flex
-  flex-direction: row
-  justify-content: space-between
-  background-color: #333
-  padding: 10px
-  margin-top: 10px
-
+.user-comment-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 10px;
+  margin-top: 10px;
+}
 
 </style>

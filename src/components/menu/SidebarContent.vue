@@ -126,37 +126,40 @@ export default {
 }
 </script>
 
-<style scoped lang="sass">
-.sidebar-container 
-  border:0
-  background: $background
-  display: flex
-  flex-direction: column
-  justify-content: flex-start
-  align-items: center
-  width: 100%
-  height: 100%
+<style scoped >
+.sidebar-container  {
+  border:0;
+  background: #3B3B3B;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
 
 
-.avatar 
-  width: 3.5em
-  height: 3.5em
-  margin-top: 10%
-  display: flex
-  justify-content: center
-  align-items: center
+.avatar {
+  width: 3.5em;
+  height: 3.5em;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 
+.name {
+  text-align: center;
+  font-size: 2em;
+  margin-top: 5%;
+}
 
-.name 
-  text-align: center
-  font-size: 2em
-  margin-top: 5%
 
-
-.parent 
-  font-size: 1.25em
-  color: #777
-  margin-top: -5%
+.parent {
+  font-size: 1.25em;
+  color: #777;
+  margin-top: -5%;
+}
 
 </style>
