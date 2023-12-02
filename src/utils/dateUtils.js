@@ -1,10 +1,16 @@
-import {date} from "quasar";
+import { date } from "quasar";
 
 export function checkIfAfterToday(date) {
   const today = new Date();
   const eventDate = new Date(date);
 
   return eventDate > today;
+}
+
+export function formatEventTime(timeStamp) {
+  const eventDate = new Date(timeStamp)
+  const formattedTime = date.formatDate(eventDate, "h:mmA");
+  return formattedTime;
 }
 
 export function formatPostedDate(timeStamp) {
@@ -19,18 +25,20 @@ export function formatPostedDate(timeStamp) {
 
   let unit;
   if (timeDiffInMilliseconds < minuteThreshold) {
-    unit = 'seconds';
+    unit = "seconds";
   } else if (timeDiffInMilliseconds < hourThreshold) {
-    unit = 'minutes';
+    unit = "minutes";
   } else if (timeDiffInMilliseconds < dayThreshold) {
-    unit = 'hours';
+    unit = "hours";
   } else {
-    unit = 'days'
+    unit = "days";
   }
 
   const diff = date.getDateDiff(date1, date2, unit);
 
-  return diff === 1 ? diff + ' ' + unit.slice(0, -1) + ' ago' : diff + ' ' + unit + ' ago';
+  return diff === 1
+    ? diff + " " + unit.slice(0, -1) + " ago"
+    : diff + " " + unit + " ago";
 }
 
 export function formatPostedDateComment(timeStamp) {
@@ -45,31 +53,31 @@ export function formatPostedDateComment(timeStamp) {
 
   let unit;
   if (timeDiffInMilliseconds < minuteThreshold) {
-    unit = 'seconds';
+    unit = "seconds";
   } else if (timeDiffInMilliseconds < hourThreshold) {
-    unit = 'minutes';
+    unit = "minutes";
   } else if (timeDiffInMilliseconds < dayThreshold) {
-    unit = 'hours';
+    unit = "hours";
   } else {
-    unit = 'days'
+    unit = "days";
   }
 
   const diff = date.getDateDiff(date1, date2, unit);
 
-  return `${diff} ${unit.slice(0, 1)}`
+  return `${diff} ${unit.slice(0, 1)}`;
 }
 
 export function formatEventDayOfWeek(eventDate) {
   // Extract and format the day of the week
-  return date.formatDate(new Date(eventDate), 'ddd');
+  return date.formatDate(new Date(eventDate), "ddd");
 }
 
 export function formatEventDayOfMonth(eventDate) {
   // Extract and format the day of the month
-  return date.formatDate(new Date(eventDate), 'Do');
+  return date.formatDate(new Date(eventDate), "Do");
 }
 
 export function formatEventMonth(eventDate) {
   // Extract and format the month
-  return date.formatDate(new Date(eventDate), 'MMMM');
+  return date.formatDate(new Date(eventDate), "MMMM");
 }

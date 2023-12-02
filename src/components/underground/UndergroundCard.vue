@@ -10,6 +10,7 @@
           <div class="flex column justify-center q-ml-md full-height">
             <span class="text-h5">{{ postData.userName }}</span>
             <span style="font-size: 1em">{{ formatPostedDate(postData.datePosted) }}</span>
+            
           </div>
         </div>
         <div class="event-date-rectangle">
@@ -18,6 +19,7 @@
             <div class="day-of-month">{{ formatEventDayOfMonth(postData.eventDate) }}</div>
           </div>
           <div class="month">{{ formatEventMonth(postData.eventDate) }}</div>
+          <div class="month">{{ formatEventTime(postData.eventDate) }}</div>
         </div>
       </div>
     </q-card-section>
@@ -39,7 +41,7 @@
       <div class="like-count flex row justify-between items-center">
 
 
-        <template v-if="postData.likes > 0">
+        <template v-if="postData.likedBy && postData.likedBy.length > 0">
           <span v-if="postData.likes === 1">
               <font-awesome-icon :icon="['fas', 'guitar']" style="font-size: 18px; padding-right: 8px;"/>
       {{ postData.likedBy[0] }} thinks this rocks
@@ -102,7 +104,7 @@
 
 import CommentSection from './CommentSection.vue';
 import profileState from "src/mixins/profileState";
-import {formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth} from 'src/utils/dateUtils'
+import {formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth, formatEventTime} from 'src/utils/dateUtils'
 
 export default {
   name: "UndergroundCard",
@@ -129,10 +131,10 @@ export default {
   computed: {},
 
   methods: {
-    formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth,
-    isLiked(postData) {
-      return postData.likedBy ? postData.likedBy.includes(this.$store.state.auth.user.username) : false
-    },
+    formatPostedDate, formatEventDayOfWeek, formatEventDayOfMonth, formatEventMonth, formatEventTime,
+   isLiked(postData) {
+    return postData.likedBy && postData.likedBy.length > 0 && postData.likedBy.includes(this.$store.state.auth.user.username);
+  },
     isSaved(postData) {
       return this.interactions.find(event => event.concertId === postData.id) ? 'primary' : ''
     },
@@ -257,6 +259,21 @@ export default {
   background-color: #555555;
   color: #fff;
   margin-bottom: 20px;
+  max-width: 500px; /* Maximum width for larger screens */
+  width: 100%; /* Full width on smaller screens */
+  box-sizing: border-box; /* Ensures padding and borders are included in the width */
+}
+
+@media screen and (min-width: 600px) {
+  .underground-card {
+    width: 80%; /* Slightly smaller width on medium screens */
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .underground-card {
+    width: 60%; /* Even smaller width on large screens */
+  }
 }
 
 .top-info {
