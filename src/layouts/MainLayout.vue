@@ -58,7 +58,7 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-       <q-footer elevated v-if="$q.platform.is.mobile">
+       <q-footer elevated v-if="$q.platform.is.mobile && $route.path !== '/' && $route.path !== '/signup'">
       <q-tabs
         dense
         align="justify"
@@ -69,7 +69,7 @@
         <q-route-tab name="profile" to="/profile" icon="account_circle" label="Profile"/>
       </q-tabs>
     </q-footer>
-     <q-footer elevated v-if="!$q.platform.is.mobile">
+     <q-footer elevated v-if="!$q.platform.is.mobile && $route.path !== '/' && $route.path !== '/signup'">
       <q-tabs
         dense
         align="justify"
@@ -88,7 +88,7 @@
 <script>
 
 import SidebarContent from "src/components/menu/SidebarContent";
-import ConcertSidebar from "src/components/ConcertSidebar";
+import ConcertSidebar from "src/components/concerts/ConcertSidebar";
 import menuState from "../mixins/menuState";
 import venuesState from "src/mixins/venuesState";
 

@@ -21,32 +21,32 @@ export default {
       currentVenue: null,
       venuesKey: [
         {
-          id: "784caccf-dc9f-4b1e-899b-fdb264d0d896",
+          id: "f79d5ac8-9148-4727-950c-f40a8faa8cac",
           coordinates: {lat: 39.7789661, lng: -104.9713729},
           address: 'The Mission Ballroom, 4242 Wynkoop St, Denver, CO 80216'
         },
         {
-          id: "7fd56786-a61a-4b81-b59d-cd4209d26e49",
+          id: "dd11c961-80d0-4b77-a2eb-f81d7ed5fd9e",
           coordinates: {lat: 39.6655422, lng: -105.2077865},
           address: 'Red Rocks Park and Amphitheatre, 18300 W Alameda Pkwy, Morrison, CO 80465'
         },
         {
-          id: "26eb5821-0ed7-4963-88ca-99e0e42f6777",
+          id: "bd7e22df-f0e4-4a9d-9b52-11655d4e49e6",
           coordinates: {lat: 39.7401744, lng: -104.9801406},
           address: 'Ogden Theatre, 935 E Colfax Ave, Denver, CO 80218'
         },
         {
-          id: "596fb9c1-6101-4036-a92a-ca643d3f654f",
+          id: "0e46c338-9121-4e79-8767-6dc25cc2abf7",
           coordinates: {lat: 39.750284, lng: -105.015023},
           address: 'Ball Arena, 1000 Chopper Cir, Denver, CO 80204'
         },
         {
-          id: "055c7f53-0f98-4852-bb2c-e8d64609b95d",
+          id: "42fc91a7-c41b-48cb-abee-15980b9c1204",
           coordinates: {lat: 39.764248, lng: -105.0262499},
           address: 'Empower Field, 1701 Bryant St, Denver, CO 80204'
         },
          {
-          id: "a26b94fe-3dcc-4361-a717-ed709c542354",
+          id: "c94a3593-bd4b-4ce9-8294-ccfd6fd0c1cb",
           coordinates: {lat: 39.7402069, lng: -104.9821103},
           address: 'Fillmore Auditorium, 1510 N Clarkson St, Denver, CO 80218'
         },

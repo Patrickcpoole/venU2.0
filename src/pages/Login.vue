@@ -17,14 +17,15 @@
         :rules="[ val => val && val.length > 0 || 'Please type something']"
       />
 
-      <q-input
-        filled
-        v-model="password"
-        label="Password"
-        lazy-rules
-        dark
-
-      />
+      <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'"  dark>
+        <template v-slot:append>
+          <q-icon
+            :name="isPwd ? 'visibility_off' : 'visibility'"
+            class="cursor-pointer"
+            @click="isPwd = !isPwd"
+          />
+        </template>
+      </q-input>
 
       <div>
         <q-btn label="Login" type="submit" color="primary" style="width: 100%; margin-top: 15px;"/>
@@ -46,6 +47,7 @@ export default {
     return {
       username: '',
       password: '',
+      isPwd: true,
       email: '',
       error: ' '
     }
