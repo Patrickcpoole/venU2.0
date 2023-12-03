@@ -2,11 +2,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateVenue = /* GraphQL */ `
-  subscription OnCreateVenue(
-    $filter: ModelSubscriptionVenueFilterInput
-    $owner: String
-  ) {
-    onCreateVenue(filter: $filter, owner: $owner) {
+  subscription OnCreateVenue($filter: ModelSubscriptionVenueFilterInput) {
+    onCreateVenue(filter: $filter) {
       id
       name
       location
@@ -18,17 +15,13 @@ export const onCreateVenue = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onUpdateVenue = /* GraphQL */ `
-  subscription OnUpdateVenue(
-    $filter: ModelSubscriptionVenueFilterInput
-    $owner: String
-  ) {
-    onUpdateVenue(filter: $filter, owner: $owner) {
+  subscription OnUpdateVenue($filter: ModelSubscriptionVenueFilterInput) {
+    onUpdateVenue(filter: $filter) {
       id
       name
       location
@@ -40,17 +33,13 @@ export const onUpdateVenue = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onDeleteVenue = /* GraphQL */ `
-  subscription OnDeleteVenue(
-    $filter: ModelSubscriptionVenueFilterInput
-    $owner: String
-  ) {
-    onDeleteVenue(filter: $filter, owner: $owner) {
+  subscription OnDeleteVenue($filter: ModelSubscriptionVenueFilterInput) {
+    onDeleteVenue(filter: $filter) {
       id
       name
       location
@@ -62,17 +51,13 @@ export const onDeleteVenue = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onCreateConcert = /* GraphQL */ `
-  subscription OnCreateConcert(
-    $filter: ModelSubscriptionConcertFilterInput
-    $owner: String
-  ) {
-    onCreateConcert(filter: $filter, owner: $owner) {
+  subscription OnCreateConcert($filter: ModelSubscriptionConcertFilterInput) {
+    onCreateConcert(filter: $filter) {
       id
       artistName
       openers
@@ -87,17 +72,13 @@ export const onCreateConcert = /* GraphQL */ `
       createdAt
       updatedAt
       venueConcertsId
-      owner
       __typename
     }
   }
 `;
 export const onUpdateConcert = /* GraphQL */ `
-  subscription OnUpdateConcert(
-    $filter: ModelSubscriptionConcertFilterInput
-    $owner: String
-  ) {
-    onUpdateConcert(filter: $filter, owner: $owner) {
+  subscription OnUpdateConcert($filter: ModelSubscriptionConcertFilterInput) {
+    onUpdateConcert(filter: $filter) {
       id
       artistName
       openers
@@ -112,17 +93,13 @@ export const onUpdateConcert = /* GraphQL */ `
       createdAt
       updatedAt
       venueConcertsId
-      owner
       __typename
     }
   }
 `;
 export const onDeleteConcert = /* GraphQL */ `
-  subscription OnDeleteConcert(
-    $filter: ModelSubscriptionConcertFilterInput
-    $owner: String
-  ) {
-    onDeleteConcert(filter: $filter, owner: $owner) {
+  subscription OnDeleteConcert($filter: ModelSubscriptionConcertFilterInput) {
+    onDeleteConcert(filter: $filter) {
       id
       artistName
       openers
@@ -137,17 +114,13 @@ export const onDeleteConcert = /* GraphQL */ `
       createdAt
       updatedAt
       venueConcertsId
-      owner
       __typename
     }
   }
 `;
 export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost(
-    $filter: ModelSubscriptionPostFilterInput
-    $owner: String
-  ) {
-    onCreatePost(filter: $filter, owner: $owner) {
+  subscription OnCreatePost($filter: ModelSubscriptionPostFilterInput) {
+    onCreatePost(filter: $filter) {
       id
       userName
       profilePicture
@@ -165,17 +138,13 @@ export const onCreatePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost(
-    $filter: ModelSubscriptionPostFilterInput
-    $owner: String
-  ) {
-    onUpdatePost(filter: $filter, owner: $owner) {
+  subscription OnUpdatePost($filter: ModelSubscriptionPostFilterInput) {
+    onUpdatePost(filter: $filter) {
       id
       userName
       profilePicture
@@ -193,17 +162,13 @@ export const onUpdatePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost(
-    $filter: ModelSubscriptionPostFilterInput
-    $owner: String
-  ) {
-    onDeletePost(filter: $filter, owner: $owner) {
+  subscription OnDeletePost($filter: ModelSubscriptionPostFilterInput) {
+    onDeletePost(filter: $filter) {
       id
       userName
       profilePicture
@@ -221,17 +186,13 @@ export const onDeletePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
 `;
 export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment(
-    $filter: ModelSubscriptionCommentFilterInput
-    $owner: String
-  ) {
-    onCreateComment(filter: $filter, owner: $owner) {
+  subscription OnCreateComment($filter: ModelSubscriptionCommentFilterInput) {
+    onCreateComment(filter: $filter) {
       id
       text
       userId
@@ -248,17 +209,13 @@ export const onCreateComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
-      owner
       __typename
     }
   }
 `;
 export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment(
-    $filter: ModelSubscriptionCommentFilterInput
-    $owner: String
-  ) {
-    onUpdateComment(filter: $filter, owner: $owner) {
+  subscription OnUpdateComment($filter: ModelSubscriptionCommentFilterInput) {
+    onUpdateComment(filter: $filter) {
       id
       text
       userId
@@ -275,17 +232,13 @@ export const onUpdateComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
-      owner
       __typename
     }
   }
 `;
 export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment(
-    $filter: ModelSubscriptionCommentFilterInput
-    $owner: String
-  ) {
-    onDeleteComment(filter: $filter, owner: $owner) {
+  subscription OnDeleteComment($filter: ModelSubscriptionCommentFilterInput) {
+    onDeleteComment(filter: $filter) {
       id
       text
       userId
@@ -302,7 +255,6 @@ export const onDeleteComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
-      owner
       __typename
     }
   }
@@ -310,9 +262,8 @@ export const onDeleteComment = /* GraphQL */ `
 export const onCreateUserShowInteraction = /* GraphQL */ `
   subscription OnCreateUserShowInteraction(
     $filter: ModelSubscriptionUserShowInteractionFilterInput
-    $owner: String
   ) {
-    onCreateUserShowInteraction(filter: $filter, owner: $owner) {
+    onCreateUserShowInteraction(filter: $filter) {
       id
       userId
       concertId
@@ -320,7 +271,6 @@ export const onCreateUserShowInteraction = /* GraphQL */ `
       createdAt
       updatedAt
       concertInteractionsId
-      owner
       __typename
     }
   }
@@ -328,9 +278,8 @@ export const onCreateUserShowInteraction = /* GraphQL */ `
 export const onUpdateUserShowInteraction = /* GraphQL */ `
   subscription OnUpdateUserShowInteraction(
     $filter: ModelSubscriptionUserShowInteractionFilterInput
-    $owner: String
   ) {
-    onUpdateUserShowInteraction(filter: $filter, owner: $owner) {
+    onUpdateUserShowInteraction(filter: $filter) {
       id
       userId
       concertId
@@ -338,7 +287,6 @@ export const onUpdateUserShowInteraction = /* GraphQL */ `
       createdAt
       updatedAt
       concertInteractionsId
-      owner
       __typename
     }
   }
@@ -346,9 +294,8 @@ export const onUpdateUserShowInteraction = /* GraphQL */ `
 export const onDeleteUserShowInteraction = /* GraphQL */ `
   subscription OnDeleteUserShowInteraction(
     $filter: ModelSubscriptionUserShowInteractionFilterInput
-    $owner: String
   ) {
-    onDeleteUserShowInteraction(filter: $filter, owner: $owner) {
+    onDeleteUserShowInteraction(filter: $filter) {
       id
       userId
       concertId
@@ -356,7 +303,6 @@ export const onDeleteUserShowInteraction = /* GraphQL */ `
       createdAt
       updatedAt
       concertInteractionsId
-      owner
       __typename
     }
   }

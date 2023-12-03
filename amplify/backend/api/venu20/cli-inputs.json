@@ -10,6 +10,12 @@
     "additionalAuthTypes": [
       {
         "mode": "AWS_IAM"
+      },
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2024-12-02T19:45:30.205Z",
+        "keyDescription": "venu user api key"
       }
     ],
     "conflictResolution": {}

@@ -66,7 +66,7 @@
       />
 
       <div>
-        <q-btn label="Confirm" type="submit" color="primary"/>
+        <q-btn label="Confirm" type="submit" color="primary" />
       </div>
     </q-form>
 
@@ -122,6 +122,7 @@ export default {
           email: this.email
         })
 
+        this.codeToggle = true
 
       } catch (error) {
         this.error = error
@@ -142,7 +143,7 @@ export default {
           username: this.username,
           password: this.password
         })
-        this.$router.push('/venues')
+        await this.$router.push('/venues')
       } catch (error) {
         this.error = error
       }

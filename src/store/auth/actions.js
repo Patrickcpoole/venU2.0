@@ -1,4 +1,5 @@
 import {Auth} from "aws-amplify"
+import { Notify } from 'quasar';
 
 export async function logout({commit}) {
 
@@ -21,23 +22,45 @@ export async function login({commit, dispatch}, {username, password}) {
     await Auth.signIn({
       username,
       password
-    })
+    });
 
-    dispatch('spotify/spotifyAuth', {}, {root: true})
+    // Dispatch Spotify authentication and wait for it to complete
+    const spotifyAuthResult = await dispatch('spotify/spotifyAuth', {}, {root: true});
 
-    const userInfo = await Auth.currentUserInfo();
+    // Check if Spotify authentication was successful
+    if (spotifyAuthResult === "Spotify Auth Success") {
+      const userInfo = await Auth.currentUserInfo();
+      commit('setUser', userInfo);
 
+      // Navigate to venues only after successful Spotify authentication
+      await this.$router.push('/venues');
+    } else {
+      // Handle Spotify authentication failure
+      Notify.create({
+        type: 'negative',
+        message: 'Spotify authentication failed. Please try again.'
+      });
+    }
 
-    commit('setUser', userInfo)
-
-    await this.$router.push('/venues')
-    return Promise.resolve("Login Success")
+    return Promise.resolve("Login Success");
 
   } catch (err) {
-    console.log(err)
-    return Promise.reject(err)
+    if (err && err.code === 'UserNotFoundException') {
+      Notify.create({
+        type: 'negative',
+        message: 'User not found. Please check your username and try again.'
+      });
+    } else {
+      Notify.create({
+        type: 'negative',
+        message: 'An error occurred during login. Please try again or contact support.'
+      });
+    }
+    console.log(err);
+    return Promise.reject(err);
   }
 }
+
 
 export async function confirmSignUp(_, {username, code}) {
   try {

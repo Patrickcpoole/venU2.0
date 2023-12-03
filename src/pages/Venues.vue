@@ -5,7 +5,7 @@
       class="full-width full-height flex column justify-center items-center"
       style="min-height: 85vh"
     >
-      <q-spinner color="primary" size="100px" />
+      <q-spinner color="primary" size="100px"/>
     </div>
     <div v-else class="full-width flex column justify-start items-center">
       <p class="text-center text-white q-mt-lg text-subtitle1">
@@ -13,11 +13,11 @@
         shows
       </p>
 
-      <button-dropdown @sort="sortVenues" :dropdown-buttons="dropdownButtons" />
+      <button-dropdown @sort="sortVenues" :dropdown-buttons="dropdownButtons"/>
 
       <div class="venue-grid">
         <div v-for="venue in sortedVenues" :key="venue.id">
-          <venue-card :venueData="venue" />
+          <venue-card :venueData="venue"/>
         </div>
       </div>
     </div>
@@ -27,14 +27,14 @@
 <script>
 import VenueCard from "components/venues/VenueCard";
 import venuesState from "../mixins/venuesState";
+import undergroundState from "src/mixins/undergroundState";
 import spotifyState from "../mixins/spotifyState";
 import ButtonDropdown from "components/menu/ButtonDropdown.vue";
 
-// deploing!
 export default {
   name: "Venues",
-  components: { VenueCard, ButtonDropdown },
-  mixins: [spotifyState, venuesState],
+  components: {VenueCard, ButtonDropdown},
+  mixins: [spotifyState, venuesState, undergroundState],
   data() {
     return {
       loading: false,
@@ -104,31 +104,29 @@ export default {
     this.loading = true;
 
     try {
+      await this.$store.dispatch("venues/saveSelectedVenue", null);
+      await this.$store.dispatch("profile/checkAllInteractions");
+      const token = localStorage.getItem("access_token");
+      // If there's no token already, try to get it
 
-
-      // if (!token) { // If there's no token already, try to get it
-      //   const response = await this.$store.dispatch("spotify/getAccessToken", this.$route.query);
-      //   console.log('response', response)
-      //   token = response; // Use the token from the response
-      // }
-
- 
-        // If there's no token already, try to get it
+      if (!token) {
         const urlParams = new URLSearchParams(window.location.search);
         let code = urlParams.get("code");
 
-       await this.$store.dispatch(
+        await this.$store.dispatch(
           "spotify/getAccessTokenFromCode",
           code
         );
-     
         await this.$store.dispatch("spotify/getSpotifyUserInfo");
+      }
+      if (this.venues.length === 0) {
+        await this.$store.dispatch("venues/getVenuesData");
+      }
+      if (this.posts.length === 0) {
+        await this.$store.dispatch("underground/listPosts");
+      }
 
 
-      await this.$store.dispatch("venues/saveSelectedVenue", null);
-      await this.$store.dispatch("venues/getVenuesData");
-      await this.$store.dispatch("underground/listPosts");
-      await this.$store.dispatch("profile/checkAllInteractions");
     } catch (error) {
       console.error("Error:", error);
     } finally {

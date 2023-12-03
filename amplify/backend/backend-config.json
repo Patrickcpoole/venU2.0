@@ -15,6 +15,14 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
+            },
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2024-12-02T19:45:30.205Z",
+                "apiKeyExpirationDays": 365,
+                "description": "venu user api key"
+              },
+              "authenticationType": "API_KEY"
             }
           ],
           "defaultAuthentication": {

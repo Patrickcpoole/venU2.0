@@ -40,19 +40,21 @@ export default {
     };
   },
 
-  mounted() {
-    console.log('query', this.$route.query);
-    if (this.$route.query.date) {
-      console.log('query date', this.$route.query.date)
-      this.handleChooseDate(this.$route.query.date);
-    } else {
-      let sorted = [...this.allEvents];
-      sorted.sort((a, b) => this.$date.getDateDiff(new Date(a.date || a.eventDate), new Date(b.date || b.eventDate), 'seconds'));
-      this.handleChooseDate(sorted[0]['date'] || sorted[0]['eventDate']);
-    }
-
-
-  },
+ mounted() {
+  console.log('query', this.$route.query);
+  if (this.$route.query.date) {
+    console.log('query date', this.$route.query.date)
+    this.handleChooseDate(this.$route.query.date);
+  } else if (this.allEvents && this.allEvents.length > 0) {
+    // Sort and handle the date only if there are events
+    let sorted = [...this.allEvents];
+    sorted.sort((a, b) => this.$date.getDateDiff(new Date(a.date || a.eventDate), new Date(b.date || b.eventDate), 'seconds'));
+    this.handleChooseDate(sorted[0]['date'] || sorted[0]['eventDate']);
+  } else {
+    // If there are no events, use the current date
+    this.handleChooseDate(this.currentDate);
+  }
+},
   computed: {
     interactions() {
       return this.$store.state.interactions;

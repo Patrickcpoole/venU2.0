@@ -40,7 +40,7 @@ export async function spotifyAuth(context) {
 
   // generated in the previous step
   window.localStorage.setItem('code_verifier', codeVerifier);
-  
+
   const scope = 'user-read-private user-read-email';
   const authUrl = new URL("https://accounts.spotify.com/authorize")
 
@@ -53,7 +53,7 @@ export async function spotifyAuth(context) {
     redirect_uri: REDIRECT_URI,
     state: state
   }
-  
+
   authUrl.search = new URLSearchParams(params).toString();
   window.location.href = authUrl.toString();
 }
