@@ -12,7 +12,7 @@
       >
         Menu
       </q-item-label>
-      <div v-if="$route.path !== '/' && $route.path !== '/signup/'">
+      <div v-if="$route.path !== '/' && $route.path !== '/signup'">
         <EssentialLink
           v-for="link in authLinks"
           :key="link.title"
@@ -28,7 +28,7 @@
         </div>
 
       <q-item
-       v-if="$route.path !== '/' && $route.path !== '/signup/'"
+       v-if="$route.path !== '/' && $route.path !== '/signup'"
         clickable
         @click="$store.dispatch('auth/logout')"
       >
