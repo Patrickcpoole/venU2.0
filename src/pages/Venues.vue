@@ -1,22 +1,26 @@
 <template>
-  <div style="min-height:85vh">
-    <div v-if="loading" class="full-width full-height flex column justify-center items-center" style="min-height:85vh">
+  <div style="min-height: 85vh">
+    <div
+      v-if="loading"
+      class="full-width full-height flex column justify-center items-center"
+      style="min-height: 85vh"
+    >
       <q-spinner color="primary" size="100px" />
     </div>
     <div v-else class="full-width flex column justify-start items-center">
-    <p class="text-center text-white q-mt-lg text-subtitle1">
-      {{ $q.platform.is.mobile ? "Tap" : "Click" }} a venue to view upcoming
-      shows
-    </p>
+      <p class="text-center text-white q-mt-lg text-subtitle1">
+        {{ $q.platform.is.mobile ? "Tap" : "Click" }} a venue to view upcoming
+        shows
+      </p>
 
-    <button-dropdown @sort="sortVenues" :dropdown-buttons="dropdownButtons" />
+      <button-dropdown @sort="sortVenues" :dropdown-buttons="dropdownButtons" />
 
-    <div class="venue-grid">
-      <div v-for="venue in sortedVenues" :key="venue.id">
-        <venue-card :venueData="venue" />
+      <div class="venue-grid">
+        <div v-for="venue in sortedVenues" :key="venue.id">
+          <venue-card :venueData="venue" />
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -96,24 +100,38 @@ export default {
     },
   },
   async mounted() {
+    console.log("mounting");
     this.loading = true;
 
     try {
+
+
+      // if (!token) { // If there's no token already, try to get it
+      //   const response = await this.$store.dispatch("spotify/getAccessToken", this.$route.query);
+      //   console.log('response', response)
+      //   token = response; // Use the token from the response
+      // }
+
+ 
+        // If there's no token already, try to get it
+        const urlParams = new URLSearchParams(window.location.search);
+        let code = urlParams.get("code");
+
+       await this.$store.dispatch(
+          "spotify/getAccessTokenFromCode",
+          code
+        );
+     
+        await this.$store.dispatch("spotify/getSpotifyUserInfo");
+
+
       await this.$store.dispatch("venues/saveSelectedVenue", null);
       await this.$store.dispatch("venues/getVenuesData");
       await this.$store.dispatch("underground/listPosts");
       await this.$store.dispatch("profile/checkAllInteractions");
-
-      if (this.accessToken === null) {
-        await this.$store.dispatch("spotify/getAccessToken", this.$route.query);
-        await this.$store.dispatch(
-          "spotify/getSpotifyUserInfo",
-          this.accessToken
-        );
-      }
-      this.loading = false;
     } catch (error) {
       console.error("Error:", error);
+    } finally {
       this.loading = false;
     }
   },
@@ -144,6 +162,4 @@ export default {
     ); /* Three cards in a row on screens larger than 1200px */
   }
 }
-
-
 </style>

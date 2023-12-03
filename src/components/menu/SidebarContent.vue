@@ -78,9 +78,9 @@ export default {
             link: '/venues'
           },
           {
-            title: 'Artists',
+            title: 'Concerts',
             icon: 'audiotrack',
-            link: '/artists'
+            link: '/concerts'
           },
           {
             title: 'Underground',

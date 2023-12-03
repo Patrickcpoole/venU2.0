@@ -14,22 +14,73 @@ export async function spotifyAuth(context) {
   console.log('spotify auth fired')
   const state = Str.random(16)
   console.log('state in actions', state)
-  const AUTHORIZE = "https://accounts.spotify.com/authorize"
 
+  const generateRandomString = (length) => {
+    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const values = crypto.getRandomValues(new Uint8Array(length));
+    return values.reduce((acc, x) => acc + possible[x % possible.length], "");
+  }
 
+  const sha256 = async (plain) => {
+    const encoder = new TextEncoder()
+    const data = encoder.encode(plain)
+    return window.crypto.subtle.digest('SHA-256', data)
+  }
 
-  console.log('redirect uri', REDIRECT_URI)
-  let url = AUTHORIZE
-  console.log('client id', CLIENT_ID)
-  console.log('CLIENT_SECRET', CLIENT_SECRET)
-  url += "?client_id=" + CLIENT_ID;
-  url += "&response_type=code";
-  url += "&redirect_uri=" + encodeURI(REDIRECT_URI)
-  url += "&state=" + state
-  url += "&show_dialog=true";
-  url += "user-read-private user-read-email"
+  const base64encode = (input) => {
+    return btoa(String.fromCharCode(...new Uint8Array(input)))
+      .replace(/=/g, '')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_');
+  }
 
-  window.location.href = url
+  const codeVerifier = generateRandomString(64);
+  const hashed = await sha256(codeVerifier)
+  const codeChallenge = base64encode(hashed);
+
+  // generated in the previous step
+  window.localStorage.setItem('code_verifier', codeVerifier);
+  
+  const scope = 'user-read-private user-read-email';
+  const authUrl = new URL("https://accounts.spotify.com/authorize")
+
+  const params =  {
+    response_type: 'code',
+    client_id: CLIENT_ID,
+    scope,
+    code_challenge_method: 'S256',
+    code_challenge: codeChallenge,
+    redirect_uri: REDIRECT_URI,
+    state: state
+  }
+  
+  authUrl.search = new URLSearchParams(params).toString();
+  window.location.href = authUrl.toString();
+}
+
+export async function getAccessTokenFromCode(context, code) {
+  let codeVerifier = localStorage.getItem('code_verifier');
+
+  const payload = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID,
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: REDIRECT_URI,
+      code_verifier: codeVerifier,
+    }),
+  }
+
+  const url = 'https://accounts.spotify.com/api/token';
+
+  const body = await fetch(url, payload);
+  const response =await body.json();
+
+  localStorage.setItem('access_token', response.access_token);
 }
 
 export function getAccessToken(context, query) {
@@ -63,7 +114,7 @@ export function getAccessToken(context, query) {
         console.log('this is data in spotify actions', data);
         context.commit('setAccessToken', data.access_token);
         context.commit('setRefreshToken', data.refresh_token);
-        resolve(data);  // Resolve the Promise with the entire data object
+        resolve(data.access_token);
       } else {
         console.log('auth error', this.responseText);
         reject(new Error('Authorization error'));  // Reject the Promise with an error
@@ -73,7 +124,9 @@ export function getAccessToken(context, query) {
 }
 
 
-export async function getSpotifyUserInfo(context, token) {
+export async function getSpotifyUserInfo(context) {
+  const token = localStorage.getItem('access_token')
+  console.log('token', token)
   return axios.get(`https://api.spotify.com/v1/me`, {
     headers: {
       "Accept": "application/json",
@@ -90,13 +143,14 @@ export async function getSpotifyUserInfo(context, token) {
 }
 
 export async function getArtistInfo(context, artistName) {
+  const token = localStorage.getItem('access_token')
   console.log('artist name', artistName)
-  console.log('get artist info access token', context.state.spotifyAuth.access_token)
+  console.log('get artist info access token', token)
   return axios.get(`https://api.spotify.com/v1/search/?q=${artistName}&type=artist`, {
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${context.state.spotifyAuth.access_token}`
+      "Authorization": `Bearer ${token}`
     }
   }).then(resp => {
     console.log('artist info resp', resp)
@@ -110,7 +164,7 @@ export async function getArtistInfo(context, artistName) {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${context.state.spotifyAuth.access_token}`
+        "Authorization": `Bearer ${token}`
       }
     }).then(resp => {
       console.log('artist top tracks resp', resp)
