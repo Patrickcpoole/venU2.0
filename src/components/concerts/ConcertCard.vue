@@ -207,4 +207,43 @@ export default {
 .info-text {
   font-size: 1.1em;
 }
+
+@media screen and (max-width: 1100px) {
+  .concert-name {
+    font-size: 3em; /* Smaller font size for concert name */
+  }
+
+ .date-text {
+    font-size: 1.3em; /* Smaller font size for date text */
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .concert-name {
+    font-size: 2.75em; /* Smaller font size for concert name */
+  }
+
+  .date-text {
+    font-size: 1.2em; /* Smaller font size for date text */
+  }
+
+  .concert-openers, .info-text {
+    font-size: 0.9em; /* Smaller font size for openers and info text */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .concert-name {
+    font-size: 2.5em; /* Even smaller font size for concert name on very small screens */
+  }
+
+  .date-text {
+    font-size: 1em; /* Smaller font size for date text on very small screens */
+  }
+
+  .concert-openers, .info-text {
+    font-size: 0.8em; /* Smaller font size for openers and info text on very small screens */
+  }
+}
 </style>

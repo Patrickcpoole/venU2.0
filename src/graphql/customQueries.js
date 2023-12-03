@@ -10,7 +10,6 @@ export const LIST_POSTS_WITH_COMMENTS = gql`
                 datePosted
                 eventDate
                 text
-                owner
                 photoUrl
                 videoUrl
                 ticketUrl
@@ -24,7 +23,6 @@ export const LIST_POSTS_WITH_COMMENTS = gql`
                         createdAt
                         updatedAt
                         userName
-                        owner
                         parentId
                         profilePicture
                         likes
@@ -39,7 +37,6 @@ export const LIST_POSTS_WITH_COMMENTS = gql`
                                 createdAt
                                 updatedAt
                                 userName
-                                owner
                                 parentId
                                 profilePicture
                                 likes

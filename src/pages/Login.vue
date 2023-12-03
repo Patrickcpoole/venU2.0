@@ -17,7 +17,7 @@
         :rules="[ val => val && val.length > 0 || 'Please type something']"
       />
 
-      <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'"  dark>
+      <q-input v-model="password" filled  label="Password" :type="isPwd ? 'password' : 'text'"  dark>
         <template v-slot:append>
           <q-icon
             :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -27,11 +27,21 @@
         </template>
       </q-input>
 
+      <p class="text-white"><b>ATTENTION:</b>The Spotify API associated with this application is still in development
+        mode. When prompted by Spotify to login please use the test login credentials or contact me at patrickcpoole@gmail.com and I
+      will add your Spotify account to the list of test users.</p>
+
+      <p class="text-white text-weight-bolder">Test Spotify Credentials:</p>
+      <ul class="text-white">
+        <li>Email - venu2.0portoflio@gmail.com</li>
+        <li>Password - Testpassword1</li>
+      </ul>
+
       <div>
         <q-btn label="Login" type="submit" color="primary" style="width: 100%; margin-top: 15px;"/>
         <q-btn label="Create Account" @click="$router.push('/signup')" color="blue" style="width: 100%; margin-top: 15px;"/>
       </div>
-      <p class="text-danger">{{ error }}</p>
+
     </q-form>
 
   </div>
@@ -49,7 +59,7 @@ export default {
       password: '',
       isPwd: true,
       email: '',
-      error: ' '
+
     }
   },
   methods: {
@@ -65,7 +75,7 @@ export default {
           password: this.password
         })
       } catch(err){
-        this.error = err
+        console.error(err)
       }
     }
   }

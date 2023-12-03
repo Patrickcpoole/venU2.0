@@ -1,6 +1,4 @@
-type Venue @model  @auth(rules: [
-  { allow: public, operations: [read], provider: iam },
-  { allow: owner }]) {
+type Venue @model  @auth(rules: [{ allow: private, provider: userPools }]) {
   id: ID
   name: String!
   location: String
@@ -10,9 +8,7 @@ type Venue @model  @auth(rules: [
 
 }
 
-type Concert @model  @auth(rules: [
-  { allow: public, operations: [read], provider: iam },
-  { allow: owner }]) {
+type Concert @model  @auth(rules: [{ allow: private, provider: userPools }]) {
   id: ID
   artistName: String!
   openers: String!
@@ -23,9 +19,7 @@ type Concert @model  @auth(rules: [
   interactions: [UserShowInteraction] @hasMany
 }
 
-type Post @model @auth(rules: [
-  { allow: public, operations: [read], provider: iam },
-  { allow: owner }]) {
+type Post @model @auth(rules: [{ allow: private, provider: userPools }]) {
   id: ID!
   userName: String!
   profilePicture: String!
@@ -40,9 +34,7 @@ type Post @model @auth(rules: [
   comments: [Comment] @hasMany
 }
 
-type Comment @model @auth(rules: [
-  { allow: public, operations: [read], provider: iam },
-  { allow: owner }]) {
+type Comment @model @auth(rules: [{ allow: private, provider: userPools }]) {
   id: ID!
   text: String!
   userId: ID!
@@ -58,9 +50,7 @@ type Comment @model @auth(rules: [
 
 
 
-type UserShowInteraction @model @auth(rules: [
-  { allow: public, operations: [read], provider: iam },
-  { allow: owner }]) {
+type UserShowInteraction @model @auth(rules: [{ allow: private, provider: userPools }]) {
   id: ID
   userId: ID!
   concertId: ID!

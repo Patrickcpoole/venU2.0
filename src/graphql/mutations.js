@@ -18,7 +18,6 @@ export const createVenue = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -40,7 +39,6 @@ export const updateVenue = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -62,7 +60,6 @@ export const deleteVenue = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -87,7 +84,6 @@ export const createConcert = /* GraphQL */ `
       createdAt
       updatedAt
       venueConcertsId
-      owner
       __typename
     }
   }
@@ -112,7 +108,6 @@ export const updateConcert = /* GraphQL */ `
       createdAt
       updatedAt
       venueConcertsId
-      owner
       __typename
     }
   }
@@ -137,7 +132,6 @@ export const deleteConcert = /* GraphQL */ `
       createdAt
       updatedAt
       venueConcertsId
-      owner
       __typename
     }
   }
@@ -165,7 +159,6 @@ export const createPost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -193,7 +186,6 @@ export const updatePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -221,7 +213,6 @@ export const deletePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -248,7 +239,6 @@ export const createComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
-      owner
       __typename
     }
   }
@@ -275,7 +265,6 @@ export const updateComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
-      owner
       __typename
     }
   }
@@ -302,7 +291,6 @@ export const deleteComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
-      owner
       __typename
     }
   }
@@ -320,7 +308,6 @@ export const createUserShowInteraction = /* GraphQL */ `
       createdAt
       updatedAt
       concertInteractionsId
-      owner
       __typename
     }
   }
@@ -338,7 +325,6 @@ export const updateUserShowInteraction = /* GraphQL */ `
       createdAt
       updatedAt
       concertInteractionsId
-      owner
       __typename
     }
   }
@@ -356,7 +342,6 @@ export const deleteUserShowInteraction = /* GraphQL */ `
       createdAt
       updatedAt
       concertInteractionsId
-      owner
       __typename
     }
   }

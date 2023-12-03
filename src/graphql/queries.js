@@ -15,7 +15,6 @@ export const getVenue = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -35,7 +34,6 @@ export const listVenues = /* GraphQL */ `
         image
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -60,7 +58,6 @@ export const getConcert = /* GraphQL */ `
       createdAt
       updatedAt
       venueConcertsId
-      owner
       __typename
     }
   }
@@ -83,7 +80,6 @@ export const listConcerts = /* GraphQL */ `
         createdAt
         updatedAt
         venueConcertsId
-        owner
         __typename
       }
       nextToken
@@ -111,7 +107,6 @@ export const getPost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      owner
       __typename
     }
   }
@@ -137,7 +132,6 @@ export const listPosts = /* GraphQL */ `
         likedBy
         createdAt
         updatedAt
-        owner
         __typename
       }
       nextToken
@@ -164,7 +158,6 @@ export const getComment = /* GraphQL */ `
       parentId
       postCommentsId
       commentRepliesId
-      owner
       __typename
     }
   }
@@ -189,7 +182,6 @@ export const listComments = /* GraphQL */ `
         parentId
         postCommentsId
         commentRepliesId
-        owner
         __typename
       }
       nextToken
@@ -207,7 +199,6 @@ export const getUserShowInteraction = /* GraphQL */ `
       createdAt
       updatedAt
       concertInteractionsId
-      owner
       __typename
     }
   }
@@ -231,7 +222,6 @@ export const listUserShowInteractions = /* GraphQL */ `
         createdAt
         updatedAt
         concertInteractionsId
-        owner
         __typename
       }
       nextToken

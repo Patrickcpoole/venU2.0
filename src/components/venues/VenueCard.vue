@@ -67,7 +67,26 @@ export default {
   align-items: center;
 }
 
+
+
+
+@media screen and (max-width: 768px) {
+  .venue-name {
+    font-size: 2.5em; /* Smaller font size for concert name */
+  }
+
 .info-text {
-  font-size: 1em;
+    font-size: 0.9em; /* Smaller font size for openers and info text */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .venue-name {
+    font-size: 2em; /* Even smaller font size for concert name on very small screens */
+  }
+
+ .info-text {
+    font-size: 0.8em; /* Smaller font size for openers and info text on very small screens */
+  }
 }
 </style>
