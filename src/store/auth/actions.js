@@ -17,6 +17,8 @@ export async function logout({commit}) {
 
 }
 
+
+
 export async function login({commit, dispatch}, {username, password}) {
   try {
     console.log('trying sign in')
@@ -24,6 +26,8 @@ export async function login({commit, dispatch}, {username, password}) {
       username,
       password
     });
+
+    await dispatch('toggleLoginModal');
 
     // Dispatch Spotify authentication and wait for it to complete
     const spotifyAuthResult = await dispatch('spotify/spotifyAuth', {}, {root: true});

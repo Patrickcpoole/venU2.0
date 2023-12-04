@@ -1,7 +1,7 @@
 <!-- CommentSection.vue -->
 <template>
   <div>
-    <comment v-for="comment in comments" :key="comment.id" :comment="comment" @toggleCreateReply="toggleCreateReply" />
+    <comment v-for="comment in comments" :key="comment.id" :comment="comment" @toggleCreateReply="toggleCreateReply" v-if="comments.length" />
   </div>
 </template>
 
