@@ -2,7 +2,7 @@
   <div class="q-pa-md flex column justify-center items-center full-width" >
     <q-btn label="Create Post" class="q-my-md" @click="toggleCreatePostModal" color="blue" icon-right="add"/>
     <button-dropdown :dropdownButtons="dropdownButtons" @sort="sortPosts"/>
-    <div v-for="post in sortedPosts" :key="post.id" class="flex column justify-center items-center full-width">
+    <div v-for="post in sortedPosts" :key="post.id" class="flex column justify-center items-center card-container" >
       <underground-card :postData="post" :key="post.id"/>
     </div>
     <create-post-modal @closeModal="toggleCreatePostModal" :toggleCreatePost="toggleCreatePost"  />
@@ -79,5 +79,19 @@ export default {
 </script>
 
 <style scoped>
+.card-container {
+    width: 95% !important;
+}
 
+@media screen and (min-width: 600px) {
+  .card-container {
+  width: 65% !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .card-container {
+  width: 45% !important;
+  }
+}
 </style>

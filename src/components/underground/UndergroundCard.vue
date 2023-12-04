@@ -10,7 +10,7 @@
           <div class="flex column justify-center q-ml-md full-height">
             <span class="text-h5">{{ postData.userName }}</span>
             <span style="font-size: 1em">{{ formatPostedDate(postData.datePosted) }}</span>
-            
+
           </div>
         </div>
         <div class="event-date-rectangle">
@@ -259,22 +259,12 @@ export default {
   background-color: #555555;
   color: #fff;
   margin-bottom: 20px;
-  max-width: 500px; /* Maximum width for larger screens */
+
   width: 100%; /* Full width on smaller screens */
   box-sizing: border-box; /* Ensures padding and borders are included in the width */
 }
 
-@media screen and (min-width: 600px) {
-  .underground-card {
-    width: 80%; /* Slightly smaller width on medium screens */
-  }
-}
 
-@media screen and (min-width: 1200px) {
-  .underground-card {
-    width: 60%; /* Even smaller width on large screens */
-  }
-}
 
 .top-info {
   display: flex;

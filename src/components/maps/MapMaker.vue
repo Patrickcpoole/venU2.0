@@ -37,12 +37,12 @@ export default {
         },
         {
           id: "0e46c338-9121-4e79-8767-6dc25cc2abf7",
-          coordinates: {lat: 39.750284, lng: -105.015023},
+          coordinates: {lat: 39.7466435, lng: -105.0138674},
           address: 'Ball Arena, 1000 Chopper Cir, Denver, CO 80204'
         },
         {
           id: "42fc91a7-c41b-48cb-abee-15980b9c1204",
-          coordinates: {lat: 39.764248, lng: -105.0262499},
+          coordinates: {lat: 39.7438935, lng: -105.0249803},
           address: 'Empower Field, 1701 Bryant St, Denver, CO 80204'
         },
          {
@@ -59,8 +59,10 @@ export default {
 
   },
   methods: {
-    handleGoToConcerts() {
-      this.$store.dispatch('venues/saveSelectedVenue', this.currentVenue)
+    handleGoToConcerts(venue) {
+      console.log('current venue', venue)
+      this.$store.dispatch('venues/saveSelectedVenue', venue)
+
       this.$router.push('/concerts')
 
     },
@@ -101,19 +103,22 @@ export default {
       const iconImage = 'https://amplify-venu20-dev-131644-deployment.s3.amazonaws.com/icons/icons8-stadium-windows-11-color/icons8-stadium-48.png'
 
       this.venuesKey.forEach((venue) => {
+
         const marker = new google.maps.Marker({
           icon: iconImage,
           position: venue.coordinates,
           map: this.map,
         });
 
+
+
         const infoWindowContentInstance = new Vue({
           render: (h) => h(InfoWindowContent, {
             props: {
               // this.venues is from venues state mixin
-              currentVenue: this.venues.find((v) => v.id === venue.id),
+              currentVenue: this.venues.find(v => v.id === venue.id),
               openDirections: () => this.openDirections(venue.address),
-              handleGoToConcerts: () => this.handleGoToConcerts(),
+              handleGoToConcerts: () => this.handleGoToConcerts(this.venues.find(v => v.id === venue.id)),
             }
           })
         });

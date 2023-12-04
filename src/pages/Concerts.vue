@@ -1,8 +1,22 @@
 <template>
   <div class="flex column justify-start items-center">
+
+
+<q-btn
+
+
+          color="primary"
+          icon="arrow_back"
+          label="Back to Venues"
+          class="q-mt-lg"
+          @click="$router.push('/venues')"
+        />
+
     <p class="text-center text-white q-mt-lg text-subtitle1">
       {{ $q.platform.is.mobile ? 'Tap' : 'Click' }} a concert to view details
     </p>
+
+
     <button-dropdown @sort="sortConcerts" :dropdown-buttons="dropdownButtons"/>
     <div class="concert-grid">
       <div v-for="concert in sortedConcerts" :key="concert.id">
@@ -48,7 +62,7 @@ export default {
 
       const filteredConcerts = this.concerts
       let venueConcerts;
-
+      console.log('selected venue', this.selectedVenue)
       if (this.selectedVenue !== null) {
         venueConcerts = filteredConcerts.filter(concert => concert.venueConcertsId === this.selectedVenue.id).filter(concert => checkIfAfterToday(this.extractFirstDate(concert.date)));
       } else {
@@ -98,6 +112,18 @@ export default {
   display: grid;
   grid-template-columns: 1fr; /* One card per row by default (mobile-first) */
   /* Adjust the gap as needed */
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Aligns items on opposite ends */
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+  flex-grow: 1; /* Allows the text to take up the remaining space */
 }
 
 @media screen and (min-width: 768px) {

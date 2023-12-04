@@ -28,7 +28,7 @@
       </q-input>
 
       <p class="text-white"><b>ATTENTION:</b>The Spotify API associated with this application is still in development
-        mode. When prompted by Spotify to login please use the test login credentials or contact me at patrickcpoole@gmail.com and I
+        mode. When prompted by Spotify to login, please use the test login credentials below or contact me at patrickcpoole@gmail.com and I
       will add your Spotify account to the list of test users.</p>
 
       <p class="text-white text-weight-bolder">Test Spotify Credentials:</p>

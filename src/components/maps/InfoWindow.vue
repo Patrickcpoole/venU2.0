@@ -7,7 +7,7 @@
       <span id="firstHeading" class="text-h4 q-my-sm font-normal text-weight-light">{{ currentVenue.name }}</span>
       <div id="bodyContent" style="display: flex; justify-content: center; align-items: center; flex-direction: column">
         <p style="font-size: 1.25em; font-weight: 500">{{currentVenue.location}} | Capacity: {{ currentVenue.capacity }}</p>
-        <q-btn @click="handleGoToConcerts" type="button" label="Concerts" icon="audiotrack" color="primary"/>
+        <q-btn @click="handleGoToConcerts(currentVenue)" type="button" label="Concerts" icon="audiotrack" color="primary"/>
         <q-btn @click="openDirections" type="button" label="Directions" icon="location_on" color="primary" class="q-my-md"/>
 
       </div>

@@ -2,6 +2,7 @@
   <q-item
     clickable
     :to="link"
+    @click="$store.dispatch('menu/toggleLeftMenu')"
   >
     <q-item-section
       v-if="icon"
@@ -11,8 +12,8 @@
     </q-item-section>
 
     <q-item-section>
-      <q-item-label :style="$route.path === link ? 'color:#34887b': 'color:white'" >{{ title }}</q-item-label>
-      <q-item-label caption >
+      <q-item-label :style="$route.path === link ? 'color:#34887b': 'color:white'">{{ title }}</q-item-label>
+      <q-item-label caption>
         {{ caption }}
       </q-item-label>
     </q-item-section>
@@ -21,6 +22,8 @@
 
 <script>
 import router from "src/router";
+
+
 
 export default {
   name: 'EssentialLink',

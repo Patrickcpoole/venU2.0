@@ -10,6 +10,14 @@ export function closeRightMenu(state) {
   state.right.visible = false
 }
 
+export function openLeftMenu(state) {
+  state.left.visible = true
+}
+
+export function closeLeftMenu(state) {
+  state.right.visible = false
+}
+
 export function setRightMenuConcert(state, payload) {
   state.right.concert = payload
 }
