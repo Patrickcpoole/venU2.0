@@ -139,11 +139,8 @@ export default {
           username: this.username,
           code: this.code
         })
-        await this.$store.dispatch('auth/login', {
-          username: this.username,
-          password: this.password
-        })
-        await this.$router.push('/venues')
+
+        await this.$router.push({ path: '/', query: { openModal: 'true' , username: this.username, password: this.password}});
       } catch (error) {
         this.error = error
       }
