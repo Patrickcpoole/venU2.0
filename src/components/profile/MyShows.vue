@@ -56,8 +56,8 @@ export default {
   }
 },
   computed: {
-    interactions() {
-      return this.$store.state.interactions;
+    interactionsLocal() {
+      return this.interactions
     },
 
     allEventDates() {
@@ -71,10 +71,11 @@ export default {
     },
   },
   watch: {
-    interactions: function (newValue, oldValue) {
+    interactionsLocal: function (newValue, oldValue) {
       // Do something when the state variable changes
 
-     console.log('STATE CHANGEd', newValue, oldValue)
+     this.currentDate = this.$route.query.date ? this.$route.query.date : this.currentDate;
+      this.handleChooseDate(this.currentDate);
     },
   },
   methods: {
@@ -147,12 +148,10 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
   /* Adjust the gap as needed */
 }
 
 .concert-container {
-
   width: 482px;
 
 }

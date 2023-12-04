@@ -5,6 +5,17 @@
     <!--          </q-avatar>-->
     <!--    <p class="name">{{ user.first_name }} {{ user.last_name }}</p>-->
     <!--    <p class="parent">{{ geography.name }}</p>-->
+    <div class="full-width flex justify-end q-pa-sm">
+     <q-btn
+           v-if="leftMenuVisible"
+          flat
+          dense
+          color="white"
+          icon="close"
+          @click="$store.dispatch('menu/toggleLeftMenu')"
+          style="z-index: 10"
+        />
+      </div>
     <q-list>
       <q-item-label
         header
@@ -52,12 +63,14 @@
 
 
 import authState from "src/mixins/authState";
+import menuState from "src/mixins/menuState";
 import EssentialLink from './EssentialLink'
 import {route} from "quasar/wrappers";
 
+
 export default {
   name: "SidebarContent.vue",
-  mixins: [authState],
+  mixins: [authState, menuState],
   methods: {
     route() {
       return route
@@ -129,7 +142,7 @@ export default {
 <style scoped >
 .sidebar-container  {
   border:0;
-  background: #3B3B3B;
+  background-color: #222326;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

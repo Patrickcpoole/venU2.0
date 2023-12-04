@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf" >
+  <q-layout view="lHr lpr lFr" >
     <q-header elevated>
       <q-toolbar class="flex justify-between">
         <q-btn
@@ -8,7 +8,7 @@
 
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftMenu = !toggleLeftMenu"
+          @click="$store.dispatch('menu/toggleLeftMenu')"
           style="z-index: 10"
         />
 
@@ -27,30 +27,25 @@
     </q-header>
 
     <q-drawer
-      v-model="toggleLeftMenu"
-      bordered
+      :value="leftMenuVisible"
+      @input="$store.dispatch('menu/closeLeftMenu')"
       content-class="bg-grey-1"
+
+       overlay
     >
 
-<!--      <q-list>-->
-<!--        <q-item-label-->
-<!--          header-->
-<!--          class="text-grey-8"-->
-<!--        >-->
-<!--          Essential Links-->
-<!--        </q-item-label>-->
 
-<!--      </q-list>-->
       <sidebar-content />
     </q-drawer>
 
     <q-drawer
       :value="rightMenuVisible"
-      :show-if-above="false"
       :width="350"
+      overlay
+      :show-if-above="false"
       @input="$store.dispatch('menu/closeRightMenu')"
       side="right"
-
+      content-class="bg-grey-1"
     >
       <concert-sidebar />
     </q-drawer>
@@ -114,5 +109,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.right-drawer {
+  z-index: 1030; /* Higher than the header */
+  position: absolute; /* Ensure it's positioned in relation to the layout */
+  top: 0; /* Align to the top */
+  right: 0; /* Align to the right */
+  height: 100%; /* Full height */
 }
 </style>

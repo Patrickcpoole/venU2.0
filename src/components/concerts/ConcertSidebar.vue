@@ -1,18 +1,26 @@
 <template>
-  <div v-if="rightMenuVisible" style="background-color: #222326; height: 100%">
-    <q-scroll-area
-      :thumb-style="thumbStyle"
-      :bar-style="barStyle"
-      style="width: 100%; height: 100%"
-    >
-      <div class="sidebar-container">
+
+
+      <div class="sidebar-container" v-if="rightMenuConcert">
+         <div class="full-width flex justify-end">
+     <q-btn
+           v-if="rightMenuVisible"
+          flat
+          dense
+          color="white"
+          icon="close"
+
+          @click="$store.dispatch('menu/toggleRightMenu')"
+          style="z-index: 11100; height:50px;"
+        />
+      </div>
         <q-img :src="rightMenuConcert.image" style="height: 25vh"> </q-img>
         <div class="info-container">
           <span style="font-size: 1.75em; font-weight: bold">{{
             rightMenuConcert.name
           }}</span>
 
-          <span style="margin-top: 25px; font-size: 1.5em"
+          <span style="margin-top: 15px; font-size: 1.5em"
             >Upcoming Show Info</span
           >
           <span class="info-label" style="margin-top: 2.5%">Venue</span>
@@ -179,7 +187,7 @@
                     "
                     >{{ topTrack.name }}</span
                   >
-                
+
                   <q-media-player
                     dark
                     type="audio"
@@ -193,22 +201,22 @@
                     :sources="formatAudio(topTrack.preview_url)"
                     track-language="English"
                   />
-              
+
                     <q-btn flat style="margin-top:10px;" color="primary" :href="topTrack.external_urls.spotify" target="_blank" rel="noopener noreferrer" >
                     <q-avatar size="22px">
                       <img src="https://amplify-venu20-dev-131644-deployment.s3.amazonaws.com/icons/icons8-spotify-96.png" />
                     </q-avatar>
                     <div class="text-center q-pl-sm">{{ $q.platform.is.mobile ? "Tap" : "Click" }} here for Full Song</div>
                   </q-btn>
-                  </a>
+
                 </q-item-section>
               </q-item>
             </q-list>
           </q-expansion-item>
         </q-list>
       </div>
-    </q-scroll-area>
-  </div>
+
+
 </template>
 
 <script>
@@ -368,12 +376,15 @@ export default {
 .sidebar-container {
   background-color: #222326;
   width: 100%;
+  min-height: 100%; /* This ensures that the background covers at least the full height of the viewport */
+  height: auto; /* This allows the container to expand based on its content */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   flex-grow: 1;
 }
+
 
 .concert-card {
   width: 100%;

@@ -10,6 +10,7 @@ export async function logout({commit}) {
   commit('profile/clearProfileState', null, {root: true})
   commit('menu/clearMenuState', null, {root: true})
   commit('underground/clearUndergroundState', null, {root: true})
+  commit('venues/clearVenuesState', null, {root: true})
   commit('setUser', null)
   await this.$router.push('/')
   return await Auth.signOut()
@@ -45,12 +46,18 @@ export async function login({commit, dispatch}, {username, password}) {
     return Promise.resolve("Login Success");
 
   } catch (err) {
+    console.log('error signing in...', err);
     if (err && err.code === 'UserNotFoundException') {
       Notify.create({
         type: 'negative',
-        message: 'User not found. Please check your username and try again.'
+        message: 'Username or password incorrect. Please try again.'
       });
-    } else {
+    } else if (err && err.code === 'NotAuthorizedException') {
+      Notify.create({
+        type: 'negative',
+         message: 'Username or password incorrect. Please try again.'
+      });
+    }else {
       Notify.create({
         type: 'negative',
         message: 'An error occurred during login. Please try again or contact support.'
