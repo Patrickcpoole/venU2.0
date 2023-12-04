@@ -50,6 +50,7 @@ export const getConcert = /* GraphQL */ `
       date
       startTime
       image
+      ticketUrl
       youtube
       interactions {
         nextToken
@@ -76,6 +77,7 @@ export const listConcerts = /* GraphQL */ `
         date
         startTime
         image
+        ticketUrl
         youtube
         createdAt
         updatedAt

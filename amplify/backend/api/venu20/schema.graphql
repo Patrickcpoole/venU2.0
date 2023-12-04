@@ -15,6 +15,7 @@ type Concert @model  @auth(rules: [{ allow: private, provider: userPools }]) {
   date: String!
   startTime: String
   image: String!
+  ticketUrl: String
   youtube: String
   interactions: [UserShowInteraction] @hasMany
 }

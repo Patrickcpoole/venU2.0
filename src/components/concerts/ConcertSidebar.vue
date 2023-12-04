@@ -87,7 +87,7 @@
               >I'm going</span
             >
           </q-card>
-          <q-card class="icon-container">
+          <q-card class="icon-container" @click="handleGoToTicket">
             <q-icon size="1.25em" color="green" name="book_online" />
             <span class="icon-text">Buy Tickets</span>
           </q-card>
@@ -236,6 +236,9 @@ export default {
   },
 
   methods: {
+    handleGoToTicket() {
+      window.open(this.rightMenuConcert.ticketUrl, "_blank");
+    },
     async checkInteractions() {
       const goingInteraction = this.interactions.find(
         (interaction) =>

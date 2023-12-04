@@ -76,6 +76,7 @@ export const createConcert = /* GraphQL */ `
       date
       startTime
       image
+      ticketUrl
       youtube
       interactions {
         nextToken
@@ -100,6 +101,7 @@ export const updateConcert = /* GraphQL */ `
       date
       startTime
       image
+      ticketUrl
       youtube
       interactions {
         nextToken
@@ -124,6 +126,7 @@ export const deleteConcert = /* GraphQL */ `
       date
       startTime
       image
+      ticketUrl
       youtube
       interactions {
         nextToken
