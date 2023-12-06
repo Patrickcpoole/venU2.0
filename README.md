@@ -54,7 +54,7 @@ Testing is not implemented yet but will be using Jest.
 ![image](https://amplify-venu20-dev-131644-deployment.s3.amazonaws.com/portfolio-screenshots/VenU+Screen+Shot+2023-12-03+at+8.51.39+PM.png)
 
 ## Live Link
-Visit the live website at [patrickcpoole.com](https://master.d984mngke5ikm.amplifyapp.com/).
+Visit the live website at [https://master.d984mngke5ikm.amplifyapp.com/](https://master.d984mngke5ikm.amplifyapp.com/).
 
 ## Contact Information
 Feel free to reach out to me at [patrickcpoole@gmail.com](mailto:patrickcpoole@gmail.com).
