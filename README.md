@@ -1,7 +1,7 @@
 # VenU
 
-This is VenU, a concert application that helps users find local concerts, share information about “Underground”
-events, and save shows to a calendar within the app.
+This is VenU, a concert application that helps users find local concerts, share information about “Underground” events, and save shows to a calendar within the app. The app is also connected to the Spotify API so users can sample the top songs of artists the artists they are currently viewing.
+
 
 ## Table of Contents
 
