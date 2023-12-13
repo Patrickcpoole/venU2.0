@@ -23,7 +23,7 @@
       >
         Menu
       </q-item-label>
-      <div v-if="$route.path !== '/' && $route.path !== '/signup'">
+      <div v-if="$route.path !== '/' && $route.path !== '/signup/'">
         <EssentialLink
           v-for="link in authLinks"
           :key="link.title"

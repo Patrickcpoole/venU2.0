@@ -6,6 +6,7 @@
         <q-form
           @submit="loginModal = true"
           dark
+          class="q-gutter-md flex column justify-start"
           style="width:100%;"
         >
           <q-input
