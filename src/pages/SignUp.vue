@@ -5,7 +5,7 @@
         <q-form
           v-if="!codeToggle"
           @submit="signUp"
-          class="q-gutter-md flex column justify-start"
+             class="flex column justify-start"
           dark
           style="width:100%;"
         >
@@ -15,7 +15,7 @@
             label="Username"
             dark
           />
-          <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" dark label="Password">
+          <q-input v-model="password" filled :type="isPwd ? 'password' : 'text'" dark label="Password"   class="q-pt-md">
             <template v-slot:append>
               <q-icon
                 :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -24,7 +24,7 @@
               />
             </template>
           </q-input>
-          <q-input v-model="confirmPassword" filled :type="isPwd ? 'password' : 'text'" dark label="Confirm Password">
+          <q-input v-model="confirmPassword" filled :type="isPwd ? 'password' : 'text'" dark label="Confirm Password"   class="q-pt-md">
             <template v-slot:append>
               <q-icon
                 :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -34,6 +34,7 @@
             </template>
           </q-input>
           <q-input
+            class="q-pt-md"
             dark
             filled
             v-model="email"

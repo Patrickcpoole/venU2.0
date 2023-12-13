@@ -1,5 +1,5 @@
 import {Auth} from "aws-amplify"
-import { Notify } from 'quasar';
+import {Notify} from 'quasar';
 
 export async function logout({commit}) {
 
@@ -17,7 +17,25 @@ export async function logout({commit}) {
 
 }
 
+export async function closeLoginModal({dispatch, commit}) {
+  commit('toggleLoginModal', false)
+}
 
+export async function loginSpotify({dispatch, commit}) {
+  // Dispatch Spotify authentication and wait for it to complete
+  try {
+
+    await dispatch('spotify/spotifyAuth', {}, {root: true});
+  } catch (err) {
+    console.error('error in loginSpotify', err)
+    // Check if Spotify authentication was successful
+    Notify.create({
+      type: 'negative',
+      message: 'Spotify authentication failed. Please try again.'
+    });
+  }
+
+}
 
 export async function login({commit, dispatch}, {username, password}) {
   try {
@@ -27,25 +45,12 @@ export async function login({commit, dispatch}, {username, password}) {
       password
     });
 
-    await dispatch('toggleLoginModal');
 
-    // Dispatch Spotify authentication and wait for it to complete
-    const spotifyAuthResult = await dispatch('spotify/spotifyAuth', {}, {root: true});
+    const userInfo = await Auth.currentUserInfo();
+    commit('setUser', userInfo);
 
-    // Check if Spotify authentication was successful
-    if (spotifyAuthResult === "Spotify Auth Success") {
-      const userInfo = await Auth.currentUserInfo();
-      commit('setUser', userInfo);
+    // Navigate to venues only after successful Spotify authentication
 
-      // Navigate to venues only after successful Spotify authentication
-      await this.$router.push('/venues');
-    } else {
-      // Handle Spotify authentication failure
-      Notify.create({
-        type: 'negative',
-        message: 'Spotify authentication failed. Please try again.'
-      });
-    }
 
     return Promise.resolve("Login Success");
 
@@ -59,9 +64,9 @@ export async function login({commit, dispatch}, {username, password}) {
     } else if (err && err.code === 'NotAuthorizedException') {
       Notify.create({
         type: 'negative',
-         message: 'Username or password incorrect. Please try again.'
+        message: 'Username or password incorrect. Please try again.'
       });
-    }else {
+    } else {
       Notify.create({
         type: 'negative',
         message: 'An error occurred during login. Please try again or contact support.'

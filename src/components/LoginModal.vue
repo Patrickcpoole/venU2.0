@@ -21,7 +21,7 @@
         <li>Password - Testpassword1</li>
       </ul>
         </q-card-section>
-         <q-btn @click="login" label="I understand" type="submit" color="primary" style="width: 80%; margin-bottom: 15px;"/>
+         <q-btn @click="loginSpotify" label="I understand" type="submit" color="primary" style="width: 80%; margin-bottom: 15px;"/>
       </q-card>
     </q-dialog>
   </div>
@@ -37,19 +37,12 @@ export default {
     username: String,
     password: String
   },
-   methods: {
-    ...mapActions({
-      loginVue: "auth/login"
-    }),
-
-    async login(){
+  methods: {
+    async loginSpotify(){
       console.log('did this login fire?')
       this.$emit('close')
       try {
-        await this.loginVue({
-          username: this.username,
-          password: this.password
-        })
+       await this.$store.dispatch('auth/loginSpotify')
       } catch(err){
         console.error(err)
       }

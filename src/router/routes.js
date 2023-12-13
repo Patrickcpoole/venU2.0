@@ -54,7 +54,10 @@ const routes = [
     children: [
       {
         path: '', component: () => import('pages/Underground.vue'),
-        name: 'Underground'
+        name: 'Underground',
+         meta: {
+          requiresAuth: true,
+        },
       }
     ]
   },
@@ -64,7 +67,10 @@ const routes = [
     children: [
       {
         path: '', component: () => import('pages/Maps.vue'),
-        name: 'Maps'
+        name: 'Maps',
+         meta: {
+          requiresAuth: true,
+        },
       }
     ]
   },
@@ -76,7 +82,10 @@ const routes = [
       {
         path: '', component: () => import('pages/Profile.vue'),
         name: 'Profile',
-        props: true
+        props: true,
+         meta: {
+          requiresAuth: true,
+        },
       }
     ]
   },

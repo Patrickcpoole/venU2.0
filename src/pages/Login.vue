@@ -2,11 +2,11 @@
   <div class="q-pa-md"
        style="width:100%; display: flex; flex-direction: column; justify-content: center; align-items: center; ">
     <q-card dark class="login-card">
-      <q-card-section style="width: 100%">
+       <q-card-section style="width: 100%">
         <q-form
           @submit="loginModal = true"
           dark
-          class="q-gutter-md flex column justify-start"
+          class="flex q-pt-sm column justify-start"
           style="width:100%;"
         >
           <q-input
@@ -29,12 +29,12 @@
             </template>
           </q-input>
         </q-form>
-      </q-card-section>
 
-        <q-btn label="Login" @click="loginModal = true" color="primary" style="width: 90%; margin-top: 15px;" class="q-ma-md"/>
+
+        <q-btn label="Login" @click="login" color="primary" style="width: 90%; margin-top: 15px;" class="q-ma-md"/>
         <q-btn label="Create Account" @click="$router.push('/signup')" color="blue"  class="q-ma-md"
                style="width: 90%; "/>
-
+      </q-card-section>
     </q-card>
     <login-modal :loginModal="loginModal" :username="username" :password="password" @close="loginModal=false"/>
   </div>
@@ -51,6 +51,26 @@ export default {
     this.$route.query.openModal === 'true' ? this.loginModal = true : this.loginModal = false
     this.username = this.$route.query.username
     this.password = this.$route.query.password
+  },
+  methods: {
+    ...mapActions({
+      loginVue: "auth/login"
+    }),
+
+    async login() {
+      try {
+        const loginResponse = await this.loginVue({
+          username: this.username,
+          password: this.password
+        })
+
+        if(loginResponse === 'Login Success'){
+          this.loginModal = true
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
   },
   data() {
     return {

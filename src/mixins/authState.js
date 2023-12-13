@@ -4,7 +4,8 @@ const authState = {
 
   computed: {
     ...mapGetters({
-     user: 'auth/user'
+      user: 'auth/user',
+      loginModal: 'auth/loginModal',
     })
   }
 }
