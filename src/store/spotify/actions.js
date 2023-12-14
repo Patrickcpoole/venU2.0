@@ -7,6 +7,7 @@ const CLIENT_ID = process.env.VUE_APP_SPOTIFY_CLIENT_ID.replace(/['"]+/g, '')
 const CLIENT_SECRET = process.env.VUE_APP_SPOTIFY_CLIENT_SECRET.replace(/['"]+/g, '')
 let REDIRECT_URI = process.env.VUE_APP_SPOTIFY_REDIRECT_URI
 
+console.log('redirect uri', REDIRECT_URI);
 
 REDIRECT_URI = REDIRECT_URI.replace(/['"]+/g, '');
 export async function spotifyAuth(context) {
