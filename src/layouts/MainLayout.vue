@@ -28,7 +28,7 @@
 
     <q-drawer
       :value="leftMenuVisible"
-      @input="$store.dispatch('menu/toggleLeftMenu')"
+      @input="$store.dispatch('menu/closeLeftMenu')"
       content-class="bg-grey-1"
 
        overlay
@@ -43,7 +43,6 @@
       :width="350"
       overlay
       :show-if-above="false"
-      v-click-outside="{ isOpen: rightMenuVisible, close: $store.dispatch('menu/closeRightMenu')}"
       @input="$store.dispatch('menu/closeRightMenu')"
       side="right"
       content-class="bg-grey-1"
@@ -92,24 +91,6 @@ export default {
   name: 'MainLayout',
   mixins: [menuState, venuesState],
   components: {SidebarContent, ConcertSidebar},
-  directives: {
-    clickOutside: {
-      mounted(el, binding) {
-        el.clickOutsideEvent = function(event) {
-          console.log('testing', testing)
-          // Check if the drawer is open and the click was outside the el
-          if (binding.value.isOpen && !(el == event.target || el.contains(event.target))) {
-            // Call the provided method to close the drawer
-            binding.value.close();
-          }
-        };
-        document.addEventListener('click', el.clickOutsideEvent);
-      },
-      beforeUnmount(el) {
-        document.removeEventListener('click', el.clickOutsideEvent);
-      },
-    },
-  },
   data() {
     return {
       toggleLeftMenu: false,
